@@ -1,38 +1,43 @@
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">INICIAR SESIN</h2>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-lg-10">
-                <div class="wrap d-md-flex">
-                    <div class="img" style="background-image: url(../../../assets/images/logotipo2.jpg);">
-                    </div>
-                    <div class="login-wrap p-4 p-md-5">
-                        <div class="d-flex">
-                            <div class="w-100">
-                                <h3 class="mb-4">Iniciar sesion</h3>
-                            </div>
-
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block d-flex margin">
+                                <img src="./../../../assets/images/logo.png"
+                                alt="login form" class="img-fluid margin" style="border-radius: 1rem 0 0 1rem;" />
                         </div>
-                        <form  class="signin-form">
-                            <div class="form-group mb-3">
-                                <label class="label">Usuario o Email</label>
-                                <input type="text" class="form-control" placeholder="Escriba el usuario o Email">
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+                                <form>
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">Distribuidora A&OL</span>
+                                    </div>
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Iniciar Sesion
+                                    </h5>
+                                    <div class="form-outline mb-4">
+                                        <input [(ngModel)]="usuario.correo_usu" name="correo" id="form2Example17"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form2Example17">Correo electronico o
+                                            Usuario</label>
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <input [(ngModel)]="usuario.password_usu" name="password" type="password"
+                                            id="form2Example27" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form2Example27">Contrasena</label>
+                                    </div>
+                                    <div class="pt-1 mb-4">
+                                        <button (click)="verificar_Usuario()" class="btn btn-dark btn-lg btn-block"
+                                            type="button">Iniciar sesion</button>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert">
+                                        Hubo un error al iniciar sesion, verifique que su usuario y contrasena son correctos.
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-group mb-3">
-                                <label class="label">Contrasea</label>
-                                <input type="password" class="form-control" placeholder="Escriba la Contrasea">
-                            </div> <br>
-                            <div class="form-group">
-                                <button class="form-control btn btn-primary rounded submit px-3"
-                                    (click)="verificar_Usuario()">Iniciar Sesion</button>
-                            </div>
-
-                        </form>
-
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,21 +9,30 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  usuario= {
-    correo_usu: "f@gmail.com",
-    password_usu: "12345"
+  usuario = {
+    correo_usu: null,
+    password_usu: null
   }
 
-  constructor(private authService: AuthService,) {
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
 
   }
 
   ngOnInit(): void {
   }
   verificar_Usuario() {
-    this.authService.validarUsuario(this.usuario).subscribe(data=>{
-      console.log(data)
-    })
+    // console.log(this.usuario)
+    this.authService.validarUsuario(this.usuario).subscribe(
+      data => {
+        this.router.navigate(['admin',data.id_usu,'home'], {  replaceUrl: true});
+      }, error => {
+        console.log(error)
+      }
+    )
     //let usu = document.getElementById('usuario').value;
     //let password = document.getElementById('password').value;
   }
