@@ -49,4 +49,9 @@ export class AuthService {
   getDetalleCliente(cliente: number) {
     return this.http.get(this.api_url + "usuario/detalle-cliente/" + cliente.toString());
   }
+
+  getUsuariosByRol(id: number) {
+    // hacer el servicio en api y web
+    // return this.http.get(this.api_url + "usuario/detalle-cliente/" + cliente.toString());
+  }
 }
