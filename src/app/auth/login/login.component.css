@@ -1,0 +1,10 @@
+.image {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	margin: auto;
+}
+
+.margin {
+	margin: auto;
+}

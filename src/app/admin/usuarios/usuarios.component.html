@@ -1,0 +1,343 @@
+<div class="content">
+	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
+		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<svg class="bi me-2" width="40" height="32">
+				<use xlink:href="#bootstrap"></use>
+			</svg>
+			<span class="fs-4">Menu</span>
+		</a>
+		<hr>
+		<ul class="nav nav-pills flex-column mb-auto">
+			<li>
+				<a href="#" class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Productos
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link active" aria-current="page">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#home"></use>
+					</svg>
+					Usuarios
+				</a>
+			</li>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Ventas
+				</a>
+			</li>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#table"></use>
+					</svg>
+					Proovedores
+				</a>
+			</li>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#grid"></use>
+					</svg>
+					Ingresos
+				</a>
+			</li>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#people-circle"></use>
+					</svg>
+					Categoria
+				</a>
+			</li>
+		</ul>
+		<hr>
+		<div class="dropdown">
+			<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+				id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+				<img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+				<strong>mdo</strong>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+				<li><a class="dropdown-item" href="#">New project...</a></li>
+				<li><a class="dropdown-item" href="#">Settings</a></li>
+				<li><a class="dropdown-item" href="#">Profile</a></li>
+				<li>
+					<hr class="dropdown-divider">
+				</li>
+				<li><a class="dropdown-item" href="#">Sign out</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container-component">
+		<header class="p-3 text-bg-dark">
+			<div class="container">
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+					<form class="col-sm-8" role="search">
+						<input type="search" class="form-control form-control-dark text-bg-dark "
+							placeholder="Buscar usuario..." aria-label="Search">
+					</form>
+					<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+						data-target="#nuevoUsuario">Crear nuevo usuario</button>
+				</div>
+			</div>
+		</header>
+		<div class="margin">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-center" scope="col">#</th>
+						<th class="text-center" scope="col">Nombre</th>
+						<th class="text-center" scope="col">Nombre de usuario</th>
+						<th class="text-center" scope="col">Estado</th>
+						<th class="text-center" scope="col">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th class="text-center" scope="row">1</th>
+						<td class="text-center">Mark</td>
+						<td class="text-center">Mark</td>
+						<td class="text-center">
+							<a class="badge badge-primary">Primary</a>
+						</td>
+						<td class="text-center">
+							<i class="bi bi-pencil-square icon" data-toggle="modal"
+							data-target="#editarUsuario"></i>
+							<i class="bi bi-eye icon"></i>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center" scope="row">1</th>
+						<td class="text-center">Mark</td>
+						<td class="text-center">Mark</td>
+						<td class="text-center">
+							<a class="badge badge-warning">Primary</a>
+						</td>
+						<td class="text-center">
+							<i class="bi bi-pencil-square icon" data-toggle="modal"
+							data-target="#editarUsuario"></i>
+							<i class="bi bi-eye icon" (click)="goVistaUsuario(1)"></i>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center" scope="row">1</th>
+						<td class="text-center">Mark</td>
+						<td class="text-center">Mark</td>
+						<td class="text-center">
+							<a class="badge badge-danger">Primary</a>
+						</td>
+						<td class="text-center">
+							<i class="bi bi-pencil-square icon" data-toggle="modal"
+							data-target="#editarUsuario"></i>
+							<i class="bi bi-eye icon"></i>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center" scope="row">1</th>
+						<td class="text-center">Mark</td>
+						<td class="text-center">Mark</td>
+						<td class="text-center">
+							<a class="badge badge-warning">Primary</a>
+						</td>
+						<td class="text-center">
+							<i class="bi bi-pencil-square icon" data-toggle="modal"
+							data-target="#editarUsuario"></i>
+							<i class="bi bi-eye icon"></i>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="nuevoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Registrar usuario</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="exampleFormControlInput8">Nombre del usuario</label>
+						<input type="text" class="form-control" id="exampleFormControlInput16">
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlInput9">Numero de documento</label>
+						<input type="text" class="form-control" id="exampleFormControlInput15">
+					</div>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-2 pt-0">Genero: </legend>
+							<div class="col-sm-10">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+										value="option1" checked>
+									<label class="form-check-label" for="gridRadios1">
+										Hombre
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+										value="option2">
+									<label class="form-check-label">
+										Mujer
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-2 pt-0">Estado: </legend>
+							<div class="col-sm-10">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios6"
+										value="option1" checked>
+									<label class="form-check-label">
+										Activo
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios4"
+										value="option2">
+									<label class="form-check-label">
+										Inactivo
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="form-group">
+						<label for="exampleFormControlInput4">Correo electronico o nombre de usuario</label>
+						<input type="text" class="form-control" id="exampleFormControlInput13">
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlInput5">Contrasena</label>
+						<input type="password" class="form-control" id="exampleFormControlInput12">
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlInput6">Observacion</label>
+						<input type="text" class="form-control" id="exampleFormControlInput11">
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlInput7">Rol:</label>
+						<select class="form-select" aria-label="Default select example">
+							<option value="1">Administrador</option>
+							<option value="2">Two</option>
+							<option value="3">Three</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="exampleFormControlFile1">Imagen de perfil:</label>
+						<input type="file" class="form-control-file" id="exampleFormControlFile1">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-warning">Guardar cambios</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar usuario</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Nombre del usuario</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Numero de documento</label>
+						<input type="text" class="form-control">
+					</div>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-2 pt-0">Genero: </legend>
+							<div class="col-sm-10">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios"
+										value="option1" checked>
+									<label class="form-check-label">
+										Hombre
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios"
+										value="option2">
+									<label class="form-check-label">
+										Mujer
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-2 pt-0">Estado: </legend>
+							<div class="col-sm-10">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios"
+										value="option1" checked>
+									<label class="form-check-label">
+										Activo
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="gridRadios"
+										value="option2">
+									<label class="form-check-label">
+										Inactivo
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="form-group">
+						<label >Observacion</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label >Rol:</label>
+						<select class="form-select" aria-label="Default select example">
+							<option value="1">Administrador</option>
+							<option value="2">Two</option>
+							<option value="3">Three</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Imagen de perfil:</label>
+						<input type="file" class="form-control-file">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-warning">Guardar cambios</button>
+			</div>
+		</div>
+	</div>
+</div>

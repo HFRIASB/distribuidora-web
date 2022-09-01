@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
     // console.log(this.usuario)
     this.authService.validarUsuario(this.usuario).subscribe(
       data => {
-        console.log(data)
         this.router.navigate(['admin',data.id_usu,'home'], {  replaceUrl: true});
       }, error => {
         console.log(error)
