@@ -1,7 +1,13 @@
 .margin {
-	margin: 20px;
+  margin: 20px;
 }
 
 .badge {
-	border-radius: 15px;
-  }
+  border-radius: 15px;
+}
+
+.img {
+	display: flex;
+	margin: 20px auto;
+	width: 80%;
+}

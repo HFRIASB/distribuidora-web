@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FormsModule }   from '@angular/forms';
     AdminModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

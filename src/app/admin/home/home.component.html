@@ -72,72 +72,38 @@
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <form class="col-sm-8" role="search">
-                        <input type="search" class="form-control form-control-dark text-bg-dark "
+                        <input type="text" name="search" [(ngModel)]="searchText" class="form-control form-control-dark text-bg-dark "
                             placeholder="Buscar producto..." aria-label="Search">
                     </form>
-                    <button type="button" class="btn btn-warning col-sm-4"  data-toggle="modal" data-target="#nuevoProducto">Anadir nuevo producto</button>
+                    <button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+                        data-target="#nuevoProducto" (click)="nuevoProducto()">Anadir nuevo producto</button>
                 </div>
             </div>
         </header>
         <div class="margin">
             <table class="table">
-                <thead>
+                <thead class="text-center">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Descripcion</th>
                         <th scope="col">Medida</th>
                         <th scope="col">Estatus</th>
                         <th scope="col">Accion</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                            <a href="#" class="badge badge-primary">Primary</a>
+                <tbody class="text-center">
+                    <tr *ngFor="let producto of productos | filter:searchText">
+                        <td scope="row">{{producto.id_prod}}</td>
+                        <td>{{producto.nombre_prod}}</td>
+                        <td>{{producto.uniMedida_prod}}</td>
+                        <td *ngIf="producto.estado_prod == 'Activo'">
+                            <a class="badge badge-warning">{{producto.estado_prod}}</a>
                         </td>
-                        <td>
+                        <td *ngIf="producto.estado_prod == 'Inactivo'">
+                            <a class="badge badge-danger">{{producto.estado_prod}}</a>
+                        </td>
+                        <td (click)="editarProducto(producto)" data-toggle="modal" data-target="#modalEditarProducto">
                             <i class="bi bi-pencil-square"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>
-                            <span class="badge badge-danger">Danger</span>
-                        </td>
-                        <td>Mark</td>
-                        <td>
-                            <i class="bi bi-pencil-square"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>
-                            <span class="badge badge-pill badge-success">Success</span>
-                        </td>
-                        <td>Mark</td>
-                        <td>
-                            <i class="bi bi-pencil-square"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                            <span class="badge badge-success">Success</span>
-                        </td>
-                        <td>
-                            <i class="bi bi-pencil-square" data-toggle="modal" data-target="#exampleModalCenter"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -146,7 +112,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="modalEditarProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -160,50 +126,49 @@
                 <form>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Nombre del producto</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Stock</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Precio de compra</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1">
+                        <input type="text" name="nombre" [(ngModel)]="productoSeleccionado.nombre_prod"
+                            class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Unidad de medida</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1">
+                        <input type="text" name="uniMedi" [(ngModel)]="productoSeleccionado.uniMedida_prod"
+                            class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Stock</label>
+                        <input type="number" name="stock" [(ngModel)]="productoSeleccionado.stock_prod"
+                            class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Precio de compra</label>
+                        <input type="number" name="precio" [(ngModel)]="productoSeleccionado.precioCompra_prod"
+                            class="form-control">
                     </div>
                     <fieldset class="form-group">
                         <div class="row">
-                            <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-                            <div class="col-sm-10">
+                            <legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
+                            <div class="col-sm-10" *ngFor="let radio of activeList">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
-                                        value="option1" checked>
+                                    <input class="form-check-input" type="radio" (change)="changeRadio($event.target)" name="gridRadios" id="{{productoSeleccionado.estado_prod}}"
+                                        value="productoSeleccionado.estado_prod" [checked]="productoSeleccionado.estado_prod == radio">
                                     <label class="form-check-label" for="gridRadios1">
-                                        Activo
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
-                                        value="option2">
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Inactivo
+                                        {{radio}}
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Imagen del producto:</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <label for="exampleFormControlInput1">Imagen del producto</label>
+                        <input type="text" name="foto" [(ngModel)]="productoSeleccionado.foto_prod"
+                            class="form-control">
+                        <img class="img" [src]="productoSeleccionado.foto_prod">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-warning">Guardar cambios</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="guardarProductoEditado()">Guardar cambios</button>
             </div>
         </div>
     </div>
@@ -222,50 +187,49 @@
                 <form>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Nombre del producto</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Stock</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Precio de compra</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1">
+                        <input type="text" name="nombre" required [(ngModel)]="productoSeleccionado.nombre_prod"
+                            class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Unidad de medida</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1">
+                        <input type="text" name="uniMedi" required [(ngModel)]="productoSeleccionado.uniMedida_prod"
+                            class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Stock</label>
+                        <input type="number" name="stock" required [(ngModel)]="productoSeleccionado.stock_prod"
+                            class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Precio de compra</label>
+                        <input type="number" name="precio" required [(ngModel)]="productoSeleccionado.precioCompra_prod"
+                            class="form-control">
                     </div>
                     <fieldset class="form-group">
                         <div class="row">
-                            <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-                            <div class="col-sm-10">
+                            <legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
+                            <div class="col-sm-10" *ngFor="let radio of activeList">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
-                                        value="option1" checked>
+                                    <input class="form-check-input" type="radio" (change)="changeRadio($event.target)" name="gridRadios" id="{{productoSeleccionado.estado_prod}}"
+                                        value="productoSeleccionado.estado_prod" [checked]="productoSeleccionado.estado_prod == radio">
                                     <label class="form-check-label" for="gridRadios1">
-                                        Activo
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
-                                        value="option2">
-                                    <label class="form-check-label" for="gridRadios2">
-                                        Inactivo
+                                        {{radio}}
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Imagen del producto:</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <label for="exampleFormControlInput1">Imagen del producto</label>
+                        <input type="text" name="foto" [(ngModel)]="productoSeleccionado.foto_prod"
+                            class="form-control">
+                        <img class="img" [src]="productoSeleccionado.foto_prod">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-warning">Guardar cambios</button>
+                <button type="button" class="btn btn-warning" (click)="crearNuevoProducto()">Guardar cambios</button>
             </div>
         </div>
     </div>
