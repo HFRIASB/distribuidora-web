@@ -80,75 +80,43 @@
 			<div class="container">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 					<form class="col-sm-8" role="search">
-						<input type="search" class="form-control form-control-dark text-bg-dark "
-							placeholder="Buscar usuario..." aria-label="Search">
-					</form>
+                        <input type="text" name="search" [(ngModel)]="searchText" class="form-control form-control-dark text-bg-dark "
+                            placeholder="Buscar producto..." aria-label="Search">
+                    </form>
 					<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
 						data-target="#nuevoUsuario">Crear nuevo usuario</button>
 				</div>
 			</div>
 		</header>
+		
 		<div class="margin">
-			<table class="table">
+			<div class="rol-container">
+				<label>Filtarar por Rol: </label>
+				<select class="form-select" [(ngModel)]="rolSelect" (change)="rolSeleccionado()">
+					<option *ngFor="let rol of roles">{{rol.nombre_rol}}</option>
+				</select> 
+			</div>
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th class="text-center" scope="col">#</th>
 						<th class="text-center" scope="col">Nombre</th>
-						<th class="text-center" scope="col">Nombre de usuario</th>
+						<th class="text-center" scope="col">Usuario</th>
 						<th class="text-center" scope="col">Estado</th>
 						<th class="text-center" scope="col">Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th class="text-center" scope="row">1</th>
-						<td class="text-center">Mark</td>
-						<td class="text-center">Mark</td>
+					<tr *ngFor="let usuario of usuarios | filter:searchText" (click)="seleccionarUsuario(usuario)">
+
+						<th class="text-center" scope="row">{{usuario.id_usu}}</th>
+						<td class="text-center">{{usuario.nombre_usu}}</td>
+						<td class="text-center">{{usuario.correo_usu}}</td>
 						<td class="text-center">
-							<a class="badge badge-primary">Primary</a>
+							<a *ngIf="usuario.estado_usu == 'Activo'" class="badge badge-warning">{{usuario.estado_usu}}</a>
+							<a *ngIf="usuario.estado_usu == 'Inactivo'" class="badge badge-danger">{{usuario.estado_usu}}</a>
 						</td>
 						<td class="text-center">
-							<i class="bi bi-pencil-square icon" data-toggle="modal"
-							data-target="#editarUsuario"></i>
-							<i class="bi bi-eye icon"></i>
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center" scope="row">1</th>
-						<td class="text-center">Mark</td>
-						<td class="text-center">Mark</td>
-						<td class="text-center">
-							<a class="badge badge-warning">Primary</a>
-						</td>
-						<td class="text-center">
-							<i class="bi bi-pencil-square icon" data-toggle="modal"
-							data-target="#editarUsuario"></i>
-							<i class="bi bi-eye icon" (click)="goVistaUsuario(1)"></i>
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center" scope="row">1</th>
-						<td class="text-center">Mark</td>
-						<td class="text-center">Mark</td>
-						<td class="text-center">
-							<a class="badge badge-danger">Primary</a>
-						</td>
-						<td class="text-center">
-							<i class="bi bi-pencil-square icon" data-toggle="modal"
-							data-target="#editarUsuario"></i>
-							<i class="bi bi-eye icon"></i>
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center" scope="row">1</th>
-						<td class="text-center">Mark</td>
-						<td class="text-center">Mark</td>
-						<td class="text-center">
-							<a class="badge badge-warning">Primary</a>
-						</td>
-						<td class="text-center">
-							<i class="bi bi-pencil-square icon" data-toggle="modal"
-							data-target="#editarUsuario"></i>
 							<i class="bi bi-eye icon"></i>
 						</td>
 					</tr>

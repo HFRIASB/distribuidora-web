@@ -1,3 +1,5 @@
+import { Direccion } from "./direccion";
+import { Pago } from "./pago";
 import { Rol } from "./rol";
 
 export class Usuario {
@@ -27,12 +29,12 @@ export class Usuario {
 
     rol?: Rol;
 
-    // direccion: Direccion[];
+    direccion?: Direccion[];
 
     // orden: Orden[];
 
     // controlEnvase: ControlEnvase[];
 
-    // pago: Pago[];
+    pago?: Pago[];
 
 }

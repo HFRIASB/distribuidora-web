@@ -50,8 +50,32 @@ export class AuthService {
     return this.http.get(this.api_url + "usuario/detalle-cliente/" + cliente.toString());
   }
 
-  getUsuariosByRol(id: number) {
-    // hacer el servicio en api y web
-    // return this.http.get(this.api_url + "usuario/detalle-cliente/" + cliente.toString());
+  getUsuariosByRol(rol: string) {
+    return this.http.get(this.api_url + "usuario/rol/" + rol);
+  }
+
+  getRoles() {
+    return this.http.get(this.api_url + "rol/rolesName");
+  }
+
+  getCarteraClientes(id?: string){
+    return this.http.get(this.api_url + "cartera-cliente/" + id);
+  }
+
+  realizarPago(data: any) {
+    const pago = {
+      cantidad_pago: data.monto,
+      fecha_pago: new Date(),
+      usuario: data.usuario
+    }
+    return this.http.post(this.api_url+"pago", pago)
+  }
+
+  registrarCarteraCliente(data: any){
+    const cartera = {
+      id_vendedor: data.id_vendedor,
+      usuario: data.id_cliente
+    }
+    return this.http.post(this.api_url+"cartera-cliente", cartera)
   }
 }

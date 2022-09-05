@@ -1,3 +1,15 @@
 .badge {
 	border-radius: 15px;
   }
+
+.rol-container{
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  align-items: center;
+}
+
+.form-select {
+  width: auto;
+  margin-left: 10px;
+}
