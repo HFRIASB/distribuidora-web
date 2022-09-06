@@ -59,12 +59,12 @@ export class VistaUsuarioComponent implements OnInit {
 
   registrarPago(value: any) {
     console.log(value)
-    // this.authService.realizarPago({
-    //   monto: value.monto,
-    //   usuario: this.usuario.id_usu
-    // }).subscribe(data => {
-    //   this.usuario.pago?.push(data)
-    // })
+    this.authService.realizarPago({
+      monto: value.monto,
+      usuario: this.usuario.id_usu
+    }).subscribe(data => {
+      this.usuario.pago?.push(data)
+    })
   }
 
   regristrarCliente() {
@@ -77,5 +77,9 @@ export class VistaUsuarioComponent implements OnInit {
   }
   selectCliente(cliente:any){
     this.clienteSeleccionado =cliente;
+  }
+
+  goProductos() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
   }
 }

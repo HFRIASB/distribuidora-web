@@ -8,8 +8,8 @@
 		</a>
 		<hr>
 		<ul class="nav nav-pills flex-column mb-auto">
-			<li>
-				<a href="#" class="nav-link text-white">
+			<li (click)="goProductos()">
+				<a class="nav-link text-white">
 					<svg class="bi me-2" width="16" height="16">
 						<use xlink:href="#speedometer2"></use>
 					</svg>
@@ -17,7 +17,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a href="#" class="nav-link active" aria-current="page">
+				<a class="nav-link active" aria-current="page">
 					<svg class="bi me-2" width="16" height="16">
 						<use xlink:href="#home"></use>
 					</svg>
@@ -25,7 +25,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
+				<a class="nav-link text-white">
 					<svg class="bi me-2" width="16" height="16">
 						<use xlink:href="#speedometer2"></use>
 					</svg>
@@ -33,7 +33,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
+				<a class="nav-link text-white">
 					<svg class="bi me-2" width="16" height="16">
 						<use xlink:href="#table"></use>
 					</svg>
@@ -41,7 +41,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
+				<a class="nav-link text-white">
 					<svg class="bi me-2" width="16" height="16">
 						<use xlink:href="#grid"></use>
 					</svg>
@@ -49,7 +49,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
+				<a class="nav-link text-white">
 					<svg class="bi me-2" width="16" height="16">
 						<use xlink:href="#people-circle"></use>
 					</svg>
@@ -82,220 +82,218 @@
 		<div class="margin">
 			<div class="card">
 				<div class="card-header text-center">
-				  <ul class="nav nav-tabs card-header-tabs">
-					<li class="nav-item" (click)="tablNavegador('informacion')">
-					  <a class="nav-link active" *ngIf="tabNavegador=='informacion'">Datos personales</a>
-					  <a class="nav-link disabled" *ngIf="tabNavegador!='informacion'">Datos personales</a>
-					</li>
-					<li class="nav-item" (click)="tablNavegador('pagos')" *ngIf="'Cliente'==rol">
-					  <a class="nav-link active" *ngIf="tabNavegador=='pagos'">Pagos Realizados</a>
-					  <a class="nav-link disabled" *ngIf="tabNavegador!='pagos'">Pagos Realizados</a>
-					</li>
-					<li class="nav-item" (click)="tablNavegador('direcciones')" *ngIf="'Cliente'==rol">
-						<a class="nav-link active" *ngIf="tabNavegador=='direcciones'"> Direcciones</a>
-						<a class="nav-link disabled" *ngIf="tabNavegador!='direcciones'">Direcciones</a>
-					</li>
-					<li class="nav-item" (click)="tablNavegador('carteraCliente')" *ngIf="'Vendedor'==rol">
-						<a class="nav-link active" *ngIf="tabNavegador=='carteraCliente'"> Cartera cliente</a>
-						<a class="nav-link disabled" *ngIf="tabNavegador!='carteraCliente'">Cartera cliente</a>
-					</li>
-				  </ul>
+					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item" (click)="tablNavegador('informacion')">
+							<a class="nav-link active" *ngIf="tabNavegador=='informacion'">Datos personales</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='informacion'">Datos personales</a>
+						</li>
+						<li class="nav-item" (click)="tablNavegador('pagos')" *ngIf="'Cliente'==rol">
+							<a class="nav-link active" *ngIf="tabNavegador=='pagos'">Pagos Realizados</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='pagos'">Pagos Realizados</a>
+						</li>
+						<li class="nav-item" (click)="tablNavegador('direcciones')" *ngIf="'Cliente'==rol">
+							<a class="nav-link active" *ngIf="tabNavegador=='direcciones'"> Direcciones</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='direcciones'">Direcciones</a>
+						</li>
+						<li class="nav-item" (click)="tablNavegador('carteraCliente')" *ngIf="'Vendedor'==rol">
+							<a class="nav-link active" *ngIf="tabNavegador=='carteraCliente'"> Cartera cliente</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='carteraCliente'">Cartera cliente</a>
+						</li>
+					</ul>
 				</div>
-			  <div class="card-body" *ngIf="tabNavegador=='informacion'">
-				<h3 class="card-title">{{usuario.nombre_usu}} </h3>
-				<p class="font-weight-bold">Numero de documento</p>
-				<p class="card-text">{{usuario.nroDocu_usu}}</p>
-				<p class="font-weight-bold">Celular: </p>
-				<p class="card-text">{{usuario.celular_usu}}</p>
-				<p class="font-weight-bold">Correo o Usuario: </p>
-				<p class="card-text">{{usuario.correo_usu}}</p>
-				<p class="font-weight-bold">Estado: </p>
-				<p class="card-text">{{usuario.estado_usu}}</p>
-				<p class="font-weight-bold">Deuda Total: </p>
-				<p class="card-text">{{usuario.deuda_usu}}</p>
-			  </div>
-			  <div class="card-body table-pago" *ngIf="tabNavegador=='pagos' && 'Cliente'==rol">
-				<button type="button" class="btn btn-warning" data-toggle="modal"
-				data-target="#realizarPago">Realizar pago</button>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">Monto</th>
-							<th class="text-center" scope="col">Fecha</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let pago of usuario.pago">
-							<td class="text-center">{{pago.cantidad_pago}}</td>
-							<td class="text-center">{{pago.fecha_pago}}</td>
-						</tr>
-					</tbody>
-				</table>
-			  </div>
-			  <div class="card-body" *ngIf="tabNavegador=='direcciones' && 'Cliente'==rol">
-				<button type="button" class="btn btn-warning" data-toggle="modal"
-				data-target="#nuevaDireccion">Agregar nueva direccion</button>
-				<table class="table">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">Nombre Direccion</th>
-							<th class="text-center" scope="col">Descripcion</th>
-							<th class="text-center" scope="col">Rubro</th>
-							<th class="text-center" scope="col">Telefono</th>
-							<th class="text-center" scope="col">Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let direccion of usuario.direccion">
-							<td class="text-center">{{direccion.nombre_direc}}</td>
-							<td class="text-center">{{direccion.descripcion_direc}}</td>
-							<td class="text-center">{{direccion.rubro_direc}}</td>
-							<td class="text-center">{{direccion.telefono_direc}}</td>
-							<td class="text-center">
-								<i class="bi bi-pencil-square  i-plain" data-toggle="modal"
-								data-target="#editarDireccion"></i>
-								<i class="bi bi-geo-alt i-plain" data-toggle="modal"
-								data-target="#verDireccion"></i>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			  </div>
-			  <div class="card-body" *ngIf="tabNavegador=='carteraCliente' && 'Vendedor'==rol">
-				<button type="button" class="btn btn-warning" data-toggle="modal"
-				data-target="#nuevoCliente">Asignar Nuevo cliente</button>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">Nombre cliente</th>
-							<th class="text-center" scope="col">Estado</th>
-							<th class="text-center" scope="col">Celular</th>
-							<th class="text-center" scope="col">nro Documento</th>
-							<th class="text-center" scope="col">Observacion</th>
-							<th class="text-center" scope="col">Deuda</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let cliente of carteraCliente">
-							<td class="text-center">{{cliente.usuario.nombre_usu}}</td>
-							<td class="text-center">{{cliente.usuario.estado_usu}}</td>
-							<td class="text-center">{{cliente.usuario.celular_usu}}</td>
-							<td class="text-center">{{cliente.usuario.nroDocu_usu}}</td>
-							<td class="text-center">{{cliente.usuario.observacion_usu}}</td>
-							<td class="text-center">{{cliente.usuario.deuda_usu}}</td>
-						</tr>
-					</tbody>
-				</table>
-			  </div>
+				<div class="card-body" *ngIf="tabNavegador=='informacion'">
+					<h3 class="card-title">{{usuario.nombre_usu}} </h3>
+					<p class="font-weight-bold">Numero de documento</p>
+					<p class="card-text">{{usuario.nroDocu_usu}}</p>
+					<p class="font-weight-bold">Celular: </p>
+					<p class="card-text">{{usuario.celular_usu}}</p>
+					<p class="font-weight-bold">Correo o Usuario: </p>
+					<p class="card-text">{{usuario.correo_usu}}</p>
+					<p class="font-weight-bold">Estado: </p>
+					<p class="card-text">{{usuario.estado_usu}}</p>
+					<p class="font-weight-bold">Deuda Total: </p>
+					<p class="card-text">{{usuario.deuda_usu}}</p>
+				</div>
+				<div class="card-body table-pago" *ngIf="tabNavegador=='pagos' && 'Cliente'==rol">
+					<button type="button" class="btn btn-warning" data-toggle="modal"
+						data-target="#realizarPago">Realizar pago</button>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center" scope="col">Monto</th>
+								<th class="text-center" scope="col">Fecha</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let pago of usuario.pago">
+								<td class="text-center">{{pago.cantidad_pago}}</td>
+								<td class="text-center">{{pago.fecha_pago}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-body" *ngIf="tabNavegador=='direcciones' && 'Cliente'==rol">
+					<button type="button" class="btn btn-warning" data-toggle="modal"
+						data-target="#nuevaDireccion">Agregar nueva direccion</button>
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center" scope="col">Nombre Direccion</th>
+								<th class="text-center" scope="col">Descripcion</th>
+								<th class="text-center" scope="col">Rubro</th>
+								<th class="text-center" scope="col">Telefono</th>
+								<th class="text-center" scope="col">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let direccion of usuario.direccion">
+								<td class="text-center">{{direccion.nombre_direc}}</td>
+								<td class="text-center">{{direccion.descripcion_direc}}</td>
+								<td class="text-center">{{direccion.rubro_direc}}</td>
+								<td class="text-center">{{direccion.telefono_direc}}</td>
+								<td class="text-center">
+									<i class="bi bi-pencil-square  i-plain" data-toggle="modal"
+										data-target="#editarDireccion"></i>
+									<i class="bi bi-geo-alt i-plain" data-toggle="modal"
+										data-target="#verDireccion"></i>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card-body" *ngIf="tabNavegador=='carteraCliente' && 'Vendedor'==rol">
+					<button type="button" class="btn btn-warning" data-toggle="modal"
+						data-target="#nuevoCliente">Asignar Nuevo cliente</button>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center" scope="col">Nombre cliente</th>
+								<th class="text-center" scope="col">Estado</th>
+								<th class="text-center" scope="col">Celular</th>
+								<th class="text-center" scope="col">nro Documento</th>
+								<th class="text-center" scope="col">Observacion</th>
+								<th class="text-center" scope="col">Deuda</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let cliente of carteraCliente">
+								<td class="text-center">{{cliente.usuario.nombre_usu}}</td>
+								<td class="text-center">{{cliente.usuario.estado_usu}}</td>
+								<td class="text-center">{{cliente.usuario.celular_usu}}</td>
+								<td class="text-center">{{cliente.usuario.nroDocu_usu}}</td>
+								<td class="text-center">{{cliente.usuario.observacion_usu}}</td>
+								<td class="text-center">{{cliente.usuario.deuda_usu}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="nuevoCliente" tabindex="-1" role="dialog"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Anadir nuevo cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-				<form #form="ngForm">
-                    <div class="form-group">
-						<form class="col-sm-8" role="search">
-							<input type="text" name="search2" [(ngModel)]="searchText" class="form-control form-control text-bg "
-								placeholder="Buscar cliente..." aria-label="Search">
-						</form>
-						<br>
-						<div class="col-sm-8" *ngFor="let cliente of clientes | filter: searchText">
-							<label (click)="selectCliente(cliente)" class="label">{{cliente.nombre_usu}}</label>
+	<div class="modal fade" id="nuevoCliente" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Anadir nuevo cliente</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<form class="col-sm-8" role="search">
+								<input type="text" name="search2" [(ngModel)]="searchText"
+									class="form-control form-control text-bg " placeholder="Buscar cliente..."
+									aria-label="Search">
+							</form>
+							<br>
+							<div class="col-sm-8" *ngFor="let cliente of clientes | filter: searchText">
+								<label (click)="selectCliente(cliente)" class="label">{{cliente.nombre_usu}}</label>
+							</div>
+							<div>
+								<label>Cliente: {{clienteSeleccionado.nombre_usu}}</label>
+							</div>
+
 						</div>
-						<div>
-							<label>Cliente: {{clienteSeleccionado.nombre_usu}}</label>
-						</div>
-                        
-                    </div>
-				</form>
-            </div>
-            <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button class="btn btn-warning" (click)="regristrarCliente()">Guardar cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="realizarPago" tabindex="-1" role="dialog"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Registrar nueva direccion</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-				<form #form="ngForm" (ngSubmit)="registrarPago(form)">
-                    <div class="form-group">
-                        <label>Nombre del producto</label>
-                        <input name="monto" type="number" placeholder="ingrese el monto" ngModel required class="form-control">
-                    </div>
+					</form>
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button class="btn btn-warning" type="submit" [disabled]="form.invalid">Guardar cambios</button>
-				</form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="nuevaDireccion" tabindex="-1" role="dialog"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Realizar Pago</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="editarDireccion" tabindex="-1" role="dialog"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Editar pago</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="verDireccion" tabindex="-1" role="dialog"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Direccion X</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
+					<button class="btn btn-warning" (click)="regristrarCliente()">Guardar cambios</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="realizarPago" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Registrar nueva direccion</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form #formPagos="ngForm" (ngSubmit)="registrarPago(formPagos.form.value)">
+						<div class="form-group">
+							<label>Nombre del producto</label>
+							<input name="monto" type="number" placeholder="ingrese el monto" ngModel required
+								class="form-control">
+						</div>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						<button class="btn btn-warning" type="submit" [disabled]="formPagos.invalid">Guardar
+							cambios</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="nuevaDireccion" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Realizar Pago</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="editarDireccion" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Editar pago</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="verDireccion" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Direccion X</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>

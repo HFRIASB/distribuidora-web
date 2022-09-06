@@ -1,0 +1,176 @@
+<div class="content">
+	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
+		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<svg class="bi me-2" width="40" height="32">
+				<use xlink:href="#bootstrap"></use>
+			</svg>
+			<span class="fs-4">Menu</span>
+		</a>
+		<hr>
+		<ul class="nav nav-pills flex-column mb-auto">
+			<li (click)="goProductos()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Productos
+				</a>
+			</li>
+			<li (click)="goUsuarios()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Usuarios
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#home"></use>
+					</svg>
+					Pedidos
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Ventas
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#table"></use>
+					</svg>
+					Proovedores
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#grid"></use>
+					</svg>
+					Ingresos
+				</a>
+			</li>
+			<li>
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#people-circle"></use>
+					</svg>
+					Categoria
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="container-component">
+		<header class="p-3 text-bg-dark">
+		</header>
+		<div class="container grid">
+			<div class="row">
+				<div class="col-md border">
+					<form>
+						<button data-toggle="modal" data-target="#confirmarPedido" type="submit" class="btn btn-warning btn-block">Realizar pedido</button>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Elegir Cliente: </label>
+							<input type="text" class="form-control" aria-describedby="emailHelp">
+						</div>
+						<div class="group-space-between">
+							<div>Fecha de entrega: </div>
+							<div class="input-group select">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fecha"
+									ngbDatepicker #inicio="ngbDatepicker">
+								<button class="btn btn-outline-secondary bi-calendar3" (click)="inicio.toggle()"
+									type="button"></button>
+							</div>
+						</div>
+						<div class="group-space-between">
+							<div>Direccion: </div>
+							<div class="input-group select">
+								<select class="form-select select" aria-label="Default select example">
+									<option selected>Open this select menu</option>
+									<option value="1">One</option>
+									<option value="2">Two</option>
+									<option value="3">Three</option>
+								</select>
+							</div>
+						</div>
+						<div>
+							<h3>Mi Carrito</h3>
+							<div *ngFor="let item of carrito">
+								<div class="container-producto border">
+									<div>
+										<img src="{{item.producto.foto_prod}}">
+									</div>
+									<div class="detalle-producto">
+										<label>{{item.producto.nombre_prod}}</label>
+										<label>{{item.producto.uniMedida_prod}}</label>
+									</div>
+									<div class="icon-cart">
+										<input class="form-control" name="cantidad" [(ngModel)]="item.cantidad_producto"
+											type="number">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-md border productos">
+					<h3>Mi Carrito</h3>
+					<div *ngFor="let producto of productos">
+						<div class="container-producto border">
+							<div>
+								<img src="{{producto.foto_prod}}">
+							</div>
+							<div class="detalle-producto">
+								<label>{{producto.nombre_prod}}</label>
+								<label>{{producto.uniMedida_prod}}</label>
+							</div>
+							<div class="icon-cart">
+								<i class="bi bi-cart-plus" (click)="addToCart(producto)"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="modal fade" id="confirmarPedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Pedido</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<label>Porfavor verifique todos los datos antes de realizar el pedidos.</label>
+				<h5>Cliente:</h5><label>fulanita</label>
+				<h5>Direccion:</h5><label>casita</label>
+				<!-- <h5>fecha de entrega:</h5><label>{{fecha.day}}/{{fecha.month}}/{{fecha.year}}</label> -->
+				<h5>Productos</h5>
+				<div *ngFor="let item of carrito">
+					<div class="container-producto border">
+						<div>
+							<img src="{{item.producto.foto_prod}}">
+						</div>
+						<div class="detalle-producto">
+							<label>{{item.producto.nombre_prod}}</label>
+							<label>{{item.producto.uniMedida_prod}}</label>
+						</div>
+						<div class="icon-cart">
+							<label>x{{item.cantidad_producto}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

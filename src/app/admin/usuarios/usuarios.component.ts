@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UsuariosComponent implements OnInit {
   searchText = "";
-  roles: Rol[] = [{nombre_rol: "Todos"}];
+  roles: Rol[] = [{ nombre_rol: "Todos" }];
   rolSelect: string = "Todos"
   administrador: Usuario = new Usuario();
   usuarios: Usuario[] = [];
@@ -19,16 +19,15 @@ export class UsuariosComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
         .subscribe((user: Usuario) => {
           this.administrador = user;
         })
     });
-    this.authService.getRoles().subscribe((roles: any)=>{
+    this.authService.getRoles().subscribe((roles: any) => {
+      // console.log(roles)
       roles.forEach((rol: Rol) => {
         this.roles.push(rol);
       });
@@ -38,8 +37,11 @@ export class UsuariosComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void {
+  }
+
   goVistaUsuario(id: number) {
-    this.router.navigate(['admin',2,'vista-usuario', id], {  replaceUrl: true});
+    this.router.navigate(['admin', 2, 'vista-usuario', id], { replaceUrl: true });
   }
 
   rolSeleccionado() {
@@ -48,7 +50,31 @@ export class UsuariosComponent implements OnInit {
     })
   }
   seleccionarUsuario(usuario: Usuario) {
-    console.log(usuario)
-    this.router.navigate(['admin',this.administrador.id_usu,'vista-usuario', usuario.id_usu], {  replaceUrl: true});
+    this.router.navigate(['admin', this.administrador.id_usu, 'vista-usuario', usuario.id_usu], { replaceUrl: true });
+  }
+
+  registrarUsuario(form: any) {
+    let usuario = {
+      nombre_usu: form.nombre,
+      correo_usu: form.correo,
+      usuario_usu: "usuario",//eliminar
+      nroDocu_usu: form.nroDoc,
+      password_usu: form.password,
+      observacion_usu: form.observacion,
+      sexo_usu: 'M',////
+      estado_usu: 'Activo',
+      celular_usu: form.telefono,
+      fRegistro_usu: new Date(),
+      rol:  1///////;
+    }
+    this.authService.registrarUsuario(usuario).subscribe(
+      (data: Usuario) => {
+        location.reload()
+      }
+    )
+  }
+
+  goProductos(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
   }
 }

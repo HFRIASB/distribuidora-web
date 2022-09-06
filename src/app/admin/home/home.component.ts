@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     private productoService: ProductoService
   ) {
@@ -67,5 +68,13 @@ export class HomeComponent implements OnInit {
     } else {
       console.log('alerta!')
     }
+  }
+
+  goUsuarios() {
+    this.router.navigate(['admin',this.administrador.id_usu,'usuarios'], {  replaceUrl: true});
+  }
+
+  goPedidos() {
+    this.router.navigate(['admin',this.administrador.id_usu,'pedidos'], {  replaceUrl: true});
   }
 }
