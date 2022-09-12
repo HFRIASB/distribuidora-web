@@ -78,4 +78,8 @@ export class AuthService {
     }
     return this.http.post(this.api_url+"cartera-cliente", cartera)
   }
+
+  getRolNameByIdUsuario(id: string) {
+     return this.http.get(this.api_url+"usuario/rola-name/" + id);
+  }
 }

@@ -11,6 +11,7 @@ import { AuthService } from './services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { VendedorModule } from './vendedor/vendedor.module';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     BrowserModule,
     AppRoutingModule,
     AdminModule,
+    VendedorModule,
     NgbModule,
     HttpClientModule,
     FormsModule,

@@ -59,8 +59,8 @@
 		</ul>
 		<hr>
 		<div class="dropdown">
-			<a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-				id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+			<a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+				data-bs-toggle="dropdown" aria-expanded="false">
 				<img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
 				<strong>mdo</strong>
 			</a>
@@ -80,21 +80,22 @@
 			<div class="container">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 					<form class="col-sm-8" role="search">
-                        <input type="text" name="search" [(ngModel)]="searchText" class="form-control form-control-dark text-bg-dark "
-                            placeholder="Buscar usuario..." aria-label="Search">
-                    </form>
+						<input type="text" name="search" [(ngModel)]="searchText"
+							class="form-control form-control-dark text-bg-dark " placeholder="Buscar usuario..."
+							aria-label="Search">
+					</form>
 					<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
 						data-target="#nuevoUsuario">Crear nuevo usuario</button>
 				</div>
 			</div>
 		</header>
-		
+
 		<div class="margin">
 			<div class="rol-container">
 				<label>Filtrar por Rol: </label>
 				<select class="form-select" [(ngModel)]="rolSelect" (change)="rolSeleccionado()">
 					<option *ngFor="let rol of roles">{{rol.nombre_rol}}</option>
-				</select> 
+				</select>
 			</div>
 			<table class="table table-hover">
 				<thead>
@@ -113,8 +114,10 @@
 						<td class="text-center">{{usuario.nombre_usu}}</td>
 						<td class="text-center">{{usuario.correo_usu}}</td>
 						<td class="text-center">
-							<a *ngIf="usuario.estado_usu == 'Activo'" class="badge badge-warning">{{usuario.estado_usu}}</a>
-							<a *ngIf="usuario.estado_usu == 'Inactivo'" class="badge badge-danger">{{usuario.estado_usu}}</a>
+							<a *ngIf="usuario.estado_usu == 'Activo'"
+								class="badge badge-warning">{{usuario.estado_usu}}</a>
+							<a *ngIf="usuario.estado_usu == 'Inactivo'"
+								class="badge badge-danger">{{usuario.estado_usu}}</a>
 						</td>
 						<td class="text-center">
 							<i class="bi bi-eye icon"></i>
@@ -193,11 +196,11 @@
 					</fieldset>
 					<div class="form-group">
 						<label for="exampleFormControlInput4">Correo electronico o nombre de usuario</label>
-						<input type="text" class="form-control"  ngModel name="correo">
+						<input type="text" class="form-control" ngModel name="correo">
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlInput5">Contrasena</label>
-						<input type="password" class="form-control"  ngModel name="password">
+						<input type="password" class="form-control" ngModel name="password">
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlInput6">Observacion</label>
@@ -213,11 +216,11 @@
 						</select>
 					</div>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="submit" class="btn btn-warning" >Guardar cambios</button>
+					<button type="submit" class="btn btn-warning">Guardar cambios</button>
 				</form>
 			</div>
 			<div class="modal-footer">
-				
+
 			</div>
 		</div>
 	</div>
@@ -248,15 +251,14 @@
 							<legend class="col-form-label col-sm-2 pt-0">Genero: </legend>
 							<div class="col-sm-10">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios"
-										value="option1" checked>
+									<input class="form-check-input" type="radio" name="gridRadios" value="option1"
+										checked>
 									<label class="form-check-label">
 										Hombre
 									</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios"
-										value="option2">
+									<input class="form-check-input" type="radio" name="gridRadios" value="option2">
 									<label class="form-check-label">
 										Mujer
 									</label>
@@ -269,15 +271,14 @@
 							<legend class="col-form-label col-sm-2 pt-0">Estado: </legend>
 							<div class="col-sm-10">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios"
-										value="option1" checked>
+									<input class="form-check-input" type="radio" name="gridRadios" value="option1"
+										checked>
 									<label class="form-check-label">
 										Activo
 									</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios"
-										value="option2">
+									<input class="form-check-input" type="radio" name="gridRadios" value="option2">
 									<label class="form-check-label">
 										Inactivo
 									</label>
@@ -286,11 +287,11 @@
 						</div>
 					</fieldset>
 					<div class="form-group">
-						<label >Observacion</label>
+						<label>Observacion</label>
 						<input type="text" class="form-control">
 					</div>
 					<div class="form-group">
-						<label >Rol:</label>
+						<label>Rol:</label>
 						<select class="form-select" aria-label="Default select example">
 							<option value="1">Administrador</option>
 							<option value="2">Two</option>

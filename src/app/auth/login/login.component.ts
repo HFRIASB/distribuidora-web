@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Rol } from 'src/app/models/rol';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -25,15 +26,20 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   verificar_Usuario() {
-    // console.log(this.usuario)
     this.authService.validarUsuario(this.usuario).subscribe(
       data => {
-        this.router.navigate(['admin',data.id_usu,'home'], {  replaceUrl: true});
+        this.authService.getRolNameByIdUsuario(data.id_usu.toString())
+          .subscribe((rol: Rol) => {
+            console.log(rol.nombre_rol)
+            if (rol.nombre_rol == 'Administrador') {
+              this.router.navigate(['admin', data.id_usu, 'home'], { replaceUrl: true });
+            } else if (rol.nombre_rol == 'Vendedor') {
+              this.router.navigate(['vendedor', data.id_usu, 'pedidos'], { replaceUrl: true });
+            }
+          })
       }, error => {
         console.log(error)
       }
     )
-    //let usu = document.getElementById('usuario').value;
-    //let password = document.getElementById('password').value;
   }
 }

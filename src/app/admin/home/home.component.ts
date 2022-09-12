@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { configFromSession } from '@ionic/core';
+import { Estado } from 'src/app/models/enums/estado';
 import { Producto } from 'src/app/models/producto';
+import { TipoEnvase } from 'src/app/models/tipo-envase';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -11,19 +14,21 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  activeList = ['Activo', 'Inactivo']
+  estados:any = Object.keys(Estado)
   administrador: Usuario = new Usuario();
   productos: Producto[] = [];
   productoSeleccionado: Producto = new Producto();
+  envaseSeleccionado: TipoEnvase = new TipoEnvase();
   searchText = "";
-
+  tabNavegador = "productos"
+  envases: TipoEnvase[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private productoService: ProductoService
   ) {
-
+    console.log(this.estados)
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -35,20 +40,29 @@ export class HomeComponent implements OnInit {
     this.productoService.getProductos().subscribe((productos: any) => {
       this.productos = productos;
     })
+    this.productoService.getEnvases().subscribe((envases: any) => {
+      this.envases = envases;
+    })
   }
 
   editarProducto(producto: Producto) {
-    this.productoSeleccionado = producto;
+    this.productoSeleccionado.id_prod = producto.id_prod;
+    this.productoSeleccionado.estado_prod = producto.estado_prod;
+    this.productoSeleccionado.foto_prod = producto.foto_prod;
+    this.productoSeleccionado.nombre_prod = producto.nombre_prod;
+    this.productoSeleccionado.precioCompra_prod =producto.precioCompra_prod;
+    this.productoSeleccionado.stock_prod = producto.stock_prod;
+    this.productoSeleccionado.uniMedida_prod = producto.uniMedida_prod;
   }
 
-  changeRadio(event: any) {///change Radio
-    console.log(this.productoSeleccionado.estado_prod)
+  changeRadio(event: any) {
+    this.productoSeleccionado.estado_prod = event.value;
   }
 
   guardarProductoEditado() {
-    console.log(this.productoSeleccionado)
+    let indexArray = this.productos.findIndex((p: Producto) => p.id_prod == this.productoSeleccionado.id_prod);
     this.productoService.patchProductos(this.productoSeleccionado).subscribe(data => {
-      this.productos[this.productos.indexOf(this.productoSeleccionado)] = this.productoSeleccionado;
+      this.productos[indexArray] = this.productoSeleccionado;
       this.productoSeleccionado = new Producto();
     })
   }
@@ -71,10 +85,48 @@ export class HomeComponent implements OnInit {
   }
 
   goUsuarios() {
-    this.router.navigate(['admin',this.administrador.id_usu,'usuarios'], {  replaceUrl: true});
+    this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
   }
 
   goPedidos() {
-    this.router.navigate(['admin',this.administrador.id_usu,'pedidos'], {  replaceUrl: true});
+    this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
+  }
+
+  crearEnvase(nombre_envase: any) {
+    this.productoService.postEnvase(nombre_envase.nombre)
+      .subscribe(
+        (data: any) => {
+          this.envases.push(data);
+        }
+      )
+  }
+
+  tablNavegador(dato: string) {
+    this.tabNavegador = dato;
+  }
+
+  abrirModalEditarEnvase(index: number) {
+    // this.envaseSeleccionado = this.envases[index];
+  }
+
+  editarEnvase() {
+
+    this.envases.forEach((element, index) => {
+      if(this.envaseSeleccionado == element) {
+        console.log(index);
+      }
+    })
+    console.log(this.envases.indexOf(this.envaseSeleccionado))
+    // this.productoService.updateEnvase(this.envaseSeleccionado).subscribe((data) => {
+    //   console.log(this.envases.indexOf(this.envaseSeleccionado))
+    //     this.envases[this.envases.indexOf(this.envaseSeleccionado)] = this.envaseSeleccionado;
+    //     this.envaseSeleccionado = new TipoEnvase();
+    //   }
+    // )
+
+    // this.productoService.patchProductos(this.productoSeleccionado).subscribe(data => {
+    //   this.productos[this.productos.indexOf(this.productoSeleccionado)] = this.productoSeleccionado;
+    //   this.productoSeleccionado = new Producto();
+    // })
   }
 }

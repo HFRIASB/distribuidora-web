@@ -50,7 +50,7 @@ export class PedidosComponent implements OnInit {
   }
 
   goProductos() {
-    this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
+    this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
   }
 
   goUsuarios() {

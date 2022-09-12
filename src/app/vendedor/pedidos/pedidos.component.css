@@ -1,0 +1,10 @@
+.fecha-col {
+	width: 50%;
+ }
+ .cliente-col{
+	width: 50%;
+ }
+ .row {
+   display: flex;
+   width: 100%;
+ }
