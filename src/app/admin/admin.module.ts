@@ -10,6 +10,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
+import { AlmacenComponent } from './almacen/almacen.component';
+import { NuevoRegistroComponent } from './nuevo-registro/nuevo-registro.component';
 
 
 
@@ -19,7 +21,9 @@ import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
     UsuariosComponent,
     VistaUsuarioComponent,
     PedidosComponent,
-    NuevoPedidoComponent
+    NuevoPedidoComponent,
+    AlmacenComponent,
+    NuevoRegistroComponent
   ],
   imports: [
     CommonModule,

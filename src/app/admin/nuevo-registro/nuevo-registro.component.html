@@ -1,0 +1,179 @@
+<div class="content">
+	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
+		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<svg class="bi me-2" width="40" height="32">
+				<use xlink:href="#bootstrap"></use>
+			</svg>
+			<span class="fs-4">Menu</span>
+		</a>
+		<hr>
+		<ul class="nav nav-pills flex-column mb-auto">
+			<li (click)="goProductos()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Productos
+				</a>
+			</li>
+			<li (click)="goUsuarios()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Usuarios
+				</a>
+			</li>
+			<li (click)="goPedidos()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Pedidos
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#home"></use>
+					</svg>
+					Almacen
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="container-component">
+		<header class="p-3 text-bg-dark">
+			<div class="container">
+				<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal" data-target="#nuevoProducto"
+					(click)="volverAlmacen()">Volver atras</button>
+			</div>
+		</header>
+		<div class="margin">
+			<div class="card-body">
+				<form>
+					<div class="form-group">
+						<label>Chofer: </label>
+						<input type="text" class="form-control" [(ngModel)]="nuevoRegistro.chofer_almacen" name="chofer"
+							required>
+					</div>
+					<div class="">
+						<label>Fecha: </label>
+						<div class="input-group">
+							<input class="form-control" placeholder="yyyy-mm-dd" name="fecha"
+								[(ngModel)]="fecha" ngbDatepicker #fin="ngbDatepicker">
+							<button class="btn btn-outline-secondary bi-calendar3" (click)="fin.toggle()"
+								type="button"></button>
+						</div>
+					</div>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label ">Estado:</legend>
+							<div *ngFor="let estado of estadoAlmacen">
+								<div class="form-check">
+									<input class="form-check-input" type="radio"
+										(change)="cambiarEstadoRadio($event.target)" name="estado" value="{{estado}}">
+									<label class="form-check-label">
+										{{estado}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label ">Tipo:</legend>
+							<div *ngFor="let tipo of tipoAlmacen">
+								<div class="form-check">
+									<input class="form-check-input" type="radio"
+										(change)="cambiarTipoRadio($event.target)" name="tipo" value="{{tipo}}">
+									<label class="form-check-label">
+										{{tipo}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<button *ngIf="nuevoRegistro.tipo_almacen == 'Producto'" type="button" class="btn btn-warning"
+						(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarProducto">Seleccionar
+						Producto</button>
+					<button *ngIf="nuevoRegistro.tipo_almacen =='Envase'" type="button" class="btn btn-warning"
+						(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarEnvase">Seleccionar
+						Envase</button>
+					<div>
+						<label>{{nuevoRegistro.item_almacen}}</label>
+					</div>
+					<div class="form-group">
+						<label>Cantidad: </label>
+						<input type="number" class="form-control" [(ngModel)]="nuevoRegistro.cantidad_almacen"
+							name="cantidad" required>
+					</div>
+					<button class="btn btn-warning" (click)="guardarRegistro()">Guardar registro</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="seleccionarProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar Producto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="text" name="search" [(ngModel)]="searchText" class="form-control form-control text-bg"
+					placeholder="Buscar producto..." aria-label="Search">
+				<table class="table">
+					<thead class="text-center">
+						<tr>
+							<th scope="col">Nombre</th>
+							<th scope="col">Medida</th>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+						<tr *ngFor="let producto of productos | filter:searchText" (click)="selectProduct(producto)"
+							data-dismiss="modal">
+							<td>{{producto.nombre_prod}}</td>
+							<td>{{producto.uniMedida_prod}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="seleccionarEnvase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar Producto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="text" name="search" [(ngModel)]="searchText" class="form-control form-control text-bg"
+					placeholder="Buscar envase..." aria-label="Search">
+				<table class="table">
+					<thead class="text-center">
+						<tr>
+							<th scope="col">Nombre</th>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+						<tr *ngFor="let envase of envases | filter:searchText" (click)="selectEnvase(envase)"
+							data-dismiss="modal">
+							<td>{{envase.nombre_envase}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

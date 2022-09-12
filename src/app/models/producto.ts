@@ -1,7 +1,7 @@
 export class Producto {
     id_prod?: number;
 
-    nombre_prod?: string;
+    nombre_prod: string;
 
     foto_prod?: string;
 
@@ -12,4 +12,8 @@ export class Producto {
     estado_prod?: string;
 
     uniMedida_prod?: string;
+
+    constructor(){
+        this.nombre_prod = '';
+    }
 }

@@ -32,36 +32,12 @@
                     Pedidos
                 </a>
             </li>
-            <li>
-                <a class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#speedometer2"></use>
-                    </svg>
-                    Ventas
-                </a>
-            </li>
-            <li>
-                <a class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#table"></use>
-                    </svg>
-                    Proovedores
-                </a>
-            </li>
-            <li>
-                <a class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#grid"></use>
-                    </svg>
-                    Ingresos
-                </a>
-            </li>
-            <li>
+            <li (click)="goAlmacen()">
                 <a class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#people-circle"></use>
                     </svg>
-                    Categoria
+                    Almacen
                 </a>
             </li>
         </ul>
@@ -83,20 +59,20 @@
             </div>
         </header>
         <div class="margin">
-			<div class="card">
-				<div class="card-header text-center">
-					<ul class="nav nav-tabs card-header-tabs">
-						<li class="nav-item" (click)="tablNavegador('productos')">
-							<a class="nav-link active" *ngIf="tabNavegador=='productos'">Productos</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='productos'">Productos</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('envases')">
-							<a class="nav-link active" *ngIf="tabNavegador=='envases'">Envases</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='envases'">Envases</a>
-						</li>
-					</ul>
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='productos'">
+            <div class="card">
+                <div class="card-header text-center">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item" (click)="tablNavegador('productos')">
+                            <a class="nav-link active" *ngIf="tabNavegador=='productos'">Productos</a>
+                            <a class="nav-link disabled" *ngIf="tabNavegador!='productos'">Productos</a>
+                        </li>
+                        <li class="nav-item" (click)="tablNavegador('envases')">
+                            <a class="nav-link active" *ngIf="tabNavegador=='envases'">Envases</a>
+                            <a class="nav-link disabled" *ngIf="tabNavegador!='envases'">Envases</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body" *ngIf="tabNavegador=='productos'">
                     <table class="table">
                         <thead class="text-center">
                             <tr>
@@ -118,13 +94,14 @@
                                 <td *ngIf="producto.estado_prod == 'Inactivo'">
                                     <a class="badge badge-danger">{{producto.estado_prod}}</a>
                                 </td>
-                                <td (click)="editarProducto(producto)" data-toggle="modal" data-target="#modalEditarProducto">
+                                <td (click)="editarProducto(producto)" data-toggle="modal"
+                                    data-target="#modalEditarProducto">
                                     <i class="bi bi-pencil-square"></i>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-				</div>
+                </div>
                 <div class="card-body" *ngIf="tabNavegador=='envases'">
                     <table class="table">
                         <thead class="text-center">
@@ -144,9 +121,9 @@
                             </tr>
                         </tbody>
                     </table>
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -188,8 +165,7 @@
                             <div class="col-sm-10" *ngFor="let estado of estados">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" (change)="changeRadio($event.target)"
-                                        name="estadoRadio"
-                                        value="{{estado}}"
+                                        name="estadoRadio" value="{{estado}}"
                                         [checked]="productoSeleccionado.estado_prod == estado">
                                     <label class="form-check-label">
                                         {{estado}}

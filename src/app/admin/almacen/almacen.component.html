@@ -1,0 +1,96 @@
+<div class="content">
+	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
+		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<svg class="bi me-2" width="40" height="32">
+				<use xlink:href="#bootstrap"></use>
+			</svg>
+			<span class="fs-4">Menu</span>
+		</a>
+		<hr>
+		<ul class="nav nav-pills flex-column mb-auto">
+			<li (click)="goProductos()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Productos
+				</a>
+			</li>
+			<li (click)="goUsuarios()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Usuarios
+				</a>
+			</li>
+			<li (click)="goPedidos()">
+				<a class="nav-link text-white">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#speedometer2"></use>
+					</svg>
+					Pedidos
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page">
+					<svg class="bi me-2" width="16" height="16">
+						<use xlink:href="#home"></use>
+					</svg>
+					Almacen
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="container-component">
+		<header class="p-3 text-bg-dark">
+			<div class="container">
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+					<form class="col-sm-8" role="search">
+						<input type="text" name="search" [(ngModel)]="searchText"
+							class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
+							aria-label="Search">
+						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+							data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
+					</form>
+				</div>
+			</div>
+		</header>
+		<div class="margin">
+			<div class="card-body">
+				<table class="table">
+					<thead class="text-center">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Chofer</th>
+							<th scope="col">Item</th>
+							<th scope="col">Tipo</th>
+							<th scope="col">Cantidad</th>
+							<th scope="col">Fecha</th>
+							<th scope="col">Estado</th>
+							<th scope="col">Accion</th>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+						<tr *ngFor="let item of almacen | filter:searchText">
+							<td scope="row">{{item.id_almacen}}</td>
+							<td>{{item.chofer_almacen}}</td>
+							<td>{{item.item_almacen}}</td>
+							<td>{{item.tipo_almacen}}</td>
+							<td>{{item.cantidad_almacen}}</td>
+							<td>{{item.fecha_almacen}}</td>
+							<td>{{item.estado_almacen}}</td>
+							<td data-toggle="modal" (click)="abrirModalEditarItemAlmacen(item)" data-target="#editarEnvase">
+								<i class="bi bi-pencil-square"></i>
+							</td>
+							<!-- <td (click)="editarItem(item)" data-toggle="modal"
+								data-target="#modalEditarProducto">
+								<i class="bi bi-pencil-square"></i>
+							</td> -->
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

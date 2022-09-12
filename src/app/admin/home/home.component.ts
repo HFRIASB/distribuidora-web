@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
     private authService: AuthService,
     private productoService: ProductoService
   ) {
-    console.log(this.estados)
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -75,7 +74,7 @@ export class HomeComponent implements OnInit {
   crearNuevoProducto() {
     if (this.productoSeleccionado.nombre_prod || this.productoSeleccionado.uniMedida_prod || this.productoSeleccionado.stock_prod || this.productoSeleccionado.precioCompra_prod) {
       this.productoService.postProducto(this.productoSeleccionado)
-        .subscribe((data => {
+        .subscribe(((data :any) => {
           this.productos.push(data)
           this.productoSeleccionado = new Producto();
         }))
@@ -90,6 +89,10 @@ export class HomeComponent implements OnInit {
 
   goPedidos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
+  }
+
+  goAlmacen() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
   }
 
   crearEnvase(nombre_envase: any) {

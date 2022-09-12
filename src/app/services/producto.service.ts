@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RouteReuseStrategy } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Almacen } from '../models/almacen';
 import { TipoEnvase } from '../models/tipo-envase';
 
 @Injectable({
@@ -54,5 +56,21 @@ export class ProductoService {
     {
       nombre_envase: data.nombre_envase
     })
+  }
+
+  getAlmacen() {
+    return this.http.get(`${this.api_url}almacen`)
+  }
+
+  postAlmacen(almacen: Almacen){
+    let payload = {
+      chofer_almacen: almacen.chofer_almacen,
+      fecha_almacen: almacen.fecha_almacen,
+      tipo_almacen: almacen.tipo_almacen,
+      cantidad_almacen: almacen.cantidad_almacen,
+      item_almacen: almacen.item_almacen,
+      estado_almacen: almacen.estado_almacen
+    }
+    return this.http.post(`${this.api_url}almacen`, payload);
   }
 }
