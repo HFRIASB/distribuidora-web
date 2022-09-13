@@ -1,120 +1,115 @@
-<div class="content">
-	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
-		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			<svg class="bi me-2" width="40" height="32">
-				<use xlink:href="#bootstrap"></use>
-			</svg>
-			<span class="fs-4">Menu</span>
-		</a>
-		<hr>
-		<ul class="nav nav-pills flex-column mb-auto">
-			<li (click)="goProductos()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Productos
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
 				</a>
-			</li>
-			<li (click)="goUsuarios()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Usuarios
-				</a>
-			</li>
-			<li (click)="goPedidos()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Pedidos
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" aria-current="page">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#home"></use>
-					</svg>
-					Almacen
-				</a>
-			</li>
-		</ul>
-	</div>
-	<div class="container-component">
-		<header class="p-3 text-bg-dark">
-			<div class="container">
-				<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal" data-target="#nuevoProducto"
-					(click)="volverAlmacen()">Volver atras</button>
-			</div>
-		</header>
-		<div class="margin">
-			<div class="card-body">
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m1" data-parent="#navbar1"
+								data-toggle="collapse" data-target="#m1" aria-expanded="false">
+								<span class=""> Reportes</span>
+							</a>
+							<div class="collapse" id="m1">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate">Kardex</a>
+									<a class="nav-link text-truncate">Global</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item" (click)="goPedidos()">
+							<a class="nav-link"><span>Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goProductos()">
+							<a class="nav-link"><span>Productos</span></a>
+						</li>
+						<li class="nav-item" (click)="goUsuarios()">
+							<a class="nav-link"><span>Usuarios</span></a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link"><span class="span-active">Almacen</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-3 text-bg-dark">
+				<div class="d-grid gap-2 col-3">
+					<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#nuevoProducto"
+						(click)="volverAlmacen()">Volver atras</button>
+				</div>
+			</header>
+			<div class="margin">
 				<form>
-					<div class="form-group">
-						<label>Chofer: </label>
-						<input type="text" class="form-control" [(ngModel)]="nuevoRegistro.chofer_almacen" name="chofer"
-							required>
-					</div>
-					<div class="">
-						<label>Fecha: </label>
-						<div class="input-group">
-							<input class="form-control" placeholder="yyyy-mm-dd" name="fecha"
-								[(ngModel)]="fecha" ngbDatepicker #fin="ngbDatepicker">
-							<button class="btn btn-outline-secondary bi-calendar3" (click)="fin.toggle()"
-								type="button"></button>
+					<div class="d-grid gap-2 content-responsive">
+						<div class="form-group">
+							<label>Chofer: </label>
+							<input type="text" class="form-control" [(ngModel)]="nuevoRegistro.chofer_almacen"
+								name="chofer" required>
 						</div>
-					</div>
-					<fieldset class="form-group">
-						<div class="row">
-							<legend class="col-form-label ">Estado:</legend>
-							<div *ngFor="let estado of estadoAlmacen">
-								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										(change)="cambiarEstadoRadio($event.target)" name="estado" value="{{estado}}">
-									<label class="form-check-label">
-										{{estado}}
-									</label>
-								</div>
+						<div class="">
+							<label>Fecha: </label>
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="fecha" [(ngModel)]="fecha"
+									ngbDatepicker #fin="ngbDatepicker">
+								<button class="btn btn-outline-secondary bi-calendar3" (click)="fin.toggle()"
+									type="button"></button>
 							</div>
 						</div>
-					</fieldset>
-					<fieldset class="form-group">
-						<div class="row">
-							<legend class="col-form-label ">Tipo:</legend>
-							<div *ngFor="let tipo of tipoAlmacen">
-								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										(change)="cambiarTipoRadio($event.target)" name="tipo" value="{{tipo}}">
-									<label class="form-check-label">
-										{{tipo}}
-									</label>
+						<fieldset class="form-group">
+							<div class="row">
+								<legend class="col-form-label ">Estado:</legend>
+								<div *ngFor="let estado of estadoAlmacen">
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											(change)="cambiarEstadoRadio($event.target)" name="estado"
+											value="{{estado}}">
+										<label class="form-check-label">
+											{{estado}}
+										</label>
+									</div>
 								</div>
 							</div>
+						</fieldset>
+						<fieldset class="form-group">
+							<div class="row">
+								<legend class="col-form-label ">Tipo:</legend>
+								<div *ngFor="let tipo of tipoAlmacen">
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											(change)="cambiarTipoRadio($event.target)" name="tipo" value="{{tipo}}">
+										<label class="form-check-label">
+											{{tipo}}
+										</label>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<button *ngIf="nuevoRegistro.tipo_almacen == 'Producto'" type="button" class="btn btn-warning"
+							(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarProducto">Seleccionar
+							Producto</button>
+						<button *ngIf="nuevoRegistro.tipo_almacen =='Envase'" type="button" class="btn btn-warning"
+							(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarEnvase">Seleccionar
+							Envase</button>
+						<div>
+							<label>{{nuevoRegistro.item_almacen}}</label>
 						</div>
-					</fieldset>
-					<button *ngIf="nuevoRegistro.tipo_almacen == 'Producto'" type="button" class="btn btn-warning"
-						(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarProducto">Seleccionar
-						Producto</button>
-					<button *ngIf="nuevoRegistro.tipo_almacen =='Envase'" type="button" class="btn btn-warning"
-						(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarEnvase">Seleccionar
-						Envase</button>
-					<div>
-						<label>{{nuevoRegistro.item_almacen}}</label>
+						<div class="form-group input-number">
+							<label>Cantidad: </label>
+							<input type="number" class="form-control" [(ngModel)]="nuevoRegistro.cantidad_almacen"
+								name="cantidad" required>
+						</div>
+						<button class="btn btn-warning" (click)="guardarRegistro()">Guardar registro</button>
 					</div>
-					<div class="form-group">
-						<label>Cantidad: </label>
-						<input type="number" class="form-control" [(ngModel)]="nuevoRegistro.cantidad_almacen"
-							name="cantidad" required>
-					</div>
-					<button class="btn btn-warning" (click)="guardarRegistro()">Guardar registro</button>
 				</form>
 			</div>
-		</div>
+		</main>
 	</div>
 </div>
-
 <div class="modal fade" id="seleccionarProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">

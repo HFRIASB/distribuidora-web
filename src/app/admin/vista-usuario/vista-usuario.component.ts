@@ -82,4 +82,14 @@ export class VistaUsuarioComponent implements OnInit {
   goProductos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
   }
+
+  goUsuarios() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
+  }
+  goPedidos() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
+  }
+  goAlmacen() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
+  }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { configFromSession } from '@ionic/core';
 import { Estado } from 'src/app/models/enums/estado';
 import { Producto } from 'src/app/models/producto';
 import { TipoEnvase } from 'src/app/models/tipo-envase';

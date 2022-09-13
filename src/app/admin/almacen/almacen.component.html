@@ -1,96 +1,92 @@
-<div class="content">
-	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
-		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			<svg class="bi me-2" width="40" height="32">
-				<use xlink:href="#bootstrap"></use>
-			</svg>
-			<span class="fs-4">Menu</span>
-		</a>
-		<hr>
-		<ul class="nav nav-pills flex-column mb-auto">
-			<li (click)="goProductos()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Productos
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
 				</a>
-			</li>
-			<li (click)="goUsuarios()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Usuarios
-				</a>
-			</li>
-			<li (click)="goPedidos()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Pedidos
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" aria-current="page">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#home"></use>
-					</svg>
-					Almacen
-				</a>
-			</li>
-		</ul>
-	</div>
-	<div class="container-component">
-		<header class="p-3 text-bg-dark">
-			<div class="container">
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<form class="col-sm-8" role="search">
-						<input type="text" name="search" [(ngModel)]="searchText"
-							class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
-							aria-label="Search">
-						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
-							data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
-					</form>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m1" data-parent="#navbar1"
+								data-toggle="collapse" data-target="#m1" aria-expanded="false">
+								<span class=""> Reportes</span>
+							</a>
+							<div class="collapse" id="m1">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate">Kardex</a>
+									<a class="nav-link text-truncate">Global</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item" (click)="goPedidos()">
+							<a class="nav-link"><span>Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goProductos()">
+							<a class="nav-link"><span>Productos</span></a>
+						</li>
+						<li class="nav-item" (click)="goUsuarios()">
+							<a class="nav-link"><span>Usuarios</span></a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link"><span class="span-active">Almacen</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-3 text-bg-dark">
+				<div class="container ">
+					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+						<form class="col-sm-8" role="search">
+							<input type="text" name="search" [(ngModel)]="searchText"
+								class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
+								aria-label="Search">
+							<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+								data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
+						</form>
+					</div>
+				</div>
+			</header>
+			<div class="margin">
+				<div class="card-body">
+					<table class="table">
+						<thead class="text-center">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Chofer</th>
+								<th scope="col">Item</th>
+								<th scope="col">Tipo</th>
+								<th scope="col">Cantidad</th>
+								<th scope="col">Fecha</th>
+								<th scope="col">Estado</th>
+								<th scope="col">Accion</th>
+							</tr>
+						</thead>
+						<tbody class="text-center">
+							<tr *ngFor="let item of almacen | filter:searchText">
+								<td scope="row">{{item.id_almacen}}</td>
+								<td>{{item.chofer_almacen}}</td>
+								<td>{{item.item_almacen}}</td>
+								<td>{{item.tipo_almacen}}</td>
+								<td>{{item.cantidad_almacen}}</td>
+								<td>{{item.fecha_almacen}}</td>
+								<td>{{item.estado_almacen}}</td>
+								<td data-toggle="modal" (click)="abrirModalEditarItemAlmacen(item)"
+									data-target="#editarEnvase">
+									<i class="bi bi-pencil-square"></i>
+								</td>
+								<!-- <td (click)="editarItem(item)" data-toggle="modal"
+									data-target="#modalEditarProducto">
+									<i class="bi bi-pencil-square"></i>
+								</td> -->
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		</header>
-		<div class="margin">
-			<div class="card-body">
-				<table class="table">
-					<thead class="text-center">
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Chofer</th>
-							<th scope="col">Item</th>
-							<th scope="col">Tipo</th>
-							<th scope="col">Cantidad</th>
-							<th scope="col">Fecha</th>
-							<th scope="col">Estado</th>
-							<th scope="col">Accion</th>
-						</tr>
-					</thead>
-					<tbody class="text-center">
-						<tr *ngFor="let item of almacen | filter:searchText">
-							<td scope="row">{{item.id_almacen}}</td>
-							<td>{{item.chofer_almacen}}</td>
-							<td>{{item.item_almacen}}</td>
-							<td>{{item.tipo_almacen}}</td>
-							<td>{{item.cantidad_almacen}}</td>
-							<td>{{item.fecha_almacen}}</td>
-							<td>{{item.estado_almacen}}</td>
-							<td data-toggle="modal" (click)="abrirModalEditarItemAlmacen(item)" data-target="#editarEnvase">
-								<i class="bi bi-pencil-square"></i>
-							</td>
-							<!-- <td (click)="editarItem(item)" data-toggle="modal"
-								data-target="#modalEditarProducto">
-								<i class="bi bi-pencil-square"></i>
-							</td> -->
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+		</main>
 	</div>
 </div>

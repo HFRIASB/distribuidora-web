@@ -56,4 +56,8 @@ export class PedidosComponent implements OnInit {
   goUsuarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
   }
+
+  goAlmacen(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
+  }
 }

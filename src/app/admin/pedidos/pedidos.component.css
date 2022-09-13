@@ -1,9 +1,9 @@
 .datePicker {
 	display: flex;
 	flex-direction: row;
-	padding: 15px;
+	padding: 5px;
 }
 
-.picker {
+/* .picker {
 	margin-top: 10px;
-}
+} */

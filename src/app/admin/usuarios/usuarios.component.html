@@ -1,133 +1,96 @@
-<div class="content">
-	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
-		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			<svg class="bi me-2" width="40" height="32">
-				<use xlink:href="#bootstrap"></use>
-			</svg>
-			<span class="fs-4">Menu</span>
-		</a>
-		<hr>
-		<ul class="nav nav-pills flex-column mb-auto">
-			<li (click)="goProductos()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Productos
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
 				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" aria-current="page">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#home"></use>
-					</svg>
-					Usuarios
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Ventas
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#table"></use>
-					</svg>
-					Proovedores
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#grid"></use>
-					</svg>
-					Ingresos
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#people-circle"></use>
-					</svg>
-					Categoria
-				</a>
-			</li>
-		</ul>
-		<hr>
-		<div class="dropdown">
-			<a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
-				data-bs-toggle="dropdown" aria-expanded="false">
-				<img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-				<strong>mdo</strong>
-			</a>
-			<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-				<li><a class="dropdown-item" href="#">New project...</a></li>
-				<li><a class="dropdown-item" href="#">Settings</a></li>
-				<li><a class="dropdown-item" href="#">Profile</a></li>
-				<li>
-					<hr class="dropdown-divider">
-				</li>
-				<li><a class="dropdown-item" href="#">Sign out</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="container-component">
-		<header class="p-3 text-bg-dark">
-			<div class="container">
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<form class="col-sm-8" role="search">
-						<input type="text" name="search" [(ngModel)]="searchText"
-							class="form-control form-control-dark text-bg-dark " placeholder="Buscar usuario..."
-							aria-label="Search">
-					</form>
-					<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
-						data-target="#nuevoUsuario">Crear nuevo usuario</button>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m1" data-parent="#navbar1"
+								data-toggle="collapse" data-target="#m1" aria-expanded="false">
+								<span class=""> Reportes</span>
+							</a>
+							<div class="collapse" id="m1">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate">Kardex</a>
+									<a class="nav-link text-truncate">Global</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item" (click)="goPedidos()">
+							<a class="nav-link"><span>Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goProductos()">
+							<a class="nav-link"><span>Productos</span></a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link"><span class="span-active">Usuarios</span></a>
+						</li>
+						<li class="nav-item" (click)="goAlmacen()">
+							<a class="nav-link"><span>Almacen</span></a>
+						</li>
+					</ul>
 				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-3 text-bg-dark">
+				<div class="container">
+					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+						<form class="col-sm-8" role="search">
+							<input type="text" name="search" [(ngModel)]="searchText"
+								class="form-control form-control-dark text-bg-dark " placeholder="Buscar usuario..."
+								aria-label="Search">
+						</form>
+						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+							data-target="#nuevoUsuario">Crear nuevo usuario</button>
+					</div>
+				</div>
+			</header>
+	
+			<div class="margin">
+				<div class="rol-container">
+					<label>Filtrar por Rol: </label>
+					<select class="form-select" [(ngModel)]="rolSelect" (change)="rolSeleccionado()">
+						<option *ngFor="let rol of roles">{{rol.nombre_rol}}</option>
+					</select>
+				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">#</th>
+							<th class="text-center" scope="col">Nombre</th>
+							<th class="text-center" scope="col">Usuario</th>
+							<th class="text-center" scope="col">Estado</th>
+							<th class="text-center" scope="col">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let usuario of usuarios | filter:searchText" (click)="seleccionarUsuario(usuario)">
+	
+							<th class="text-center" scope="row">{{usuario.id_usu}}</th>
+							<td class="text-center">{{usuario.nombre_usu}}</td>
+							<td class="text-center">{{usuario.correo_usu}}</td>
+							<td class="text-center">
+								<a *ngIf="usuario.estado_usu == 'Activo'"
+									class="badge badge-warning">{{usuario.estado_usu}}</a>
+								<a *ngIf="usuario.estado_usu == 'Inactivo'"
+									class="badge badge-danger">{{usuario.estado_usu}}</a>
+							</td>
+							<td class="text-center">
+								<i class="bi bi-eye icon"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</header>
-
-		<div class="margin">
-			<div class="rol-container">
-				<label>Filtrar por Rol: </label>
-				<select class="form-select" [(ngModel)]="rolSelect" (change)="rolSeleccionado()">
-					<option *ngFor="let rol of roles">{{rol.nombre_rol}}</option>
-				</select>
-			</div>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th class="text-center" scope="col">#</th>
-						<th class="text-center" scope="col">Nombre</th>
-						<th class="text-center" scope="col">Usuario</th>
-						<th class="text-center" scope="col">Estado</th>
-						<th class="text-center" scope="col">Acciones</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let usuario of usuarios | filter:searchText" (click)="seleccionarUsuario(usuario)">
-
-						<th class="text-center" scope="row">{{usuario.id_usu}}</th>
-						<td class="text-center">{{usuario.nombre_usu}}</td>
-						<td class="text-center">{{usuario.correo_usu}}</td>
-						<td class="text-center">
-							<a *ngIf="usuario.estado_usu == 'Activo'"
-								class="badge badge-warning">{{usuario.estado_usu}}</a>
-							<a *ngIf="usuario.estado_usu == 'Inactivo'"
-								class="badge badge-danger">{{usuario.estado_usu}}</a>
-						</td>
-						<td class="text-center">
-							<i class="bi bi-eye icon"></i>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		</main>
 	</div>
 </div>
+
 <div class="modal fade" id="nuevoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">

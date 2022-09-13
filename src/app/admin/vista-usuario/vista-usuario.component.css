@@ -1,14 +1,10 @@
-.card-body {
-  margin: 20px 30px;
-}
-
 .table-pago{
   width: 500px;
 }
-.bi {
+/* .bi {
   margin: 0px 10px;
   padding: 3px;
-}
+} */
 .i-plain:hover {
   color: black;
   background-color: #fecb00!important;
