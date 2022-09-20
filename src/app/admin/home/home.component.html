@@ -42,8 +42,8 @@
                     <input type="text" name="search" [(ngModel)]="searchText"
                         class="form-control form-control-dark text-bg-dark mt-1 ml-1" placeholder="Buscar producto..."
                         aria-label="Search" *ngIf="tabNavegador=='productos'">
-                    <button type="button" class="btn btn-warning ml-1 mt-1" data-toggle="modal"
-                        data-target="#nuevoProducto" (click)="nuevoProducto()">Anadir nuevo producto</button>
+                    <button type="button" class="btn btn-warning ml-1 mt-1" (click)="nuevoProducto()" data-toggle="modal"
+                        data-target="#nuevoProducto">Anadir nuevo producto</button>
                     <button type="button" class="btn btn-warning ml-1 mt-1" data-toggle="modal"
                         data-target="#nuevoEnvase">Crear envase</button>
                 </form>
@@ -105,7 +105,7 @@
                                 <tr *ngFor="let envase of envases; let i = index">
                                     <td scope="row">{{envase.id_envase}}</td>
                                     <td>{{envase.nombre_envase}}</td>
-                                    <td data-toggle="modal" (click)="abrirModalEditarEnvase(i)"
+                                    <td data-toggle="modal" (click)="abrirModalEditarEnvase(envase)"
                                         data-target="#editarEnvase">
                                         <i class="bi bi-pencil-square"></i>
                                     </td>
@@ -217,17 +217,15 @@
                     <fieldset class="form-group">
                         <div class="row">
                             <legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
-                            <!-- <div class="col-sm-10" *ngFor="let estado of estados">
+                            <div class="col-sm-10" *ngFor="let estado of estados">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" (change)="changeRadio($event)"
-                                        name="gridRadios" id="{{productoSeleccionado.estado_prod}}"
-                                        value="estado"
-                                        [checked]="productoSeleccionado.estado_prod == estado">
-                                    <label class="form-check-label" for="gridRadios1">
+                                    <input class="form-check-input" type="radio" (change)="changeRadio($event.target)"
+                                        name="estadoRadio" value="{{estado}}">
+                                    <label class="form-check-label">
                                         {{estado}}
                                     </label>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </fieldset>
                     <div class="form-group">
@@ -240,7 +238,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-warning" (click)="crearNuevoProducto()">Guardar cambios</button>
+                <button type="button" class="btn btn-warning" (click)="crearNuevoProducto()"  data-dismiss="modal">Guardar cambios</button>
             </div>
         </div>
     </div>
@@ -256,13 +254,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form #envaseForm="ngForm" (ngSubmit)="crearEnvase(envaseForm.form.value)">
+                <form #envaseForm="ngForm">
                     <div class="form-group">
                         <label>Nombre del envase:</label>
                         <input type="text" ngModel name="nombre" class="form-control">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-warning">Guardar cambios</button>
+                    <button type="submit" class="btn btn-warning" (click)="crearEnvase(envaseForm.form.value)" data-dismiss="modal">Guardar cambios</button>
                 </form>
             </div>
         </div>
@@ -285,7 +283,7 @@
                         <input type="text" name="e" [(ngModel)]="envaseSeleccionado.nombre_envase" class="form-control">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" (click)="editarEnvase()" class="btn btn-warning">Guardar cambios</button>
+                    <button type="submit" (click)="editarEnvase()"  data-dismiss="modal" class="btn btn-warning">Guardar cambios</button>
                 </form>
             </div>
         </div>

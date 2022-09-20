@@ -29,12 +29,20 @@ export class Usuario {
 
     rol?: Rol;
 
-    direccion?: Direccion[];
+    direccion: Direccion[];
 
     // orden: Orden[];
 
     // controlEnvase: ControlEnvase[];
 
     pago?: Pago[];
+
+    // constructor(){
+    //     this.pago = [];
+    // }
+
+    constructor() {
+        this.direccion = [];
+    }
 
 }

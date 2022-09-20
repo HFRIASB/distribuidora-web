@@ -1,0 +1,202 @@
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</a>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m1" data-parent="#navbar1"
+								data-toggle="collapse" data-target="#m1" aria-expanded="false">
+								<span class=""> Reportes</span>
+							</a>
+							<div class="collapse" id="m1">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate">Kardex</a>
+									<a class="nav-link text-truncate">Global</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link"><span class="span-active">Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goProductos()">
+							<a class="nav-link"><span>Productos</span></a>
+						</li>
+						<li class="nav-item" (click)="goUsuarios()">
+							<a class="nav-link"><span>Usuarios</span></a>
+						</li>
+						<li class="nav-item" (click)="goAlmacen()">
+							<a class="nav-link"><span>Almacen</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-3 text-bg-dark">
+
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+					<form class="col-sm-8" role="search">
+						<button type="button" class="btn btn-warning" 
+						(click)="goVolverPedidos()" >Volver a pedidos</button>
+					</form>
+				</div>
+			</header>
+			<div class="container">
+				<div id="content1">
+					<div class="border m-3 p-3">
+						<h3>Detalle del pedido
+							<i class="bi bi-pencil-square icon" data-toggle="modal"
+								data-target="#editarDetallePedido"></i>
+						</h3>
+						<label class="font-weight-bold">Usuario: </label>
+						<label class="ml-1"> {{this.pedido.usuario?.correo_usu}} ({{this.pedido.usuario?.nombre_usu}})
+						</label><br>
+						<label class="font-weight-bold">Fecha de pedido: </label>
+						<label class="ml-1">{{this.pedido.fVenta_ord}}</label><br>
+						<label class="font-weight-bold">Fecha de entrega: </label>
+						<label class="ml-1">{{this.pedido.fEntrega_ord}}</label><br>
+						<label class="font-weight-bold">Direccion: </label>
+						<label class="ml-1">{{this.pedido.direccion?.nombre_direc}}</label>
+						<label class="ml-1">{{this.pedido.direccion?.descripcion_direc}}</label> <br>
+						<label class="font-weight-bold">Estado: </label>
+						<label class="ml-1">{{this.pedido.estado_ord}}</label><br>
+						<label class="font-weight-bold">Nro nota: </label>
+						<label class="ml-1">{{this.pedido.numNota_ord}}</label><br>
+						<label class="font-weight-bold">Total a pagar: </label>
+						<label class="ml-1">{{this.pedido.total_ord}} Bs.</label><br>
+						<label class="font-weight-bold">Foto recibo: </label>
+						<img class="img" [src]="pedido.url_ord">
+					</div>
+				</div>
+				<div id="content2">
+					<div class="border m-3 p-3">
+						<h3>Lista de productos</h3>
+						<table class="table table-hover">
+							<thead class="text-center">
+								<tr>
+									<th scope="col"></th>
+									<th scope="col">Producto</th>
+									<th scope="col">Cantidad</th>
+									<th scope="col">Precio</th>
+								</tr>
+							</thead>
+							<tbody class="text-center">
+								<tr *ngFor="let producto of ordenProductos; let i = index"
+									(click)="seleccionarProducto(producto)" data-toggle="modal"
+									data-target="#editarProducto">
+									<td scope="row">
+										<img class="img-producto" [src]="producto.producto?.foto_prod">
+									</td>
+									<td>{{producto.producto?.nombre_prod}}</td>
+									<td>{{producto.cantidad_op}}</td>
+									<td>{{producto.precioUni_op}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</div>
+<div class="modal fade" id="editarProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Producto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Precio:</label>
+					<input type="number" name="precio" [(ngModel)]="productoSeleccionado.precioUni_op"
+						class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Cantidad:</label>
+					<input type="number" name="cantidad" [(ngModel)]="productoSeleccionado.cantidad_op"
+						class="form-control">
+				</div>
+				<button type="button" class="btn btn-warning" (click)="editarPedidoProducto()"
+					data-dismiss="modal">Editar Producto</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarDetallePedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Pedido</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="group-space-between">
+					<div>Fecha de pedido: </div>
+					<div class="input-group select">
+						<input class="form-control" placeholder="yyyy-mm-dd" name="fpp" [(ngModel)]="fechaPedido"
+							ngbDatepicker #fpedido="ngbDatepicker">
+						<button class="btn btn-warning bi-calendar3" (click)="fpedido.toggle()" type="button"></button>
+					</div>
+				</div>
+				<div class="group-space-between">
+					<div>Fecha de entrega: </div>
+					<div class="input-group select">
+						<input class="form-control" placeholder="yyyy-mm-dd" name="fe" [(ngModel)]="fechaEntrega"
+							ngbDatepicker #fentrega="ngbDatepicker">
+						<button class="btn btn-warning bi-calendar3" (click)="fentrega.toggle()" type="button"></button>
+					</div>
+				</div>
+				<div>Direccion: </div>
+				<div class="input-group select">
+					<select class="form-select select" name="direc" [(ngModel)]="pedidoAuxiliar.direccion">
+						<option *ngFor="let direccion of direcciones" [ngValue]="direccion" 
+						[selected]="direccion.nombre_direc == pedidoAuxiliar.direccion?.nombre_direc">
+							{{direccion.nombre_direc}}</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Nro nota:</label>
+					<input type="number" name="precio" [(ngModel)]="pedidoAuxiliar.numNota_ord" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Estado:</label>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label">Estado</legend>
+							<div *ngFor="let estado of estados">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" (change)="changeRadio($event.target)"
+										name="estadoRadio" value="{{estado}}"
+										[checked]="pedidoAuxiliar.estado_ord == estado">
+									<label class="form-check-label">
+										{{estado}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="form-group">
+					<label>Foto del recibo:</label>
+					<input type="text" name="url" [(ngModel)]="pedidoAuxiliar.url_ord" class="form-control">
+					<img class="img" [src]="pedidoAuxiliar.url_ord">
+				</div>
+				<button type="button" class="btn btn-warning" (click)="editarPedido()" data-dismiss="modal">Editar
+					Producto</button>
+			</div>
+		</div>
+	</div>
+</div>

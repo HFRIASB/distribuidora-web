@@ -48,8 +48,8 @@
 					<div class="d-grid gap-2 content-responsive">
 						<div class="form-group">
 							<label>Chofer: </label>
-							<input type="text" class="form-control" [(ngModel)]="nuevoRegistro.chofer_almacen"
-								name="chofer" required>
+							<input type="text" class="form-control" [(ngModel)]="auxiliar.chofer_almacen" name="chofer"
+								required>
 						</div>
 						<div class="">
 							<label>Fecha: </label>
@@ -89,19 +89,18 @@
 								</div>
 							</div>
 						</fieldset>
-						<button *ngIf="nuevoRegistro.tipo_almacen == 'Producto'" type="button" class="btn btn-warning"
+						<button *ngIf="auxiliar.tipo_almacen == 'Producto'" type="button" class="btn btn-warning"
 							(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarProducto">Seleccionar
 							Producto</button>
-						<button *ngIf="nuevoRegistro.tipo_almacen =='Envase'" type="button" class="btn btn-warning"
+						<button *ngIf="auxiliar.tipo_almacen =='Envase'" type="button" class="btn btn-warning"
 							(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarEnvase">Seleccionar
 							Envase</button>
-						<div>
-							<label>{{nuevoRegistro.item_almacen}}</label>
-						</div>
-						<div class="form-group input-number">
-							<label>Cantidad: </label>
-							<input type="number" class="form-control" [(ngModel)]="nuevoRegistro.cantidad_almacen"
-								name="cantidad" required>
+						<div *ngFor="let item of nuevosRegistros">
+							<div class="container-items">
+								<label>{{item.item_almacen}}</label>
+								<input class="form-control" name="cantidad" [(ngModel)]="item.cantidad_almacen"
+									type="number" min="1">
+							</div>
 						</div>
 						<button class="btn btn-warning" (click)="guardarRegistro()">Guardar registro</button>
 					</div>

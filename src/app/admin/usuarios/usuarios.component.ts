@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Estado } from 'src/app/models/enums/estado';
+import { Genero } from 'src/app/models/enums/genero';
 import { Rol } from 'src/app/models/rol';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,8 +12,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
+  generos:any = Object.keys(Genero)
+  estados:any = Object.keys(Estado)
   searchText = "";
+  usuarioAuxiliar: Usuario = new Usuario();
   roles: Rol[] = [{ nombre_rol: "Todos" }];
+  rolUsuario: Rol[] = [];
   rolSelect: string = "Todos"
   administrador: Usuario = new Usuario();
   usuarios: Usuario[] = [];
@@ -20,16 +26,17 @@ export class UsuariosComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) {
+    this.usuarioAuxiliar.observacion_usu = '';
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
-        .subscribe((user: Usuario) => {
+        .subscribe((user: any) => {
           this.administrador = user;
         })
     });
     this.authService.getRoles().subscribe((roles: any) => {
-      // console.log(roles)
       roles.forEach((rol: Rol) => {
         this.roles.push(rol);
+        this.rolUsuario.push(rol)
       });
     })
     this.authService.getUsuariosByRol(this.rolSelect).subscribe((data: any) => {
@@ -53,23 +60,27 @@ export class UsuariosComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'vista-usuario', usuario.id_usu], { replaceUrl: true });
   }
 
-  registrarUsuario(form: any) {
-    let usuario = {
-      nombre_usu: form.nombre,
-      correo_usu: form.correo,
-      usuario_usu: "usuario",//eliminar
-      nroDocu_usu: form.nroDoc,
-      password_usu: form.password,
-      observacion_usu: form.observacion,
-      sexo_usu: 'M',////
-      estado_usu: 'Activo',
-      celular_usu: form.telefono,
-      fRegistro_usu: new Date(),
-      rol:  1///////;
-    }
-    this.authService.registrarUsuario(usuario).subscribe(
-      (data: Usuario) => {
-        location.reload()
+  changeRadioGenero(event: any) {
+    this.usuarioAuxiliar.sexo_usu = event.value;
+    // console.log(event.value)
+  }
+
+  changeRadioEstado(event:any){
+    this.usuarioAuxiliar.estado_usu = event.value;
+  }
+
+  rolSeleccionadoNuevoUsuario(event: any){
+    this.usuarioAuxiliar.rol = event.value;
+  }
+  registrarUsuario() {
+    this.usuarioAuxiliar.fRegistro_usu = new Date();
+    this.usuarioAuxiliar.usuario_usu = 'usuario';//eliminar atributo
+    console.log(this.usuarioAuxiliar)
+    this.authService.registrarUsuario(this.usuarioAuxiliar).subscribe(
+      (data: any) => {
+        this.usuarios.push(data);
+        this.usuarioAuxiliar = new Usuario();
+        this.usuarioAuxiliar.observacion_usu = '';
       }
     )
   }

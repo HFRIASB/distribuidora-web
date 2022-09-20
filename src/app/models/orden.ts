@@ -4,9 +4,9 @@ import { Usuario } from "./usuario";
 export class Orden {
     id_ord?: number;
 
-    fVenta_ord?: Date;
+    fVenta_ord: Date;
 
-    fEntrega_ord?: Date;
+    fEntrega_ord: Date;
 
     estado_ord?: string;
 
@@ -23,4 +23,8 @@ export class Orden {
     direccion?: Direccion;
 
     // ordenProducto?: OrdenProducto[];
+    constructor(){
+        this.fVenta_ord = new Date();
+        this.fEntrega_ord = new Date();
+    }
 }

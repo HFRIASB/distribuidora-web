@@ -3,6 +3,10 @@
 }
 
 .input-number {
-	width: min-content;
+	/* width: min-content; */
 }
 
+.container-items {
+	display : flex;
+	flex-direction : row;
+}

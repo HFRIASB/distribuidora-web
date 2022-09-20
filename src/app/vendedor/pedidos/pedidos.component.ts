@@ -23,7 +23,7 @@ export class PedidosComponent implements OnInit {
   ) {
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
-        .subscribe((user: Usuario) => {
+        .subscribe((user: any) => {
           this.vendedor = user;
           console.log(this.vendedor)
         })

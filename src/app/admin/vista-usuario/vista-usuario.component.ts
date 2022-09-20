@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Pago } from 'src/app/models/pago';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -17,16 +18,18 @@ export class VistaUsuarioComponent implements OnInit {
   carteraCliente: any[] = [];
   clientes: Usuario[] = [];
   clienteSeleccionado = new Usuario();
+  pagoAuxiliar: Pago = new Pago();
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
   ) {
     this.usuario.pago = [];
+    this.administrador.pago = [];
     this.usuario.direccion = [];
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
-        .subscribe((user: Usuario) => {
+        .subscribe((user: any) => {
           this.administrador = user;
         });
       this.authService.getUsuarioById(params['idUsuario'])
@@ -63,7 +66,7 @@ export class VistaUsuarioComponent implements OnInit {
       monto: value.monto,
       usuario: this.usuario.id_usu
     }).subscribe(data => {
-      this.usuario.pago?.push(data)
+      this.usuario.pago?.unshift(data)
     })
   }
 
@@ -77,6 +80,22 @@ export class VistaUsuarioComponent implements OnInit {
   }
   selectCliente(cliente:any){
     this.clienteSeleccionado =cliente;
+  }
+
+  editarPago(pago: Pago){
+    this.pagoAuxiliar.id_pago = pago.id_pago;
+    this.pagoAuxiliar.cantidad_pago = pago.cantidad_pago;
+    this.pagoAuxiliar.fecha_pago = pago.fecha_pago;
+  }
+
+  guardarPagoEditado(){
+    let indexArray = this.usuario.pago?.findIndex((p: Pago) => p.id_pago == this.pagoAuxiliar.id_pago);
+    this.authService.patchPago(this.pagoAuxiliar).subscribe(data => {
+      if(this.usuario.pago != undefined && indexArray != undefined){
+        this.usuario.pago[indexArray] = this.pagoAuxiliar;
+        this.pagoAuxiliar = new Pago()
+      }
+    })
   }
 
   goProductos() {

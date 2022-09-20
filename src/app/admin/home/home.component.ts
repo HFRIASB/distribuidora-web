@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
-        .subscribe((user: Usuario) => {
+        .subscribe((user: any) => {
           this.administrador = user;
         })
     });
@@ -52,6 +52,19 @@ export class HomeComponent implements OnInit {
     this.productoSeleccionado.stock_prod = producto.stock_prod;
     this.productoSeleccionado.uniMedida_prod = producto.uniMedida_prod;
   }
+  abrirModalEditarEnvase(envase: TipoEnvase) {
+    this.envaseSeleccionado.id_envase = envase.id_envase;
+    this.envaseSeleccionado.nombre_envase = envase.nombre_envase;
+    // this.envaseSeleccionado = this.envases[index];
+  }
+
+  editarEnvase() {
+    let indexArray = this.envases.findIndex((e: TipoEnvase) => e.id_envase == this.envaseSeleccionado.id_envase);
+    this.productoService.updateEnvase(this.envaseSeleccionado).subscribe(data => {
+      this.envases[indexArray] = this.envaseSeleccionado;
+      this.envaseSeleccionado = new TipoEnvase();
+    })
+  }
 
   changeRadio(event: any) {
     this.productoSeleccionado.estado_prod = event.value;
@@ -67,7 +80,6 @@ export class HomeComponent implements OnInit {
 
   nuevoProducto() {
     this.productoSeleccionado = new Producto();
-    this.productoSeleccionado.estado_prod = "Activo"
   }
 
   crearNuevoProducto() {
@@ -107,28 +119,5 @@ export class HomeComponent implements OnInit {
     this.tabNavegador = dato;
   }
 
-  abrirModalEditarEnvase(index: number) {
-    // this.envaseSeleccionado = this.envases[index];
-  }
-
-  editarEnvase() {
-
-    this.envases.forEach((element, index) => {
-      if(this.envaseSeleccionado == element) {
-        console.log(index);
-      }
-    })
-    console.log(this.envases.indexOf(this.envaseSeleccionado))
-    // this.productoService.updateEnvase(this.envaseSeleccionado).subscribe((data) => {
-    //   console.log(this.envases.indexOf(this.envaseSeleccionado))
-    //     this.envases[this.envases.indexOf(this.envaseSeleccionado)] = this.envaseSeleccionado;
-    //     this.envaseSeleccionado = new TipoEnvase();
-    //   }
-    // )
-
-    // this.productoService.patchProductos(this.productoSeleccionado).subscribe(data => {
-    //   this.productos[this.productos.indexOf(this.productoSeleccionado)] = this.productoSeleccionado;
-    //   this.productoSeleccionado = new Producto();
-    // })
-  }
+  
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Pago } from '../models/pago';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class AuthService {
   }
 
   getUsuarioById(id: string) {
-    return this.http.get(this.api_url + 'usuario/' + id);
+    return this.http.get(this.api_url + 'usuario/detalle-cliente/' + id);
   }
 
   getOnlyClientes() {
@@ -69,6 +70,10 @@ export class AuthService {
       usuario: data.usuario
     }
     return this.http.post(this.api_url+"pago", pago)
+  }
+
+  patchPago(data: Pago){
+    return this.http.patch(this.api_url+"pago/"+data.id_pago?.toString(), data)
   }
 
   registrarCarteraCliente(data: any){

@@ -23,7 +23,8 @@ export class NuevoRegistroComponent implements OnInit {
   fecha: NgbDateStruct = this.calendar.getToday();
   searchText = '';
   administrador: Usuario = new Usuario();
-  nuevoRegistro: Almacen = new Almacen();
+  auxiliar: Almacen = new Almacen()
+  nuevosRegistros: Almacen[] = [];
   productos: Producto[] = [];
   envases: TipoEnvase[] = [];
   constructor(
@@ -35,7 +36,7 @@ export class NuevoRegistroComponent implements OnInit {
   ) {
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
-        .subscribe((user: Usuario) => {
+        .subscribe((user: any) => {
           this.administrador = user;
         })
     });
@@ -53,23 +54,27 @@ export class NuevoRegistroComponent implements OnInit {
   }
 
   cambiarTipoRadio(even: any) {
-    this.nuevoRegistro.item_almacen = '';
-    this.nuevoRegistro.tipo_almacen = even.value;
+    this.nuevosRegistros = [];
+    this.auxiliar.tipo_almacen = even.value;
   }
 
   cambiarEstadoRadio(event: any) {
-    this.nuevoRegistro.item_almacen = '';
-    this.nuevoRegistro.estado_almacen = event.value;
+    this.nuevosRegistros = [];
+    this.auxiliar.estado_almacen = event.value;
   }
 
   selectProduct(producto: Producto) {
-    this.nuevoRegistro.item_almacen = producto.nombre_prod;
+    let nuevo = new Almacen()
+    nuevo.item_almacen = producto.nombre_prod;
+    this.nuevosRegistros.push(nuevo)
     this.searchText = '';
   }
 
   selectEnvase(envase: TipoEnvase) {
-    this.nuevoRegistro.item_almacen = envase.nombre_envase;
-    console.log(envase)
+    let nuevo = new Almacen()
+    nuevo.item_almacen = envase.nombre_envase;
+    this.nuevosRegistros.push(nuevo)
+    this.searchText = '';
   }
 
   clearSearch() {
@@ -93,23 +98,34 @@ export class NuevoRegistroComponent implements OnInit {
   }
 
   guardarRegistro() {
-    if(this.validarRegistro()){
-      this.nuevoRegistro.fecha_almacen = new Date(this.fecha.year, this.fecha.month - 1, this.fecha.day)
-    this.productoService.postAlmacen(this.nuevoRegistro)
-      .subscribe((data => {
-        console.log(data)
-      }))
-    }else{
+    if (this.validarRegistro()) {
+      this.auxiliar.fecha_almacen = new Date(this.fecha.year, this.fecha.month - 1, this.fecha.day)
+      this.nuevosRegistros.forEach((n: Almacen, index) => {
+        let payload = new Almacen();
+        payload.chofer_almacen = this.auxiliar.chofer_almacen;
+        payload.fecha_almacen = this.auxiliar.fecha_almacen;
+        payload.estado_almacen = this.auxiliar.estado_almacen;
+        payload.tipo_almacen = this.auxiliar.tipo_almacen;
+        payload.item_almacen = n.item_almacen;
+        payload.cantidad_almacen = n.cantidad_almacen;
+        this.productoService.postAlmacen(payload)
+          .subscribe((data) => {
+            console.log(index)
+            if (index == this.nuevosRegistros.length - 1) {
+              console.log('alert todo se guarodo')
+            }
+          })
+      })
+    } else {
       console.log('alert de ingresar bien los datos')
     }
   }
 
   validarRegistro() {
     if (
-      this.nuevoRegistro.chofer_almacen != '' &&
-      this.nuevoRegistro.cantidad_almacen > 0 &&
-      this.nuevoRegistro.item_almacen != '' &&
-      this.nuevoRegistro.estado_almacen != ''
+      this.auxiliar.chofer_almacen != '' &&
+      this.nuevosRegistros.length > 0 &&
+      this.auxiliar.estado_almacen != ''
     ) {
       return true;
     } else {

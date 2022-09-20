@@ -1,0 +1,13 @@
+.table {
+  overflow: scroll; /* Scrollbar are always visible */
+  overflow: auto; /* Scrollbar is displayed as it's needed */
+}
+
+table {
+  overflow: scroll;
+}
+
+/* table tbody {
+    display: table;
+    width: 100%;
+} */

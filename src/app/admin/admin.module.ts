@@ -12,7 +12,8 @@ import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
 import { AlmacenComponent } from './almacen/almacen.component';
 import { NuevoRegistroComponent } from './nuevo-registro/nuevo-registro.component';
-
+import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
+// import { Select2Module } from 'ng2-select2';
 
 
 @NgModule({
@@ -23,14 +24,16 @@ import { NuevoRegistroComponent } from './nuevo-registro/nuevo-registro.componen
     PedidosComponent,
     NuevoPedidoComponent,
     AlmacenComponent,
-    NuevoRegistroComponent
+    NuevoRegistroComponent,
+    DetallePedidoComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
     Ng2SearchPipeModule,
-    NgbModule
+    NgbModule,
+    // Select2Module
   ]
 })
 export class AdminModule { }

@@ -19,7 +19,7 @@ export class UsuariosComponent implements OnInit {
   ) {
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
-        .subscribe((user: Usuario) => {
+        .subscribe((user: any) => {
           this.vendedor = user;
           this.authService.getCarteraClientes(params['id'])
             .subscribe((data: any) => {

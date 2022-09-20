@@ -23,7 +23,7 @@ export class PedidosComponent implements OnInit {
   ) {
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
-        .subscribe((user: Usuario) => {
+        .subscribe((user: any) => {
           this.administrador = user;
         })
     });
@@ -59,5 +59,9 @@ export class PedidosComponent implements OnInit {
 
   goAlmacen(){
     this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
+  }
+
+  goVistaPedido(id: number) {
+    this.router.navigate(['admin', this.administrador.id_usu, 'detalle-pedido',id], { replaceUrl: true });
   }
 }

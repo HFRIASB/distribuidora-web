@@ -84,13 +84,23 @@
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">Nombre Cliente</th>
+							<th class="text-center" scope="col">Fecha pedido</th>
+							<th class="text-center" scope="col">Fecha entrega</th>
+							<th class="text-center" scope="col">Estado</th>
 							<th class="text-center" scope="col">Direccion</th>
+							<th class="text-center" scope="col">Accion</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let pedido of pedidos">
 							<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
+							<td class="text-center">{{pedido.fVenta_ord}}</td>
+							<td class="text-center">{{pedido.fEntrega_ord}}</td>
+							<td class="text-center">{{pedido.estado_ord}}</td>
 							<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
+							<td class="text-center" (click)="goVistaPedido(pedido.id_ord)">
+								<i class="bi bi-eye"></i>
+							</td>
 						</tr>
 					</tbody>
 				</table>

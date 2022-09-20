@@ -4,6 +4,8 @@ import { RouteReuseStrategy } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Almacen } from '../models/almacen';
+import { Orden } from '../models/orden';
+import { OrdenProducto } from '../models/orden-producto';
 import { TipoEnvase } from '../models/tipo-envase';
 
 @Injectable({
@@ -22,7 +24,6 @@ export class ProductoService {
   }
 
   postProducto(data: any) {
-    console.log(data)
     if (!data.foto_prod) {
       data.foto_prod = "";//imagen que vamos a crear
     }
@@ -72,5 +73,53 @@ export class ProductoService {
       estado_almacen: almacen.estado_almacen
     }
     return this.http.post(`${this.api_url}almacen`, payload);
+  }
+
+  patchAlmacen(almacen: Almacen){
+    let payload = {
+      chofer_almacen: almacen.chofer_almacen,
+      fecha_almacen: almacen.fecha_almacen,
+      tipo_almacen: almacen.tipo_almacen,
+      cantidad_almacen: almacen.cantidad_almacen,
+      item_almacen: almacen.item_almacen,
+      estado_almacen: almacen.estado_almacen
+    }
+    return this.http.patch(this.api_url+'almacen/'+almacen.id_almacen, payload);
+  }
+
+  postPedido(pedido: any){
+    return this.http.post(`${this.api_url}orden`,pedido)
+  }
+
+  getPedidoId(id: string){
+    return this.http.get(`${this.api_url}orden/${id}`)
+  }
+
+  postDetallePedido(carrito: any, id_ord: number){
+    let payload = {
+      cantidad_op: carrito.cantidad_producto,
+      producto: carrito.producto.id_prod,
+      orden: id_ord
+    }
+    return this.http.post(`${this.api_url}orden-producto`,payload)
+  }
+
+  getPedidoProductos(idOrden: string){
+    return this.http.get(`${this.api_url}orden-producto/byOrden/${idOrden}`)
+  }
+
+  patchPedidoProducto(producto: OrdenProducto){
+    let payload = {
+      cantidad_op: producto.cantidad_op,
+      precioUni_op: producto.precioUni_op
+    }
+    return this.http.patch(`${this.api_url}orden-producto/${producto.id_op}`,payload)
+  }
+
+  patchPedido(pedido: Orden) {
+    let payload = {
+
+    }
+    return this.http.patch(`${this.api_url}orden/${pedido.id_ord}`, pedido)
   }
 }

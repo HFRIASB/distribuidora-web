@@ -50,7 +50,7 @@
 					</div>
 				</div>
 			</header>
-	
+
 			<div class="margin">
 				<div class="rol-container">
 					<label>Filtrar por Rol: </label>
@@ -70,7 +70,7 @@
 					</thead>
 					<tbody>
 						<tr *ngFor="let usuario of usuarios | filter:searchText" (click)="seleccionarUsuario(usuario)">
-	
+
 							<th class="text-center" scope="row">{{usuario.id_usu}}</th>
 							<td class="text-center">{{usuario.nombre_usu}}</td>
 							<td class="text-center">{{usuario.correo_usu}}</td>
@@ -102,35 +102,28 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form #form1="ngForm" (ngSubmit)="registrarUsuario(form1.form.value)">
+				<form #form1="ngForm">
 					<div class="form-group">
 						<label for="exampleFormControlInput8">Nombre del usuario</label>
-						<input type="text" class="form-control" ngModel name="nombre">
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.nombre_usu" name="nombre">
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlInput9">Numero de documento</label>
-						<input type="text" class="form-control" ngModel name="nroDoc">
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.nroDocu_usu" name="nroDoc">
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlInput9">Numero de celular/telefono:</label>
-						<input type="text" class="form-control" ngModel name="telefono">
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.celular_usu" name="telefono">
 					</div>
 					<fieldset class="form-group">
 						<div class="row">
-							<legend class="col-form-label col-sm-2 pt-0">Genero: </legend>
-							<div class="col-sm-10">
+							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
+							<div class="col-sm-10" *ngFor="let genero of generos">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios3"
-										value="option1" checked>
-									<label class="form-check-label" for="gridRadios1">
-										Hombre
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios2"
-										value="option2">
+									<input class="form-check-input" type="radio" (change)="changeRadioGenero($event.target)"
+										name="generoRadio" value="{{genero}}">
 									<label class="form-check-label">
-										Mujer
+										{{genero}}
 									</label>
 								</div>
 							</div>
@@ -138,20 +131,13 @@
 					</fieldset>
 					<fieldset class="form-group">
 						<div class="row">
-							<legend class="col-form-label col-sm-2 pt-0">Estado: </legend>
-							<div class="col-sm-10">
+							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
+							<div class="col-sm-10" *ngFor="let estado of estados">
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios6"
-										value="option1" checked>
+									<input class="form-check-input" type="radio" (change)="changeRadioEstado($event.target)"
+										name="estadoRadio" value="{{estado}}">
 									<label class="form-check-label">
-										Activo
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios4"
-										value="option2">
-									<label class="form-check-label">
-										Inactivo
+										{{estado}}
 									</label>
 								</div>
 							</div>
@@ -159,31 +145,33 @@
 					</fieldset>
 					<div class="form-group">
 						<label for="exampleFormControlInput4">Correo electronico o nombre de usuario</label>
-						<input type="text" class="form-control" ngModel name="correo">
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.correo_usu" name="correo">
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlInput5">Contrasena</label>
-						<input type="password" class="form-control" ngModel name="password">
+						<input type="password" class="form-control" [(ngModel)]="usuarioAuxiliar.password_usu" name="password">
 					</div>
 					<div class="form-group">
 						<label for="exampleFormControlInput6">Observacion</label>
-						<input type="text" class="form-control" ngModel name="observacion">
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.observacion_usu" name="observacion">
 					</div>
-					<div class="form-group">
-						<label for="exampleFormControlInput7">Rol:</label>
-						<select class="form-select" aria-label="Default select example">
-							<option value="1">Administrador</option>
-							<option value="2">Vendedor</option>
-							<option value="3">Repartidor</option>
-							<option value="4">Cliente</option>
-						</select>
-					</div>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Rol</legend>
+							<div class="col-sm-10" *ngFor="let rol of rolUsuario">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" (change)="rolSeleccionadoNuevoUsuario($event.target)"
+										name="rolRadio" value="{{rol.id_rol}}">
+									<label class="form-check-label">
+										{{rol.nombre_rol}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button type="submit" class="btn btn-warning">Guardar cambios</button>
+					<button type="submit" class="btn btn-warning" (click)="registrarUsuario()" data-dismiss="modal">Guardar cambios</button>
 				</form>
-			</div>
-			<div class="modal-footer">
-
 			</div>
 		</div>
 	</div>
