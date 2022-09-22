@@ -11,3 +11,12 @@
 	margin: 20px auto;
 	width: 80%;
 }
+
+.width-min {
+	width: min-content;
+}
+
+.etiqueta{
+	font-size: small;
+	color:#555555;
+}

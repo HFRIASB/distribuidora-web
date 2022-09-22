@@ -74,6 +74,14 @@ export class AlmacenComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'nuevo-registro'], { replaceUrl: true });
   }
 
+  goVarios(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
+  }
+
+  goGlobal(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
+  }
+
   clearSearch() {
     this.searchText = '';
   }

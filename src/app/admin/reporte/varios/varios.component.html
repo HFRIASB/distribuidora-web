@@ -1,0 +1,78 @@
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</a>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap active" data-parent="#navbar1"
+								data-toggle="collapse" data-target="#m1" aria-expanded="false">
+								<span class="span-active"> Reportes</span>
+							</a>
+							<div class="collapse" id="m1">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate" (click)="goVarios()">Varios</a>
+									<a class="nav-link text-truncate" (click)="goGlobal()">Global</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item" (click)="goPedidos()">
+							<a class="nav-link"><span>Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goProductos()">
+							<a class="nav-link"><span>Productos</span></a>
+						</li>
+						<li class="nav-item" (click)="goUsuarios()">
+							<a class="nav-link"><span>Usuarios</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link"><span>Almacen</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<!-- <header class="p-3 text-bg-dark">
+
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+					<form class="col-sm-8" role="search">
+						<input type="text" name="search" [(ngModel)]="searchText"
+							class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
+							aria-label="Search">
+						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+							data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
+					</form>
+
+				</div>
+			</header> -->
+			<div class="card">
+				<div class="card-header text-center">
+					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item" (click)="tablNavegador('general')">
+							<a class="nav-link active" *ngIf="tabNavegador=='general'">general</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='general'">general</a>
+						</li>
+						<li class="nav-item" (click)="tablNavegador('saldos')">
+							<a class="nav-link active" *ngIf="tabNavegador=='saldos'">saldos</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='saldos'">saldos</a>
+						</li>
+						<li class="nav-item" (click)="tablNavegador('vendedores')">
+							<a class="nav-link active" *ngIf="tabNavegador=='vendedores'">vendedores</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='vendedores'">vendedores</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card-body" *ngIf="tabNavegador=='semanal'">
+					
+				</div>
+				<div class="card-body" *ngIf="tabNavegador=='mensual'">
+				</div>
+			</div>
+		</main>
+	</div>
+</div>

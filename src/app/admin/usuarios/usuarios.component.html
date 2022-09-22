@@ -15,8 +15,8 @@
 							</a>
 							<div class="collapse" id="m1">
 								<ul class="flex-column nav">
-									<a class="nav-link text-truncate">Kardex</a>
-									<a class="nav-link text-truncate">Global</a>
+									<a class="nav-link text-truncate" (click)="goVarios()">Varios</a>
+									<a class="nav-link text-truncate"(click)="goGlobal()">Global</a>
 								</ul>
 							</div>
 						</li>
@@ -64,6 +64,7 @@
 							<th class="text-center" scope="col">#</th>
 							<th class="text-center" scope="col">Nombre</th>
 							<th class="text-center" scope="col">Usuario</th>
+							<th class="text-center" scope="col">Rol</th>
 							<th class="text-center" scope="col">Estado</th>
 							<th class="text-center" scope="col">Acciones</th>
 						</tr>
@@ -74,6 +75,7 @@
 							<th class="text-center" scope="row">{{usuario.id_usu}}</th>
 							<td class="text-center">{{usuario.nombre_usu}}</td>
 							<td class="text-center">{{usuario.correo_usu}}</td>
+							<td class="text-center">{{usuario.rol.nombre_rol}}</td>
 							<td class="text-center">
 								<a *ngIf="usuario.estado_usu == 'Activo'"
 									class="badge badge-warning">{{usuario.estado_usu}}</a>

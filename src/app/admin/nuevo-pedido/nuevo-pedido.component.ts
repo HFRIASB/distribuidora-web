@@ -109,4 +109,12 @@ export class NuevoPedidoComponent implements OnInit {
   goUsuarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
   }
+
+  goVarios(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
+  }
+
+  goGlobal(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
+  }
 }

@@ -13,6 +13,8 @@ import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
 import { AlmacenComponent } from './almacen/almacen.component';
 import { NuevoRegistroComponent } from './nuevo-registro/nuevo-registro.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
+import { GlobalComponent } from './reporte/global/global.component';
+import { VariosComponent } from './reporte/varios/varios.component';
 // import { Select2Module } from 'ng2-select2';
 
 
@@ -25,7 +27,9 @@ import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.componen
     NuevoPedidoComponent,
     AlmacenComponent,
     NuevoRegistroComponent,
-    DetallePedidoComponent
+    DetallePedidoComponent,
+    GlobalComponent,
+    VariosComponent
   ],
   imports: [
     CommonModule,

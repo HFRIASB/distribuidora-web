@@ -15,8 +15,8 @@
 							</a>
 							<div class="collapse" id="m1">
 								<ul class="flex-column nav">
-									<a class="nav-link text-truncate">Kardex</a>
-									<a class="nav-link text-truncate">Global</a>
+									<a class="nav-link text-truncate" (click)="goVarios()">Varios</a>
+									<a class="nav-link text-truncate" (click)="goGlobal()">Global</a>
 								</ul>
 							</div>
 						</li>
@@ -38,22 +38,24 @@
 		</aside>
 		<main class="col">
 			<header class="p-3 text-bg-dark">
-				
-					<button type="button" class="btn btn-outline-warning" (click)="goNuevoPedido()">Nuevo Pedido</button>
-			
-				<div class="datePicker">
-					<form class="row row-cols-sm-auto" role="search">
-						<div class="picker">
-							<!-- <div class="input-group"> -->
-								<!-- TODO: max auto input -->
-								<input type="text" name="search" [(ngModel)]="searchText"
-									class="form-control form-control-dark text-bg-dark" placeholder="Buscar Cliente..."
-									aria-label="Search">
-							<!-- </div> -->
-						</div>
-	
-						<button type="button" class="btn btn-warning picker mt-1">Seleccionar cliente</button>
-					</form>
+
+				<button type="button" class="btn btn-outline-warning" (click)="goNuevoPedido()">Nuevo Pedido</button>
+				<button type="button" class=" ml-5 btn btn-warning" (click)="quitarFiltros()">Quitar filtros</button>
+				<div class="mt-3">
+					<label class="">Filtrar por cliente: </label>
+					<label class="ml-1 font-weight-bold" *ngIf="filtros.cliente?.id_usu!=undefined">{{filtros.cliente.nombre_usu}} <i class="bi bi-x-lg" (click)="quitarFiltroCliente()"></i></label>
+					<button type="button" class="btn btn-warning ml-2" data-toggle="modal"
+						data-target="#seleccionarCliente">Seleccionar cliente</button>
+				</div>
+				<div class="select-container">
+					<label>Filtrar por estado: </label>
+					<div class="input-group select">
+						<select class="ml-1 form-select select " name="estado" (click)="changeRadioEstado($event.target)">
+							<option *ngFor="let estado of estados" [ngValue]="estado" 
+							[selected]="estado == 'Todos'">
+								{{estado}}</option>
+						</select>
+					</div>
 				</div>
 				<div class="datePicker">
 					<form class="row row-cols-sm-auto">
@@ -74,7 +76,8 @@
 							</div>
 						</div>
 						<div class="col-12 picker mt-1">
-							<button type="button" class="btn btn-warning picker mt-1" (click)="filtrarPorFecha()">Buscar por fecha</button>
+							<button type="button" class="btn btn-warning picker mt-1" (click)="filtrarPorFecha()">Buscar
+								por fecha</button>
 						</div>
 					</form>
 				</div>
@@ -93,12 +96,12 @@
 					</thead>
 					<tbody>
 						<tr *ngFor="let pedido of pedidos">
-							<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
-							<td class="text-center">{{pedido.fVenta_ord}}</td>
-							<td class="text-center">{{pedido.fEntrega_ord}}</td>
+							<td class="text-center">{{pedido.usuario?.nombre_usu}}</td>
+							<td class="text-center">{{getFechaFormat(pedido.fVenta_ord)}}</td>
+							<td class="text-center">{{getFechaFormat(pedido.fEntrega_ord)}}</td>
 							<td class="text-center">{{pedido.estado_ord}}</td>
-							<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
-							<td class="text-center" (click)="goVistaPedido(pedido.id_ord)">
+							<td class="text-center">{{pedido.direccion?.nombre_direc}}</td>
+							<td class="text-center" (click)="goVistaPedido(pedido)">
 								<i class="bi bi-eye"></i>
 							</td>
 						</tr>
@@ -106,5 +109,30 @@
 				</table>
 			</div>
 		</main>
+	</div>
+</div>
+
+<div class="modal fade" id="seleccionarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar cliente</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<input type="text" name="search" [(ngModel)]="searchTextCliente"
+						class="form-control form-control text-bg mt-1 ml-1 mt-2 mb-2" placeholder="Buscar cliente..."
+						aria-label="Search">
+					<div *ngFor="let cliente of clientes | filter:searchTextCliente" class="m-2"
+						(click)="seleccionarCliente(cliente)" data-dismiss="modal">
+						<label>{{cliente.nombre_usu}} | {{cliente.correo_usu}}</label>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>

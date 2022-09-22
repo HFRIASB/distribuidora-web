@@ -15,8 +15,8 @@
                             </a>
                             <div class="collapse" id="m1">
                                 <ul class="flex-column nav">
-                                    <a class="nav-link text-truncate">Kardex</a>
-                                    <a class="nav-link text-truncate">Global</a>
+                                    <a class="nav-link text-truncate" (click)="goVarios()">Varios</a>
+                                    <a class="nav-link text-truncate" (click)="goGlobal()">Global</a>
                                 </ul>
                             </div>
                         </li>
@@ -42,8 +42,8 @@
                     <input type="text" name="search" [(ngModel)]="searchText"
                         class="form-control form-control-dark text-bg-dark mt-1 ml-1" placeholder="Buscar producto..."
                         aria-label="Search" *ngIf="tabNavegador=='productos'">
-                    <button type="button" class="btn btn-warning ml-1 mt-1" (click)="nuevoProducto()" data-toggle="modal"
-                        data-target="#nuevoProducto">Anadir nuevo producto</button>
+                    <button type="button" class="btn btn-warning ml-1 mt-1" (click)="nuevoProducto()"
+                        data-toggle="modal" data-target="#nuevoProducto">Anadir nuevo producto</button>
                     <button type="button" class="btn btn-warning ml-1 mt-1" data-toggle="modal"
                         data-target="#nuevoEnvase">Crear envase</button>
                 </form>
@@ -201,8 +201,13 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Unidad de medida</label>
-                        <input type="text" name="uniMedi" required [(ngModel)]="productoSeleccionado.uniMedida_prod"
-                            class="form-control">
+                        <input type="number" name="numeroUniMedi" required [(ngModel)]="uniMedi.cantidad"
+                            class="form-control width-min">
+                        <label class="etiqueta">Cantidad : 300, 200, 1 ,etc</label>
+                        <select class="form-select width-min" name="medida" [(ngModel)]="uniMedi.medida">
+                            <option *ngFor="let uniMedi of uniMedis">{{uniMedi}}</option>
+                        </select>
+                        <label class="etiqueta"> Medida: ml, gr, kl ,etc</label>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Stock</label>
@@ -238,7 +243,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-warning" (click)="crearNuevoProducto()"  data-dismiss="modal">Guardar cambios</button>
+                <button type="button" class="btn btn-warning" (click)="crearNuevoProducto()"
+                    data-dismiss="modal">Guardar cambios</button>
             </div>
         </div>
     </div>
@@ -260,7 +266,8 @@
                         <input type="text" ngModel name="nombre" class="form-control">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-warning" (click)="crearEnvase(envaseForm.form.value)" data-dismiss="modal">Guardar cambios</button>
+                    <button type="submit" class="btn btn-warning" (click)="crearEnvase(envaseForm.form.value)"
+                        data-dismiss="modal">Guardar cambios</button>
                 </form>
             </div>
         </div>
@@ -283,7 +290,8 @@
                         <input type="text" name="e" [(ngModel)]="envaseSeleccionado.nombre_envase" class="form-control">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" (click)="editarEnvase()"  data-dismiss="modal" class="btn btn-warning">Guardar cambios</button>
+                    <button type="submit" (click)="editarEnvase()" data-dismiss="modal" class="btn btn-warning">Guardar
+                        cambios</button>
                 </form>
             </div>
         </div>

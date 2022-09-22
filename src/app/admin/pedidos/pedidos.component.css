@@ -7,3 +7,14 @@
 /* .picker {
 	margin-top: 10px;
 } */
+
+.select {
+	width: min-content;
+}
+
+.select-container{
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	align-items: center;
+  }

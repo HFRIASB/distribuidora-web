@@ -39,7 +39,7 @@ export class ProductoService {
   }
 
   getPedidos() {
-    return this.http.get(`${this.api_url}orden`)
+    return this.http.get<Orden[]>(`${this.api_url}orden`)
   }
 
   getEnvases() {

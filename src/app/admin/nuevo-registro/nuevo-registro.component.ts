@@ -92,6 +92,14 @@ export class NuevoRegistroComponent implements OnInit {
   goPedidos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
   }
+  
+  goVarios(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
+  }
+
+  goGlobal(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
+  }
 
   volverAlmacen() {
     this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });

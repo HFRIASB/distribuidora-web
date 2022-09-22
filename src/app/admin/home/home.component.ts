@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Estado } from 'src/app/models/enums/estado';
+import { UniMedi  } from 'src/app/models/enums/unidad-medida';
 import { Producto } from 'src/app/models/producto';
 import { TipoEnvase } from 'src/app/models/tipo-envase';
 import { Usuario } from 'src/app/models/usuario';
@@ -14,6 +15,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class HomeComponent implements OnInit {
   estados:any = Object.keys(Estado)
+  uniMedis: any = Object.values(UniMedi)
   administrador: Usuario = new Usuario();
   productos: Producto[] = [];
   productoSeleccionado: Producto = new Producto();
@@ -21,6 +23,11 @@ export class HomeComponent implements OnInit {
   searchText = "";
   tabNavegador = "productos"
   envases: TipoEnvase[] = [];
+
+  uniMedi = {
+    cantidad: 0,
+    medida: ''
+  }
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -83,6 +90,7 @@ export class HomeComponent implements OnInit {
   }
 
   crearNuevoProducto() {
+    this.productoSeleccionado.uniMedida_prod = this.uniMedi.cantidad.toString() + '-'+this.uniMedi.medida;
     if (this.productoSeleccionado.nombre_prod || this.productoSeleccionado.uniMedida_prod || this.productoSeleccionado.stock_prod || this.productoSeleccionado.precioCompra_prod) {
       this.productoService.postProducto(this.productoSeleccionado)
         .subscribe(((data :any) => {
@@ -94,6 +102,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
   goUsuarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
   }
@@ -104,6 +113,14 @@ export class HomeComponent implements OnInit {
 
   goAlmacen() {
     this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
+  }
+
+  goVarios(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
+  }
+
+  goGlobal(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
   crearEnvase(nombre_envase: any) {

@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
 import { NuevoRegistroComponent } from './nuevo-registro/nuevo-registro.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { GlobalComponent } from './reporte/global/global.component';
+import { VariosComponent } from './reporte/varios/varios.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { VistaUsuarioComponent } from './vista-usuario/vista-usuario.component';
 
@@ -41,6 +43,14 @@ const routes: Routes = [
   {
     path: 'detalle-pedido/:idPedido',
     component: DetallePedidoComponent
+  },
+  {
+    path: 'reporte-global',
+    component: GlobalComponent
+  },
+  {
+    path: 'reporte-varios',
+    component: VariosComponent
   }
 ];
 
