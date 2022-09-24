@@ -21,8 +21,6 @@ export class GlobalComponent implements OnInit {
   years = Object.values(Years)
   administrador: Usuario = new Usuario();
   tabNavegador = 'semanal'
-  semanaSelect: string = '';
-  yearSelect: string = '';
   productos: Producto[] = [];
   filtros = {
     semana: '',
@@ -31,6 +29,10 @@ export class GlobalComponent implements OnInit {
     cantidad: 0,
     unidad: ''
   }
+  variacionPorcentual: any = [
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+  ];
+  verTabla = false;
   datosReporte = [];
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +40,7 @@ export class GlobalComponent implements OnInit {
     private authService: AuthService,
     private productoService: ProductoService,
   ) {
-    console.log(this.actualYear)
+    this.meses = Object.values(Meses)
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
         .subscribe((user: any) => {
@@ -56,6 +58,18 @@ export class GlobalComponent implements OnInit {
 
   tablNavegador(nav: string) {
     this.tabNavegador = nav;
+    this.filtros = {
+      semana: '',
+      year: '',
+      producto: new Producto(),
+      cantidad: 0,
+      unidad: ''
+    }
+    this.variacionPorcentual = [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ];
+    this.datosReporte = [];
+    this.verTabla = false;
   }
 
   seleccionarProducto(producto: Producto) {
@@ -63,8 +77,51 @@ export class GlobalComponent implements OnInit {
   }
 
   aplicarFiltros() {
-    this.meses = Object.values(Meses)
-    this.formatoUnidadMedida()
+    if (this.filtros.semana != ''
+      && this.filtros.year != ''
+      && this.filtros.producto.id_prod != undefined) {
+      this.formatoUnidadMedida()
+      this.productoService.getProductoVendidoPorYear(
+        this.filtros.producto.id_prod.toString(),
+        this.getSemana(this.filtros.semana),
+        this.filtros.year
+      ).subscribe((data: any) => {
+        this.verTabla = true;
+        this.datosReporte = data;
+        for (let index = 1; index < 12; index++) {
+          if (this.datosReporte[index - 1] != 0 && this.datosReporte[index] != 0) {
+            this.variacionPorcentual[index] = Number((((this.datosReporte[index] * this.filtros.cantidad) / (this.datosReporte[index - 1] * this.filtros.cantidad)) - 1) * 100).toFixed(2);
+
+          }
+        }
+      })
+    } else {
+      console.log('alerta ingrese todos los datos')
+    }
+  }
+
+  aplicarFiltrosMeses() {
+    if (
+      this.filtros.year != ''
+      && this.filtros.producto.id_prod != undefined
+    ) {
+      this.formatoUnidadMedida()
+      this.productoService.getProductoVendidoPorYearMonth(
+        this.filtros.producto.id_prod.toString(),
+        this.filtros.year
+      ).subscribe((data: any) => {
+        this.datosReporte = data;
+        this.verTabla = true;
+        for (let index = 1; index < 12; index++) {
+          if (this.datosReporte[index - 1] != 0 && this.datosReporte[index] != 0) {
+            this.variacionPorcentual[index] = Number((((this.datosReporte[index] * this.filtros.cantidad) / (this.datosReporte[index - 1] * this.filtros.cantidad)) - 1) * 100).toFixed(2);
+
+          }
+        }
+      })
+    } else {
+      console.log('alerta ingrese todos los datos')
+    }
   }
 
   formatoUnidadMedida() {
@@ -85,6 +142,18 @@ export class GlobalComponent implements OnInit {
       }
       this.filtros.cantidad = Number(cantidadString);
       this.filtros.unidad = medidaString;
+    }
+  }
+
+  getSemana(semana: string) {
+    if (semana == 'Del 1 al 7') {
+      return 'primera';
+    } else if (semana == 'Del 8 al 14') {
+      return 'segunda'
+    } else if (semana == 'Del 15 al 21') {
+      return 'tercera'
+    } else {
+      return 'cuarta';
     }
   }
 

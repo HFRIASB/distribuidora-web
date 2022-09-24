@@ -37,19 +37,6 @@
 			</nav>
 		</aside>
 		<main class="col">
-			<!-- <header class="p-3 text-bg-dark">
-
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<form class="col-sm-8" role="search">
-						<input type="text" name="search" [(ngModel)]="searchText"
-							class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
-							aria-label="Search">
-						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
-							data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
-					</form>
-
-				</div>
-			</header> -->
 			<div class="card">
 				<div class="card-header text-center">
 					<ul class="nav nav-tabs card-header-tabs">
@@ -83,12 +70,12 @@
 							data-target="#seleccionarProducto">Producto</button>
 					</div>
 					<button type="button" class="btn btn-warning mb-2 ml-2 pl-3 pr-3" (click)="aplicarFiltros()">Aplicar Filtros</button>
-					<table class="table">
-						<thead class="text-center">
+					<table class="table" *ngIf="verTabla">
+						<thead class="text-center table-hover">
 							<tr>
 								<th scope="col">Mes</th>
 								<th scope="col">Unidades vendidas</th>
-								<th scope="col"></th>
+								<th scope="col">{{filtros.unidad}} vendidos</th>
 								<th scope="col">Variacion Porcentual</th>
 								<th scope="col">Semanas comparadas</th>
 							</tr>
@@ -96,28 +83,48 @@
 						<tbody class="text-center">
 							<tr *ngFor="let mes of meses; let i=index">
 								<td>{{mes}}</td>
-								<td></td>
-								<td>{{filtros.producto.uniMedida_prod}}</td>
-								<td><label *ngIf="i>0" >s</label></td>
+								<td>{{datosReporte[i]}}</td>
+								<td>{{datosReporte[i]*filtros.cantidad}}</td>
+								<td><label *ngIf="i>0" >{{variacionPorcentual[i]}}%</label></td>
 								<td><label *ngIf="i>0" >{{meses[i-1]}}-{{mes}}</label></td>
-								<!-- <td scope="row">{{producto.id_prod}}</td>
-								<td>{{producto.nombre_prod}}</td>
-								<td>{{producto.uniMedida_prod}}</td>
-								<td *ngIf="producto.estado_prod == 'Activo'">
-									<a class="badge badge-warning">{{producto.estado_prod}}</a>
-								</td>
-								<td *ngIf="producto.estado_prod == 'Inactivo'">
-									<a class="badge badge-danger">{{producto.estado_prod}}</a>
-								</td>
-								<td (click)="editarProducto(producto)" data-toggle="modal"
-									data-target="#modalEditarProducto">
-									<i class="bi bi-pencil-square"></i>
-								</td> -->
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="card-body" *ngIf="tabNavegador=='mensual'">
+					<div class="rol-container">
+						<label>Seleccionar año: </label>
+						<select class="form-select" [(ngModel)]="filtros.year">
+							<option *ngFor="let year of years">{{year}}</option>
+						</select>
+					</div>
+					<div class="ml-2">
+						<label>Seleccionar producto: </label>
+						<label class="ml-1 font-weight-bold">{{filtros.producto.nombre_prod}} | {{this.filtros.producto.uniMedida_prod}}</label>
+						<button type="button" class="btn btn-warning ml-2" data-toggle="modal"
+							data-target="#seleccionarProducto">Producto</button>
+					</div>
+					<button type="button" class="btn btn-warning mb-2 ml-2 pl-3 pr-3" (click)="aplicarFiltrosMeses()">Aplicar Filtros</button>
+					<table class="table" *ngIf="verTabla">
+						<thead class="text-center table-hover">
+							<tr>
+								<th scope="col">Mes</th>
+								<th scope="col">Unidades vendidas</th>
+								<th scope="col">{{filtros.unidad}} vendidos</th>
+								<th scope="col">Variacion Porcentual</th>
+								<th scope="col">Semanas comparadas</th>
+							</tr>
+						</thead>
+						<tbody class="text-center">
+							<tr *ngFor="let mes of meses; let i=index">
+								<td>{{mes}}</td>
+								<td>{{datosReporte[i]}}</td>
+								<td>{{datosReporte[i]*filtros.cantidad}}</td>
+								<td><label *ngIf="i>0" >{{variacionPorcentual[i]}}%</label></td>
+								<td><label *ngIf="i>0" >{{meses[i-1]}}-{{mes}}</label></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</main>

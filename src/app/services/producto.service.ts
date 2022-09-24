@@ -122,4 +122,12 @@ export class ProductoService {
     }
     return this.http.patch(`${this.api_url}orden/${pedido.id_ord}`, pedido)
   }
+
+  getProductoVendidoPorYear(id_prod: string, semana: string, year: string){
+    return this.http.get(`${this.api_url}orden-producto/producto-year/${id_prod}/${year}/${semana}`)
+  }
+
+  getProductoVendidoPorYearMonth(id_prod: string, year: string){
+    return this.http.get(`${this.api_url}orden-producto/producto-year-month/${id_prod}/${year}`)
+  }
 }
