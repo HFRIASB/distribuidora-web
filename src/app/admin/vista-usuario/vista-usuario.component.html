@@ -1,196 +1,3 @@
-<!-- <div class="content">
-	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
-		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			<svg class="bi me-2" width="40" height="32">
-				<use xlink:href="#bootstrap"></use>
-			</svg>
-			<span class="fs-4">Menu</span>
-		</a>
-		<hr>
-		<ul class="nav nav-pills flex-column mb-auto">
-			<li (click)="goProductos()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Productos
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" aria-current="page">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#home"></use>
-					</svg>
-					Usuarios
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Ventas
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#table"></use>
-					</svg>
-					Proovedores
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#grid"></use>
-					</svg>
-					Ingresos
-				</a>
-			</li>
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#people-circle"></use>
-					</svg>
-					Categoria
-				</a>
-			</li>
-		</ul>
-		<hr>
-		<div class="dropdown">
-			<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-				id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-				<img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-				<strong>mdo</strong>
-			</a>
-			<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-				<li><a class="dropdown-item" href="#">New project...</a></li>
-				<li><a class="dropdown-item" href="#">Settings</a></li>
-				<li><a class="dropdown-item" href="#">Profile</a></li>
-				<li>
-					<hr class="dropdown-divider">
-				</li>
-				<li><a class="dropdown-item" href="#">Sign out</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="container-component">
-		<header class="p-3 text-bg-dark">
-			<button type="button" class="btn btn-warning" (click)="volverAtras()">Volver a la lista de Usuarios</button>
-		</header>
-		<div class="margin">
-			<div class="card">
-				<div class="card-header text-center">
-					<ul class="nav nav-tabs card-header-tabs">
-						<li class="nav-item" (click)="tablNavegador('informacion')">
-							<a class="nav-link active" *ngIf="tabNavegador=='informacion'">Datos personales</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='informacion'">Datos personales</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('pagos')" *ngIf="'Cliente'==rol">
-							<a class="nav-link active" *ngIf="tabNavegador=='pagos'">Pagos Realizados</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='pagos'">Pagos Realizados</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('direcciones')" *ngIf="'Cliente'==rol">
-							<a class="nav-link active" *ngIf="tabNavegador=='direcciones'"> Direcciones</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='direcciones'">Direcciones</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('carteraCliente')" *ngIf="'Vendedor'==rol">
-							<a class="nav-link active" *ngIf="tabNavegador=='carteraCliente'"> Cartera cliente</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='carteraCliente'">Cartera cliente</a>
-						</li>
-					</ul>
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='informacion'">
-					<h3 class="card-title">{{usuario.nombre_usu}} </h3>
-					<p class="font-weight-bold">Numero de documento</p>
-					<p class="card-text">{{usuario.nroDocu_usu}}</p>
-					<p class="font-weight-bold">Celular: </p>
-					<p class="card-text">{{usuario.celular_usu}}</p>
-					<p class="font-weight-bold">Correo o Usuario: </p>
-					<p class="card-text">{{usuario.correo_usu}}</p>
-					<p class="font-weight-bold">Estado: </p>
-					<p class="card-text">{{usuario.estado_usu}}</p>
-					<p class="font-weight-bold">Deuda Total: </p>
-					<p class="card-text">{{usuario.deuda_usu}}</p>
-				</div>
-				<div class="card-body table-pago" *ngIf="tabNavegador=='pagos' && 'Cliente'==rol">
-					<button type="button" class="btn btn-warning" data-toggle="modal"
-						data-target="#realizarPago">Realizar pago</button>
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th class="text-center" scope="col">Monto</th>
-								<th class="text-center" scope="col">Fecha</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let pago of usuario.pago">
-								<td class="text-center">{{pago.cantidad_pago}}</td>
-								<td class="text-center">{{pago.fecha_pago}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='direcciones' && 'Cliente'==rol">
-					<button type="button" class="btn btn-warning" data-toggle="modal"
-						data-target="#nuevaDireccion">Agregar nueva direccion</button>
-					<table class="table">
-						<thead>
-							<tr>
-								<th class="text-center" scope="col">Nombre Direccion</th>
-								<th class="text-center" scope="col">Descripcion</th>
-								<th class="text-center" scope="col">Rubro</th>
-								<th class="text-center" scope="col">Telefono</th>
-								<th class="text-center" scope="col">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let direccion of usuario.direccion">
-								<td class="text-center">{{direccion.nombre_direc}}</td>
-								<td class="text-center">{{direccion.descripcion_direc}}</td>
-								<td class="text-center">{{direccion.rubro_direc}}</td>
-								<td class="text-center">{{direccion.telefono_direc}}</td>
-								<td class="text-center">
-									<i class="bi bi-pencil-square  i-plain" data-toggle="modal"
-										data-target="#editarDireccion"></i>
-									<i class="bi bi-geo-alt i-plain" data-toggle="modal"
-										data-target="#verDireccion"></i>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='carteraCliente' && 'Vendedor'==rol">
-					<button type="button" class="btn btn-warning" data-toggle="modal"
-						data-target="#nuevoCliente">Asignar Nuevo cliente</button>
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th class="text-center" scope="col">Nombre cliente</th>
-								<th class="text-center" scope="col">Estado</th>
-								<th class="text-center" scope="col">Celular</th>
-								<th class="text-center" scope="col">nro Documento</th>
-								<th class="text-center" scope="col">Observacion</th>
-								<th class="text-center" scope="col">Deuda</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let cliente of carteraCliente">
-								<td class="text-center">{{cliente.usuario.nombre_usu}}</td>
-								<td class="text-center">{{cliente.usuario.estado_usu}}</td>
-								<td class="text-center">{{cliente.usuario.celular_usu}}</td>
-								<td class="text-center">{{cliente.usuario.nroDocu_usu}}</td>
-								<td class="text-center">{{cliente.usuario.observacion_usu}}</td>
-								<td class="text-center">{{cliente.usuario.deuda_usu}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
 <div class="container-fluid">
 	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
 		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
@@ -210,6 +17,18 @@
 								<ul class="flex-column nav">
 									<a class="nav-link text-truncate" (click)="goVarios()">Varios</a>
 									<a class="nav-link text-truncate" (click)="goGlobal()">Global</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
+								data-toggle="collapse" data-target="#m2" aria-expanded="false">
+								<span class=""> Control <br> fisico</span>
+							</a>
+							<div class="collapse" id="m2">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate" (click)="goCFProducto()">Productos</a>
+									<a class="nav-link text-truncate" (click)="goCFEnvase()">Envases</a>
 								</ul>
 							</div>
 						</li>
@@ -284,8 +103,8 @@
 								<tr *ngFor="let pago of usuario.pago">
 									<td class="text-center">{{pago.cantidad_pago}}</td>
 									<td class="text-center">{{pago.fecha_pago}}</td>
-									<td (click)="editarPago(pago)" data-toggle="modal"
-										data-target="#editarPago" class="text-center">
+									<td (click)="editarPago(pago)" data-toggle="modal" data-target="#editarPago"
+										class="text-center">
 										<i class="bi bi-pencil-square"></i>
 									</td>
 								</tr>
@@ -472,13 +291,14 @@
 			</div>
 			<div class="modal-body">
 				<form>
-                    <div class="form-group">
-                        <label>Nombre del envase:</label>
-                        <input type="text" name="e" [(ngModel)]="pagoAuxiliar.cantidad_pago" class="form-control">
-                    </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" (click)="guardarPagoEditado()"  data-dismiss="modal" class="btn btn-warning">Guardar cambios</button>
-                </form>
+					<div class="form-group">
+						<label>Nombre del envase:</label>
+						<input type="text" name="e" [(ngModel)]="pagoAuxiliar.cantidad_pago" class="form-control">
+					</div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" (click)="guardarPagoEditado()" data-dismiss="modal"
+						class="btn btn-warning">Guardar cambios</button>
+				</form>
 			</div>
 		</div>
 	</div>

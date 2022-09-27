@@ -101,6 +101,14 @@ export class NuevoRegistroComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
+  goCFProducto(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
+  }
+
+  goCFEnvase(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
+  }
+  
   volverAlmacen() {
     this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
   }

@@ -4,6 +4,8 @@ import { RouteReuseStrategy } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Almacen } from '../models/almacen';
+import { ControlFisicoEnvase } from '../models/control-fisico-envase';
+import { ControlFisicoProducto } from '../models/control-fisico-producto';
 import { Orden } from '../models/orden';
 import { OrdenProducto } from '../models/orden-producto';
 import { TipoEnvase } from '../models/tipo-envase';
@@ -129,5 +131,35 @@ export class ProductoService {
 
   getProductoVendidoPorYearMonth(id_prod: string, year: string){
     return this.http.get(`${this.api_url}orden-producto/producto-year-month/${id_prod}/${year}`)
+  }
+
+  postControlProducto(control: ControlFisicoProducto){
+    let payload= {
+      fecha_cfp: control.fecha_cfp,
+      detalle_cfp: control.detalle_cfp,
+      entrada_cfp: control.entrada_cfp,
+      salida_cfp: control.salida_cfp,
+      producto: control.producto.id_prod
+    }
+    return this.http.post(`${this.api_url}control-fisico-producto`,payload)
+  }
+
+  getControlProducto(month: number, year: string, idProducto: number){
+    return this.http.get(`${this.api_url}control-fisico-producto/producto/${idProducto}/month/${month}/year/${year}`)
+  }
+
+  postControlFisicoEnvase(control: ControlFisicoEnvase){
+    let payload= {
+      fecha_cfe: control.fecha_cfe,
+      detalle_cfe: control.detalle_cfe,
+      entrada_cfe: control.entrada_cfe,
+      salida_cfe: control.salida_cfe,
+      tipo_envase: control.envase.id_envase
+    }
+    return this.http.post(`${this.api_url}control-fisico-envase`,payload)
+  }
+
+  getControlFisicoEnvase(month: number, year: string, id_envase: number){
+    return this.http.get(`${this.api_url}control-fisico-envase/envase/${id_envase}/month/${month}/year/${year}`)
   }
 }

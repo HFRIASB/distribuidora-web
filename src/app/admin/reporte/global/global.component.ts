@@ -8,6 +8,7 @@ import { Producto } from 'src/app/models/producto';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductoService } from 'src/app/services/producto.service';
+import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-global',
@@ -53,6 +54,51 @@ export class GlobalComponent implements OnInit {
       })
   }
 
+
+
+
+  // title = 'ng2-charts-demo';
+
+  // public barChartLegend = true;
+  // public barChartPlugins = [];
+
+  // public barChartData: ChartConfiguration<'bar'>['data'] = {
+  //   labels: this.meses,
+  //   datasets: [
+  //     { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
+  //     { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' }
+  //   ]
+  // };
+
+  // public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+  //   responsive: false,
+  // };
+
+
+
+  title = 'ng2-charts-demo';
+
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: []
+  };
+
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: false,
+  };
+
+
+
+
+
+
+
+
+
+
   ngOnInit(): void {
   }
 
@@ -86,14 +132,23 @@ export class GlobalComponent implements OnInit {
         this.getSemana(this.filtros.semana),
         this.filtros.year
       ).subscribe((data: any) => {
+        let dataSet: any = []
         this.verTabla = true;
         this.datosReporte = data;
         for (let index = 1; index < 12; index++) {
           if (this.datosReporte[index - 1] != 0 && this.datosReporte[index] != 0) {
             this.variacionPorcentual[index] = Number((((this.datosReporte[index] * this.filtros.cantidad) / (this.datosReporte[index - 1] * this.filtros.cantidad)) - 1) * 100).toFixed(2);
-
           }
         }
+        this.datosReporte.forEach(e => {
+          dataSet.push(e * this.filtros.cantidad)
+        })
+        this.barChartData = {
+          labels: this.meses,
+          datasets: [
+            { data: dataSet, backgroundColor: ['#fecb007c'], label: this.filtros.unidad + ' vendidos' }
+          ]
+        };
       })
     } else {
       console.log('alerta ingrese todos los datos')
@@ -110,14 +165,23 @@ export class GlobalComponent implements OnInit {
         this.filtros.producto.id_prod.toString(),
         this.filtros.year
       ).subscribe((data: any) => {
+        let dataSet: any = []
         this.datosReporte = data;
         this.verTabla = true;
         for (let index = 1; index < 12; index++) {
           if (this.datosReporte[index - 1] != 0 && this.datosReporte[index] != 0) {
             this.variacionPorcentual[index] = Number((((this.datosReporte[index] * this.filtros.cantidad) / (this.datosReporte[index - 1] * this.filtros.cantidad)) - 1) * 100).toFixed(2);
-
           }
         }
+        this.datosReporte.forEach(e => {
+          dataSet.push(e * this.filtros.cantidad)
+        })
+        this.barChartData = {
+          labels: this.meses,
+          datasets: [
+            { data: dataSet, backgroundColor: ['#fecb007c'], label: this.filtros.unidad + ' vendidos' }
+          ]
+        };
       })
     } else {
       console.log('alerta ingrese todos los datos')
@@ -176,5 +240,13 @@ export class GlobalComponent implements OnInit {
 
   goGlobal() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
+  }
+
+  goCFProducto(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
+  }
+
+  goCFEnvase(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
 }

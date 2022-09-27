@@ -20,6 +20,18 @@
 								</ul>
 							</div>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
+								data-toggle="collapse" data-target="#m2" aria-expanded="false">
+								<span class=""> Control <br> fisico</span>
+							</a>
+							<div class="collapse" id="m2">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate" (click)="goCFProducto()">Productos</a>
+									<a class="nav-link text-truncate" (click)="goCFEnvase()">Envases</a>
+								</ul>
+							</div>
+						</li>
 						<li class="nav-item active">
 							<a class="nav-link"><span class="span-active">Pedidos</span></a>
 						</li>
@@ -43,16 +55,18 @@
 				<button type="button" class=" ml-5 btn btn-warning" (click)="quitarFiltros()">Quitar filtros</button>
 				<div class="mt-3">
 					<label class="">Filtrar por cliente: </label>
-					<label class="ml-1 font-weight-bold" *ngIf="filtros.cliente?.id_usu!=undefined">{{filtros.cliente.nombre_usu}} <i class="bi bi-x-lg" (click)="quitarFiltroCliente()"></i></label>
+					<label class="ml-1 font-weight-bold"
+						*ngIf="filtros.cliente?.id_usu!=undefined">{{filtros.cliente.nombre_usu}} <i class="bi bi-x-lg"
+							(click)="quitarFiltroCliente()"></i></label>
 					<button type="button" class="btn btn-warning ml-2" data-toggle="modal"
 						data-target="#seleccionarCliente">Seleccionar cliente</button>
 				</div>
 				<div class="select-container">
 					<label>Filtrar por estado: </label>
 					<div class="input-group select">
-						<select class="ml-1 form-select select " name="estado" (click)="changeRadioEstado($event.target)">
-							<option *ngFor="let estado of estados" [ngValue]="estado" 
-							[selected]="estado == 'Todos'">
+						<select class="ml-1 form-select select " name="estado"
+							(click)="changeRadioEstado($event.target)">
+							<option *ngFor="let estado of estados" [ngValue]="estado" [selected]="estado == 'Todos'">
 								{{estado}}</option>
 						</select>
 					</div>

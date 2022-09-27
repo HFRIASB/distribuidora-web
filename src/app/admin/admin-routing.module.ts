@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlmacenComponent } from './almacen/almacen.component';
+import { EnvasesComponent } from './control-fisico/envases/envases.component';
+import { ProductoComponent } from './control-fisico/producto/producto.component';
+// import { ControlFisicoProductoComponent } from './control-fisico-producto/control-fisico-producto.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 import { HomeComponent } from './home/home.component';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
@@ -51,6 +54,14 @@ const routes: Routes = [
   {
     path: 'reporte-varios',
     component: VariosComponent
+  },
+  {
+    path: 'control-fisico-producto',
+    component:ProductoComponent
+  },
+  {
+    path: 'control-fisico-envase',
+    component: EnvasesComponent
   }
 ];
 

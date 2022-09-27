@@ -15,7 +15,9 @@ import { NuevoRegistroComponent } from './nuevo-registro/nuevo-registro.componen
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 import { GlobalComponent } from './reporte/global/global.component';
 import { VariosComponent } from './reporte/varios/varios.component';
-// import { Select2Module } from 'ng2-select2';
+import { NgChartsModule } from 'ng2-charts';
+import { ProductoComponent } from './control-fisico/producto/producto.component';
+import { EnvasesComponent } from './control-fisico/envases/envases.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { VariosComponent } from './reporte/varios/varios.component';
     NuevoRegistroComponent,
     DetallePedidoComponent,
     GlobalComponent,
-    VariosComponent
+    VariosComponent,
+    ProductoComponent,
+    EnvasesComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,7 @@ import { VariosComponent } from './reporte/varios/varios.component';
     FormsModule,
     Ng2SearchPipeModule,
     NgbModule,
-    // Select2Module
+    NgChartsModule
   ]
 })
 export class AdminModule { }

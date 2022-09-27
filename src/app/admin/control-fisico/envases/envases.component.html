@@ -1,0 +1,163 @@
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</a>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m1" data-parent="#navbar1"
+								data-toggle="collapse" data-target="#m1" aria-expanded="false">
+								<span class=""> Reportes</span>
+							</a>
+							<div class="collapse" id="m1">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate" (click)="goVarios()">Varios</a>
+									<a class="nav-link text-truncate" (click)="goGlobal()">Global</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
+								data-toggle="collapse" data-target="#m2" aria-expanded="false">
+								<span class=" span-active"> Control <br> fisico</span>
+							</a>
+							<div class="collapse" id="m2">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate" (click)="goCFProducto()">Productos</a>
+									<a class="nav-link text-truncate" (click)="goCFEnvase()">Envases</a>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item" (click)="goPedidos()">
+							<a class="nav-link"><span>Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goProductos()">
+							<a class="nav-link"><span>Productos</span></a>
+						</li>
+						<li class="nav-item" (click)="goUsuarios()">
+							<a class="nav-link"><span>Usuarios</span></a>
+						</li>
+						<li class="nav-item" (click)="goAlmacen()">
+							<a class="nav-link"><span>Almacen</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<div class="m-1">
+				<label>Seleccionar mes:</label>
+				<div class="select ">
+					<select class="form-select select" name="mes" [(ngModel)]="filtros.mes">
+						<option *ngFor="let mes of meses;let i=index" [ngValue]="i" [selected]="i == filtros.mes">
+							{{mes}}</option>
+					</select>
+				</div>
+				<label>Seleccionar año:</label>
+				<div class="select ">
+					<select class="form-select select" name="year" [(ngModel)]="filtros.year">
+						<option *ngFor="let year of years;let i=index" [ngValue]="year"
+							[selected]="year == filtros.year">
+							{{year}}</option>
+					</select>
+				</div>
+				<label>Producto seleccionado: </label>
+				<label class="font-weight-bold ml-1">{{envaseSeleccionado?.nombre_envase}}</label>
+				<button type="button" class="btn btn-warning m-1" data-toggle="modal"
+					data-target="#seleccionarEnvase">Seleccionar envase</button>
+				<br>
+				<button type="button" class="btn btn-warning m-1" data-toggle="modal"
+					data-target="#nuevoControlFisicoEnvase">Registrar control</button>
+				<button type="button" class="btn btn-warning m-1" (click)="aplicarFiltros()">Actualizar tabla</button>
+				<br><label>Ingregar un valor inicial de ser necesario: </label>
+				<input class="form-control input mb-1" name="valor-inicial" [(ngModel)]="valorInicial" type="number">
+				<table class="table table-hover">
+					<thead class="text-center">
+						<tr>
+							<th scope="col">Fecha</th>
+							<th scope="col">Detalle</th>
+							<th scope="col">Entrada</th>
+							<th scope="col">Salida</th>
+							<th scope="col">Saldo</th>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+						<tr *ngFor="let control of controles">
+							<td>{{control.fecha_cfe}}</td>
+							<td>
+								{{control.detalle_cfe}}
+							</td>
+							<td>
+								<label *ngIf="control.entrada_cfe!=0">{{control.entrada_cfe}}</label>
+							</td>
+							<td>
+								<label *ngIf="control.salida_cfe!=0">{{control.salida_cfe}}</label>
+							</td>
+							<td>{{control.saldo_cfe}}</td>
+							<td data-toggle="modal" (click)="abrirModalEditarControlEnvase(control)"
+								data-target="#editarControlProducto">
+								<i class="bi bi-pencil-square"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</main>
+	</div>
+</div>
+
+<div class="modal fade" id="seleccionarEnvase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar Envase</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div *ngFor="let envase of envases">
+					<label (click)="seleccionarTipoEnvase(envase)" data-dismiss="modal">{{envase.nombre_envase}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="nuevoControlFisicoEnvase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Agregar nuevo control de envases</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form #f="ngForm" (ngSubmit)="saveControlEnvase(f)">
+					<label>Fecha:</label>
+					<div class="input-group">
+						<input class="form-control" placeholder="yyyy-mm-dd" name="fecha" [(ngModel)]="fechaSeleccionada"
+							ngbDatepicker #fecha="ngbDatepicker">
+						<button class="btn btn-warning bi-calendar3" (click)="fecha.toggle()" type="button"></button>
+					</div>
+					<label class="mt-1">Detalle: </label>
+					<input class="form-control" name="detalle" ngModel type="text">
+					<label class="mt-1">Entrada: </label>
+					<input class="form-control" name="entrada" ngModel type="number">
+					<label class="mt-1">Salida: </label>
+					<input class="form-control" name="salida" ngModel type="number">
+					<button type="submit" class="btn btn-warning m-1" (click)="saveControlEnvase(f)"
+						data-dismiss="modal">Guardar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

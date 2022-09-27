@@ -123,6 +123,14 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
+  goCFProducto(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
+  }
+
+  goCFEnvase(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
+  }
+
   crearEnvase(nombre_envase: any) {
     this.productoService.postEnvase(nombre_envase.nombre)
       .subscribe(

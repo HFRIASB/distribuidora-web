@@ -20,6 +20,18 @@
 								</ul>
 							</div>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
+								data-toggle="collapse" data-target="#m2" aria-expanded="false">
+								<span class=""> Control <br> fisico</span>
+							</a>
+							<div class="collapse" id="m2">
+								<ul class="flex-column nav">
+									<a class="nav-link text-truncate" (click)="goCFProducto()">Productos</a>
+									<a class="nav-link text-truncate" (click)="goCFEnvase()">Envases</a>
+								</ul>
+							</div>
+						</li>
 						<li class="nav-item" (click)="goPedidos()">
 							<a class="nav-link"><span>Pedidos</span></a>
 						</li>
@@ -65,31 +77,42 @@
 					</div>
 					<div class="ml-2">
 						<label>Seleccionar producto: </label>
-						<label class="ml-1 font-weight-bold">{{filtros.producto.nombre_prod}} | {{this.filtros.producto.uniMedida_prod}}</label>
+						<label class="ml-1 font-weight-bold">{{filtros.producto.nombre_prod}} |
+							{{this.filtros.producto.uniMedida_prod}}</label>
 						<button type="button" class="btn btn-warning ml-2" data-toggle="modal"
 							data-target="#seleccionarProducto">Producto</button>
 					</div>
-					<button type="button" class="btn btn-warning mb-2 ml-2 pl-3 pr-3" (click)="aplicarFiltros()">Aplicar Filtros</button>
-					<table class="table" *ngIf="verTabla">
-						<thead class="text-center table-hover">
-							<tr>
-								<th scope="col">Mes</th>
-								<th scope="col">Unidades vendidas</th>
-								<th scope="col">{{filtros.unidad}} vendidos</th>
-								<th scope="col">Variacion Porcentual</th>
-								<th scope="col">Semanas comparadas</th>
-							</tr>
-						</thead>
-						<tbody class="text-center">
-							<tr *ngFor="let mes of meses; let i=index">
-								<td>{{mes}}</td>
-								<td>{{datosReporte[i]}}</td>
-								<td>{{datosReporte[i]*filtros.cantidad}}</td>
-								<td><label *ngIf="i>0" >{{variacionPorcentual[i]}}%</label></td>
-								<td><label *ngIf="i>0" >{{meses[i-1]}}-{{mes}}</label></td>
-							</tr>
-						</tbody>
-					</table>
+					<button type="button" class="btn btn-warning mb-2 ml-2 pl-3 pr-3" (click)="aplicarFiltros()">Aplicar
+						Filtros</button>
+					<div class="container-1">
+						<div id="content1" class="color">
+							<table class="table" *ngIf="verTabla">
+								<thead class="text-center table-hover">
+									<tr>
+										<th scope="col">Mes</th>
+										<th scope="col">Unidades vendidas</th>
+										<th scope="col">{{filtros.unidad}} vendidos</th>
+										<th scope="col">Variacion Porcentual</th>
+										<th scope="col">Semanas comparadas</th>
+									</tr>
+								</thead>
+								<tbody class="text-center">
+									<tr *ngFor="let mes of meses; let i=index">
+										<td>{{mes}}</td>
+										<td>{{datosReporte[i]}}</td>
+										<td>{{datosReporte[i]*filtros.cantidad}}</td>
+										<td><label *ngIf="i>0">{{variacionPorcentual[i]}}%</label></td>
+										<td><label *ngIf="i>0">{{meses[i-1]}}-{{mes}}</label></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="content2">
+							<canvas *ngIf="verTabla" class="color" baseChart [data]="barChartData"
+								[options]="barChartOptions" [type]="'bar'">
+							</canvas>
+						</div>
+					</div>
 				</div>
 				<div class="card-body" *ngIf="tabNavegador=='mensual'">
 					<div class="rol-container">
@@ -100,31 +123,42 @@
 					</div>
 					<div class="ml-2">
 						<label>Seleccionar producto: </label>
-						<label class="ml-1 font-weight-bold">{{filtros.producto.nombre_prod}} | {{this.filtros.producto.uniMedida_prod}}</label>
+						<label class="ml-1 font-weight-bold">{{filtros.producto.nombre_prod}} |
+							{{this.filtros.producto.uniMedida_prod}}</label>
 						<button type="button" class="btn btn-warning ml-2" data-toggle="modal"
 							data-target="#seleccionarProducto">Producto</button>
 					</div>
-					<button type="button" class="btn btn-warning mb-2 ml-2 pl-3 pr-3" (click)="aplicarFiltrosMeses()">Aplicar Filtros</button>
-					<table class="table" *ngIf="verTabla">
-						<thead class="text-center table-hover">
-							<tr>
-								<th scope="col">Mes</th>
-								<th scope="col">Unidades vendidas</th>
-								<th scope="col">{{filtros.unidad}} vendidos</th>
-								<th scope="col">Variacion Porcentual</th>
-								<th scope="col">Semanas comparadas</th>
-							</tr>
-						</thead>
-						<tbody class="text-center">
-							<tr *ngFor="let mes of meses; let i=index">
-								<td>{{mes}}</td>
-								<td>{{datosReporte[i]}}</td>
-								<td>{{datosReporte[i]*filtros.cantidad}}</td>
-								<td><label *ngIf="i>0" >{{variacionPorcentual[i]}}%</label></td>
-								<td><label *ngIf="i>0" >{{meses[i-1]}}-{{mes}}</label></td>
-							</tr>
-						</tbody>
-					</table>
+					<button type="button" class="btn btn-warning mb-2 ml-2 pl-3 pr-3"
+						(click)="aplicarFiltrosMeses()">Aplicar Filtros</button>
+					<div class="container-1">
+						<div id="content1" class="color">
+							<table class="table" *ngIf="verTabla">
+								<thead class="text-center table-hover">
+									<tr>
+										<th scope="col">Mes</th>
+										<th scope="col"><label>Unidades <br /> vendidas</label></th>
+										<th scope="col">{{filtros.unidad}} <br /> vendidos</th>
+										<th scope="col">Variacion <br /> Porcentual</th>
+										<th scope="col">Semanas <br /> comparadas</th>
+									</tr>
+								</thead>
+								<tbody class="text-center">
+									<tr *ngFor="let mes of meses; let i=index">
+										<td>{{mes}}</td>
+										<td>{{datosReporte[i]}}</td>
+										<td>{{datosReporte[i]*filtros.cantidad}}</td>
+										<td><label *ngIf="i>0">{{variacionPorcentual[i]}}%</label></td>
+										<td><label *ngIf="i>0">{{meses[i-1]}}-{{mes}}</label></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="content2">
+							<canvas *ngIf="verTabla" class="color" baseChart [data]="barChartData"
+								[options]="barChartOptions" [type]="'bar'">
+							</canvas>
+						</div>
+					</div>
 				</div>
 			</div>
 		</main>
@@ -143,7 +177,8 @@
 			</div>
 			<div class="modal-body">
 				<div *ngFor="let producto of productos">
-					<label (click)="seleccionarProducto(producto)" data-dismiss="modal">{{producto.nombre_prod}} | {{producto.uniMedida_prod}}</label>
+					<label (click)="seleccionarProducto(producto)" data-dismiss="modal">{{producto.nombre_prod}} |
+						{{producto.uniMedida_prod}}</label>
 				</div>
 			</div>
 		</div>
