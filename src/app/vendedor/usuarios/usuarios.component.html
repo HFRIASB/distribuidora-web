@@ -1,4 +1,4 @@
-<div class="content">
+<!-- <div class="content">
 	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
 		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 			<svg class="bi me-2" width="40" height="32">
@@ -72,6 +72,152 @@
 					</tr>
 				</tbody>
 			</table>
+		</div>
+	</div>
+</div> -->
+
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</a>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item" (click)="goReportes()">
+							<a class="nav-link"><span>Reportes</span></a>
+						</li>
+						<li class="nav-item" (click)="goPedidos()">
+							<a class="nav-link"><span>Pedidos</span></a>
+						</li>
+						<li class="nav-item active" (click)="goUsuarios()">
+							<a class="nav-link"><span class="span-active">Usuarios</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-3 text-bg-dark">
+				<div class="container">
+					<div class="d-flex flex-wrap">
+						<input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Buscar Cliente..." aria-label="Search">
+						<button type="button" class="btn btn-warning" data-toggle="modal"
+						data-target="#nuevoUsuario">Crear nuevo usuario</button>
+					</div>
+				</div>
+			</header>
+			<div class="margin container">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">#</th>
+							<th class="text-center" scope="col">Nombre</th>
+							<th class="text-center" scope="col">Usuario</th>
+							<th class="text-center" scope="col">Estado</th>
+							<th class="text-center" scope="col">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let usuario of usuarios | filter:searchText" (click)="seleccionarUsuario(usuario)">
+
+							<th class="text-center" scope="row">{{usuario.usuario.id_usu}}</th>
+							<td class="text-center">{{usuario.usuario.nombre_usu}}</td>
+							<td class="text-center">{{usuario.usuario.correo_usu}}</td>
+							<td class="text-center">
+								<a *ngIf="usuario.usuario.estado_usu == 'Activo'"
+									class="badge badge-warning">{{usuario.usuario.estado_usu}}</a>
+								<a *ngIf="usuario.usuario.estado_usu == 'Inactivo'"
+									class="badge badge-danger">{{usuario.usuario.estado_usu}}</a>
+							</td>
+							<td class="text-center">
+								<i class="bi bi-eye icon"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</div>
+</div>
+
+<div class="modal fade" id="nuevoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Registrar usuario</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<label class="advertencia">Advertencia: Solo tiene permisos para registrar clientes. Recuerde que solo el administrador puede agregarlo a su cartera de clientes.</label>
+				<form #form1="ngForm">
+					<div class="form-group">
+						<label>Nombre del cliente</label>
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.nombre_usu" name="nombre">
+					</div>
+					<div class="form-group">
+						<label>Numero de documento</label>
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.nroDocu_usu" name="nroDoc">
+					</div>
+					<div class="form-group">
+						<label>Numero de celular/telefono:</label>
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.celular_usu"
+							name="telefono">
+					</div>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Genero</legend>
+							<div class="col-sm-10" *ngFor="let genero of generos">
+								<div class="form-check">
+									<input class="form-check-input" type="radio"
+										(change)="changeRadioGenero($event.target)" name="generoRadio"
+										value="{{genero}}">
+									<label class="form-check-label">
+										{{genero}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
+							<div class="col-sm-10" *ngFor="let estado of estados">
+								<div class="form-check">
+									<input class="form-check-input" type="radio"
+										(change)="changeRadioEstado($event.target)" name="estadoRadio"
+										value="{{estado}}">
+									<label class="form-check-label">
+										{{estado}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="form-group">
+						<label>Correo electronico o nombre de usuario del cliente</label>
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.correo_usu" name="correo">
+					</div>
+					<div class="form-group">
+						<label>Contrasena</label>
+						<input type="password" class="form-control" [(ngModel)]="usuarioAuxiliar.password_usu"
+							name="password">
+					</div>
+					<div class="form-group">
+						<label>Observacion</label>
+						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.observacion_usu"
+							name="observacion">
+					</div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-warning" (click)="registrarUsuario()"
+						data-dismiss="modal">Guardar cambios</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

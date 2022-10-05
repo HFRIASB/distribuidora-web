@@ -25,18 +25,26 @@ export class PedidosComponent implements OnInit {
       this.authService.getUsuarioById(params['id'])
         .subscribe((user: any) => {
           this.vendedor = user;
-          console.log(this.vendedor)
+        })
+        this.productoService.getOrdenesByVendedor(+params['id']).subscribe((data:any)=>{
+          this.pedidos = data;
         })
     });
-    this.productoService.getPedidos().subscribe((data:any)=>{
-      this.pedidos = data;
-    })
+    
   }
 
   ngOnInit(): void {
   }
 
-  goUsuarios(){
+  goReportes() {
+    // this.router.navigate(['vendedor', this.vendedor.id_usu, 'usuarios'], { replaceUrl: true });
+  }
+
+  goUsuarios() {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'usuarios'], { replaceUrl: true });
+  }
+
+  goNuevoPedido(){
+    this.router.navigate(['vendedor', this.vendedor.id_usu, 'nuevo-pedido'], { replaceUrl: true });
   }
 }

@@ -1,0 +1,168 @@
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</a>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item" (click)="goReportes()">
+							<a class="nav-link"><span>Reportes</span></a>
+						</li>
+						<li class="nav-item active" (click)="goPedidos()">
+							<a class="nav-link"><span class="span-active">Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goUsuarios()">
+							<a class="nav-link"><span>Usuarios</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-3 text-bg-dark">
+			</header>
+			<div class="container grid">
+				<div class="row">
+					<div class="col-md border">
+						<form>
+							<button data-toggle="modal" data-target="#confirmarPedido" type="submit"
+								class="btn btn-warning btn-block">Realizar pedido</button>
+							<div class="form-group m-1">
+								<label>Elegir Cliente: </label>
+								<label class="ml-2 mr-2">{{this.cliente.correo_usu}}</label>
+								<button class="btn btn-warning bi bi-person-plus" data-toggle="modal"
+									data-target="#seleccionarCliente"></button>
+							</div>
+							<div class="group-space-between m-1">
+								<div>Fecha de entrega: </div>
+								<div class="input-group select">
+									<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fecha"
+										ngbDatepicker #inicio="ngbDatepicker">
+									<button class="btn btn-warning bi-calendar3" (click)="inicio.toggle()"
+										type="button"></button>
+								</div>
+							</div>
+							<div *ngIf="cliente.nombre_usu != undefined" class="group-space-between m-1">
+								<div>Direccion: </div>
+								<div class="input-group select">
+									<select class="form-select select" name="direc" [(ngModel)]="direccion">
+										<option [ngValue]="null" selected disabled>Seleccione una direccion</option>
+										<option *ngFor="let direccion of cliente.direccion" [ngValue]="direccion">
+											{{direccion.nombre_direc}}</option>
+									</select>
+								</div>
+							</div>
+							<div>
+								<h3>Mi Carrito</h3>
+								<div *ngFor="let item of carrito">
+									<div class="carrito border">
+										<div class="div1"><img src="{{item.producto.foto_prod}}"></div>
+										<div class="div2">
+											<div class="detalle-producto">
+												<label>{{item.producto.nombre_prod}}</label>
+												<label>{{item.producto.uniMedida_prod}}</label>
+											</div>
+										</div>
+										<div class="div3">
+											<input class="form-control" name="cantidad"
+												[(ngModel)]="item.cantidad_producto" type="number">
+										</div>
+										<div class="div4">
+											<label>Precio por unidad:</label>
+
+										</div>
+										<!-- <div class="div5">
+											<input class="form-control" name="precio" id="precio"
+												[(ngModel)]="item.precio" type="number">
+										</div> -->
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md border productos">
+						<h3>Mi Carrito</h3>
+						<div *ngFor="let producto of productos">
+							<div class="container-producto border">
+								<div>
+									<img src="{{producto.foto_prod}}">
+								</div>
+								<div class="detalle-producto">
+									<label>{{producto.nombre_prod}}</label>
+									<label>{{producto.uniMedida_prod}}</label>
+								</div>
+								<div class="icon-cart">
+									<i class="bi bi-cart-plus" (click)="addToCart(producto)"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</div>
+<div class="modal fade" id="confirmarPedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Pedido</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<label>Porfavor verifique todos los datos antes de realizar el pedidos.</label>
+				<h5>Cliente:</h5><label>{{this.cliente.nombre_usu}}</label>
+				<h5>Direccion:</h5><label>{{this.direccion.nombre_direc}}</label>
+				<h5>fecha de entrega:</h5><label>{{fecha.day}}/{{fecha.month}}/{{fecha.year}}</label>
+				<h5>Productos</h5>
+				<div *ngFor="let item of carrito">
+					<div class="container-producto border">
+						<div>
+							<img src="{{item.producto.foto_prod}}">
+						</div>
+						<div class="detalle-producto">
+							<label>{{item.producto.nombre_prod}}</label>
+							<label>{{item.producto.uniMedida_prod}}</label>
+						</div>
+						<div class="icon-cart">
+							<label>x{{item.cantidad_producto}}</label>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-warning" (click)="realizarPedido()" data-dismiss="modal">Confirmar
+					pedido</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="seleccionarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar cliente</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<input type="text" name="search" [(ngModel)]="searchText"
+						class="form-control form-control text-bg mt-1 ml-1 mt-2 mb-2" placeholder="Buscar cliente..."
+						aria-label="Search">
+					<div *ngFor="let cliente of clientes | filter:searchText" class="m-2"
+						(click)="seleccionarCliente(cliente.usuario)" data-dismiss="modal">
+						<label>{{cliente.usuario.nombre_usu}} | {{cliente.usuario.correo_usu}}</label>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

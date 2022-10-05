@@ -6,13 +6,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { VendedorRoutingModule } from './vendedor-routing.module';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
 
 
 
 @NgModule({
   declarations: [
     PedidosComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    NuevoPedidoComponent
   ],
   imports: [
     CommonModule,

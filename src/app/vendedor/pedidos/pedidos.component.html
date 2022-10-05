@@ -1,4 +1,4 @@
-<div class="content">
+<!-- <div class="content">
 	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
 		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 			<svg class="bi me-2" width="40" height="32">
@@ -91,5 +91,84 @@
 				</table>
 			</div>
 		</div>
+	</div>
+</div> -->
+
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</a>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item" (click)="goReportes()">
+							<a class="nav-link"><span>Reportes</span></a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link"><span class="span-active">Pedidos</span></a>
+						</li>
+						<li class="nav-item" (click)="goUsuarios()">
+							<a class="nav-link"><span>Usuarios</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-3 text-bg-dark">
+				<button type="button" class="btn btn-warning " (click)="goNuevoPedido()">Nuevo
+					Pedido</button>
+			</header>
+			<div class="margin container">
+				<div class="row">
+					<div class="fecha-col">
+						<label>Fecha inicio: </label>
+						<div class="input-group">
+							<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaInicio"
+								ngbDatepicker #inicio="ngbDatepicker">
+							<button class="btn btn-outline-secondary bi-calendar3" (click)="inicio.toggle()"
+								type="button"></button>
+						</div>
+						<label>Fecha fin: </label>
+						<div class="input-group">
+							<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaFin"
+								ngbDatepicker #fin="ngbDatepicker">
+							<button class="btn btn-outline-secondary bi-calendar3" (click)="fin.toggle()"
+								type="button"></button>
+						</div>
+					</div>
+					<div class="cliente-col">
+						<label>Buscar por cliente</label>
+						<input type="text" class="form-control" placeholder="Buscar Cliente..." aria-label="Search">
+						<button type="button" class="btn btn-warning">Aplicar filtros</button>
+					</div>
+				</div>
+				<div>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center" scope="col">Nombre Cliente</th>
+								<th class="text-center" scope="col">Fecha de Pedido</th>
+								<th class="text-center" scope="col">Fecha de Entrega</th>
+								<th class="text-center" scope="col">Direccion</th>
+								<th class="text-center" scope="col">Estado</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let pedido of pedidos">
+								<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
+								<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
+								<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
+								<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
+								<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
 	</div>
 </div>

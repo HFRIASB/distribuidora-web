@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Pago } from '../models/pago';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class AuthService {
     return this.http.get(`${this.api_url}usuario/direccion/${id_user}`);
   }
 
-  registrarUsuario(usuario: any) {
-    return this.http.post(this.api_url + 'usuario', usuario);
+  registrarUsuario(usuario: any): Observable<Usuario> {
+    return this.http.post<Usuario>(this.api_url + 'usuario', usuario);
   }
 
   getUsuarioOrden(id_user: number, estado: string) {
@@ -86,5 +87,9 @@ export class AuthService {
 
   getRolNameByIdUsuario(id: string) {
      return this.http.get(this.api_url+"usuario/rola-name/" + id);
+  }
+
+  getRolByRolName(name: string){
+    return this.http.get(this.api_url+"rol/rolName/"+name);
   }
 }

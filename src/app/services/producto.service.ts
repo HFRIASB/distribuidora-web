@@ -162,4 +162,8 @@ export class ProductoService {
   getControlFisicoEnvase(month: number, year: string, id_envase: number){
     return this.http.get(`${this.api_url}control-fisico-envase/envase/${id_envase}/month/${month}/year/${year}`)
   }
+
+  getOrdenesByVendedor(id: number) {
+    return this.http.get(`${this.api_url}orden/vendedor/${id}`)
+  }
 }
