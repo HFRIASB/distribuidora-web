@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Pago } from '../models/pago';
 import { Usuario } from '../models/usuario';
+import { Direccion } from '../models/direccion';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class AuthService {
     })
   }*/
 
-  getUsuarioDireccion(id_user: number) {
-    return this.http.get(`${this.api_url}usuario/direccion/${id_user}`);
+  getUsuarioDireccion(id_user?: number): Observable<Direccion[]> {
+    return this.http.get<Direccion[]>(`${this.api_url}usuario/direccion/${id_user}`);
   }
 
   registrarUsuario(usuario: any): Observable<Usuario> {

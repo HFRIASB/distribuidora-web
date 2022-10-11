@@ -1,99 +1,3 @@
-<!-- <div class="content">
-	<div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px">
-		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			<svg class="bi me-2" width="40" height="32">
-				<use xlink:href="#bootstrap"></use>
-			</svg>
-			<span class="fs-4">Menú</span>
-		</a>
-		<hr>
-		<ul class="nav nav-pills flex-column mb-auto">
-			<li>
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Reportes
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" aria-current="page">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#home"></use>
-					</svg>
-					Pedidos
-				</a>
-			</li>
-			<li (click)="goUsuarios()">
-				<a class="nav-link text-white">
-					<svg class="bi me-2" width="16" height="16">
-						<use xlink:href="#speedometer2"></use>
-					</svg>
-					Usuarios
-				</a>
-			</li>
-		</ul>
-	</div>
-	<div class="container-component">
-		<header class="p-3 text-bg-dark">
-			<div class="container">
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
-						data-target="#nuevoPedido">Nuevo Pedido</button>
-				</div>
-			</div>
-		</header>
-		<div class="margin container">
-			<div class="row">
-				<div class="fecha-col">
-					<label>Fecha inicio: </label>
-					<div class="input-group">
-						<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaInicio"
-							ngbDatepicker #inicio="ngbDatepicker">
-						<button class="btn btn-outline-secondary bi-calendar3" (click)="inicio.toggle()"
-							type="button"></button>
-					</div>
-					<label>Fecha fin: </label>
-					<div class="input-group">
-						<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaFin"
-							ngbDatepicker #fin="ngbDatepicker">
-						<button class="btn btn-outline-secondary bi-calendar3" (click)="fin.toggle()"
-							type="button"></button>
-					</div>
-				</div>
-				<div class="cliente-col">
-					<label>Buscar por cliente</label>
-					<input type="text" class="form-control"
-						placeholder="Buscar Cliente..." aria-label="Search">
-						<button type="button" class="btn btn-warning">Aplicar filtros</button>
-					</div>
-			</div>
-			<div>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="text-center" scope="col">Nombre Cliente</th>
-							<th class="text-center" scope="col">Fecha de Pedido</th>
-							<th class="text-center" scope="col">Fecha de Entrega</th>
-							<th class="text-center" scope="col">Direccion</th>
-							<th class="text-center" scope="col">Estado</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let pedido of pedidos">
-							<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
-							<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
-							<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
-							<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
-							<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div> -->
-
 <div class="container-fluid">
 	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
 		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
@@ -125,25 +29,30 @@
 			<div class="margin container">
 				<div class="row">
 					<div class="fecha-col">
-						<label>Fecha inicio: </label>
+						<label>Fecha inicio (Entrega): </label>
 						<div class="input-group">
 							<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaInicio"
 								ngbDatepicker #inicio="ngbDatepicker">
-							<button class="btn btn-outline-secondary bi-calendar3" (click)="inicio.toggle()"
+							<button class="btn btn-warning bi-calendar3" (click)="inicio.toggle()"
 								type="button"></button>
 						</div>
-						<label>Fecha fin: </label>
+						<label>Fecha fin (Entrega): </label>
 						<div class="input-group">
 							<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaFin"
 								ngbDatepicker #fin="ngbDatepicker">
-							<button class="btn btn-outline-secondary bi-calendar3" (click)="fin.toggle()"
+							<button class="btn btn-warning bi-calendar3" (click)="fin.toggle()"
 								type="button"></button>
 						</div>
 					</div>
 					<div class="cliente-col">
-						<label>Buscar por cliente</label>
-						<input type="text" class="form-control" placeholder="Buscar Cliente..." aria-label="Search">
-						<button type="button" class="btn btn-warning">Aplicar filtros</button>
+						<div class="form-group m-1">
+							<label>Elegir Cliente: </label>
+							<label class="ml-2 mr-2">{{this.cliente.correo_usu}}</label>
+							<button class="btn btn-warning bi bi-person-plus" data-toggle="modal"
+								data-target="#seleccionarCliente"></button>
+						</div>
+						<button type="button" class="btn btn-warning" (click)="aplicarFiltros()" >Aplicar filtros</button>
+						<button type="button" class="btn btn-warning" (click)="quitarFiltros()" >Quitar filtros</button>
 					</div>
 				</div>
 				<div>
@@ -158,17 +67,42 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let pedido of pedidos">
+							<tr *ngFor="let pedido of pedidosFiltrados" (click)="goDetallePedido(pedido.id_ord)">
 								<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
+								<td class="text-center">{{getFechaFormato(pedido.fVenta_ord)}}</td>
+								<td class="text-center">{{getFechaFormato(pedido.fEntrega_ord)}}</td>
 								<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
-								<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
-								<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
-								<td class="text-center">{{pedido.usuario.nombre_usu}}</td>
+								<td class="text-center">{{pedido.estado_ord}}</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</main>
+	</div>
+</div>
+
+<div class="modal fade" id="seleccionarCliente" tabindex="-1" role="dialog"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar cliente</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<input type="text" name="search" [(ngModel)]="searchText"
+						class="form-control form-control text-bg mt-1 ml-1 mt-2 mb-2" placeholder="Buscar cliente..."
+						aria-label="Search">
+					<div *ngFor="let cliente of clientes | filter:searchText" class="m-2"
+						(click)="seleccionarCliente(cliente.usuario)" data-dismiss="modal">
+						<label>{{cliente.usuario.nombre_usu}} | {{cliente.usuario.correo_usu}}</label>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>

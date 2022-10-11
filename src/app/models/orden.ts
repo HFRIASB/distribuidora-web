@@ -1,4 +1,5 @@
 import { Direccion } from "./direccion";
+import { OrdenProducto } from "./orden-producto";
 import { Usuario } from "./usuario";
 
 export class Orden {
@@ -20,11 +21,14 @@ export class Orden {
 
     usuario?: Usuario;
 
-    direccion?: Direccion;
+    direccion: Direccion;
 
-    // ordenProducto?: OrdenProducto[];
-    constructor(){
+    ordenProducto: OrdenProducto[];
+
+    constructor() {
         this.fVenta_ord = new Date();
         this.fEntrega_ord = new Date();
+        this.ordenProducto = [];
+        this.direccion = new Direccion();
     }
 }

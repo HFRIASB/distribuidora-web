@@ -114,7 +114,7 @@
 							<td class="text-center">{{getFechaFormat(pedido.fVenta_ord)}}</td>
 							<td class="text-center">{{getFechaFormat(pedido.fEntrega_ord)}}</td>
 							<td class="text-center">{{pedido.estado_ord}}</td>
-							<td class="text-center">{{pedido.direccion?.nombre_direc}}</td>
+							<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
 							<td class="text-center" (click)="goVistaPedido(pedido)">
 								<i class="bi bi-eye"></i>
 							</td>

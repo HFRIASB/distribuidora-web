@@ -93,8 +93,8 @@ export class ProductoService {
     return this.http.post(`${this.api_url}orden`,pedido)
   }
 
-  getPedidoId(id: string){
-    return this.http.get(`${this.api_url}orden/${id}`)
+  getPedidoId(id: string): Observable<Orden>{
+    return this.http.get<Orden>(`${this.api_url}orden/${id}`)
   }
 
   postDetallePedido(carrito: any, id_ord: number){

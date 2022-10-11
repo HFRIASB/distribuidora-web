@@ -7,6 +7,8 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { VendedorRoutingModule } from './vendedor-routing.module';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
+import { ReporteComponent } from './reporte/reporte.component';
+import { PedidoDetalleComponent } from './pedido-detalle/pedido-detalle.component';
 
 
 
@@ -14,7 +16,9 @@ import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
   declarations: [
     PedidosComponent,
     UsuariosComponent,
-    NuevoPedidoComponent
+    NuevoPedidoComponent,
+    ReporteComponent,
+    PedidoDetalleComponent
   ],
   imports: [
     CommonModule,

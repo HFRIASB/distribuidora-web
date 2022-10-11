@@ -73,8 +73,8 @@
 						<label class="font-weight-bold">Fecha de entrega: </label>
 						<label class="ml-1">{{this.pedido.fEntrega_ord}}</label><br>
 						<label class="font-weight-bold">Dirección: </label>
-						<label class="ml-1">{{this.pedido.direccion?.nombre_direc}}</label>
-						<label class="ml-1">{{this.pedido.direccion?.descripcion_direc}}</label> <br>
+						<label class="ml-1">{{this.pedido.direccion.nombre_direc}}</label>
+						<label class="ml-1">{{this.pedido.direccion.descripcion_direc}}</label> <br>
 						<label class="font-weight-bold">Estado: </label>
 						<label class="ml-1">{{this.pedido.estado_ord}}</label><br>
 						<label class="font-weight-bold">Nro nota: </label>
@@ -175,7 +175,7 @@
 				<div class="input-group select">
 					<select class="form-select select" name="direc" [(ngModel)]="pedidoAuxiliar.direccion">
 						<option *ngFor="let direccion of direcciones" [ngValue]="direccion" 
-						[selected]="direccion.nombre_direc == pedidoAuxiliar.direccion?.nombre_direc">
+						[selected]="direccion.nombre_direc == pedidoAuxiliar.direccion.nombre_direc">
 							{{direccion.nombre_direc}}</option>
 					</select>
 				</div>

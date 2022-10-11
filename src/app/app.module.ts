@@ -17,7 +17,7 @@ import { VendedorModule } from './vendedor/vendedor.module';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

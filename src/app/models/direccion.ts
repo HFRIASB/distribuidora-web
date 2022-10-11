@@ -3,7 +3,7 @@ import { Usuario } from "./usuario";
 export class Direccion {
     id_direc?: number;
 
-    nombre_direc?: string;
+    nombre_direc: string;
 
 
     descripcion_direc?: string;
@@ -18,5 +18,9 @@ export class Direccion {
 
     usuario?: Usuario;
 
+
+    constructor() {
+        this.nombre_direc = '';
+    }
     // orden?: Orden[];
 }
