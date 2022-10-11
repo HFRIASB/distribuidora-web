@@ -2,7 +2,7 @@
     <div class="row wrapper min-vh-100 flex-column flex-sm-row">
         <aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
-                <a class="navbar-brand "><label class="text-menu">Menu</label></a>
+                <a class="navbar-brand "><label class="text-menu">Menú</label></a>
                 <a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
                     <span class="navbar-toggler-icon"></span>
                 </a>
@@ -23,7 +23,7 @@
                         <li class="nav-item">
                             <a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
                                 data-toggle="collapse" data-target="#m2" aria-expanded="false">
-                                <span class=""> Control <br> fisico</span>
+                                <span class=""> Control <br> físico</span>
                             </a>
                             <div class="collapse" id="m2">
                                 <ul class="flex-column nav">
@@ -42,7 +42,7 @@
                             <a class="nav-link"><span>Usuarios</span></a>
                         </li>
                         <li class="nav-item" (click)="goAlmacen()">
-                            <a class="nav-link"><span>Almacen</span></a>
+                            <a class="nav-link"><span>Almacén</span></a>
                         </li>
                     </ul>
                 </div>
@@ -55,9 +55,9 @@
                         class="form-control form-control-dark text-bg-dark mt-1 ml-1" placeholder="Buscar producto..."
                         aria-label="Search" *ngIf="tabNavegador=='productos'">
                     <button type="button" class="btn btn-warning ml-1 mt-1" (click)="nuevoProducto()"
-                        data-toggle="modal" data-target="#nuevoProducto">Anadir nuevo producto</button>
+                        data-toggle="modal" data-target="#nuevoProducto">Agregar nuevo producto</button>
                     <button type="button" class="btn btn-warning ml-1 mt-1" data-toggle="modal"
-                        data-target="#nuevoEnvase">Crear envase</button>
+                        data-target="#nuevoEnvase">Agregar nuevo envase</button>
                 </form>
             </header>
             <div>
@@ -82,7 +82,7 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Medida</th>
                                     <th scope="col">Estatus</th>
-                                    <th scope="col">Accion</th>
+                                    <th scope="col">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">

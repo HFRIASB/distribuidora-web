@@ -2,7 +2,7 @@
 	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
 		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
 			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
-				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-brand "><label class="text-menu">Menú</label></a>
 				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
 					<span class="navbar-toggler-icon"></span>
 				</a>
@@ -72,7 +72,7 @@
 						<label class="ml-1">{{this.pedido.fVenta_ord}}</label><br>
 						<label class="font-weight-bold">Fecha de entrega: </label>
 						<label class="ml-1">{{this.pedido.fEntrega_ord}}</label><br>
-						<label class="font-weight-bold">Direccion: </label>
+						<label class="font-weight-bold">Dirección: </label>
 						<label class="ml-1">{{this.pedido.direccion?.nombre_direc}}</label>
 						<label class="ml-1">{{this.pedido.direccion?.descripcion_direc}}</label> <br>
 						<label class="font-weight-bold">Estado: </label>
@@ -171,7 +171,7 @@
 						<button class="btn btn-warning bi-calendar3" (click)="fentrega.toggle()" type="button"></button>
 					</div>
 				</div>
-				<div>Direccion: </div>
+				<div>Dirección: </div>
 				<div class="input-group select">
 					<select class="form-select select" name="direc" [(ngModel)]="pedidoAuxiliar.direccion">
 						<option *ngFor="let direccion of direcciones" [ngValue]="direccion" 
