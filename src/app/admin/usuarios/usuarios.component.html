@@ -2,7 +2,7 @@
 	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
 		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
 			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
-				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
+				<a class="navbar-brand "><label class="text-menu">Menú</label></a>
 				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
 					<span class="navbar-toggler-icon"></span>
 				</a>
@@ -122,17 +122,17 @@
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.nombre_usu" name="nombre">
 					</div>
 					<div class="form-group">
-						<label for="exampleFormControlInput9">Numero de documento</label>
+						<label for="exampleFormControlInput9">Número de documento</label>
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.nroDocu_usu" name="nroDoc">
 					</div>
 					<div class="form-group">
-						<label for="exampleFormControlInput9">Numero de celular/telefono:</label>
+						<label for="exampleFormControlInput9">Número de celular/teléfono:</label>
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.celular_usu"
 							name="telefono">
 					</div>
 					<fieldset class="form-group">
 						<div class="row">
-							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
+							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Género</legend>
 							<div class="col-sm-10" *ngFor="let genero of generos">
 								<div class="form-check">
 									<input class="form-check-input" type="radio"
@@ -161,16 +161,16 @@
 						</div>
 					</fieldset>
 					<div class="form-group">
-						<label for="exampleFormControlInput4">Correo electronico o nombre de usuario</label>
+						<label for="exampleFormControlInput4">Correo electrónico o Nombre de usuario</label>
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.correo_usu" name="correo">
 					</div>
 					<div class="form-group">
-						<label for="exampleFormControlInput5">Contrasena</label>
+						<label for="exampleFormControlInput5">Contraseña</label>
 						<input type="password" class="form-control" [(ngModel)]="usuarioAuxiliar.password_usu"
 							name="password">
 					</div>
 					<div class="form-group">
-						<label for="exampleFormControlInput6">Observacion</label>
+						<label for="exampleFormControlInput6">Observación</label>
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.observacion_usu"
 							name="observacion">
 					</div>
