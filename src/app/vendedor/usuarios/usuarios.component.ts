@@ -97,4 +97,7 @@ export class UsuariosComponent implements OnInit {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'usuarios'], { replaceUrl: true });
   }
 
+  goUsuarioDetalle(usuario: Usuario) {
+    this.router.navigate(['vendedor', this.vendedor.id_usu, 'detalle-usuario', usuario.id_usu], { replaceUrl: true });
+  }
 }

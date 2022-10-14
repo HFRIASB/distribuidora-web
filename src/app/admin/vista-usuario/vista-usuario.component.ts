@@ -89,13 +89,19 @@ export class VistaUsuarioComponent implements OnInit {
   }
 
   guardarPagoEditado(){
-    let indexArray = this.usuario.pago?.findIndex((p: Pago) => p.id_pago == this.pagoAuxiliar.id_pago);
-    this.authService.patchPago(this.pagoAuxiliar).subscribe(data => {
-      if(this.usuario.pago != undefined && indexArray != undefined){
-        this.usuario.pago[indexArray] = this.pagoAuxiliar;
-        this.pagoAuxiliar = new Pago()
+    if (this.pagoAuxiliar.cantidad_pago != undefined) {
+      if (this.pagoAuxiliar?.cantidad_pago > 0) {
+        let indexArray = this.usuario.pago?.findIndex((p: Pago) => p.id_pago == this.pagoAuxiliar.id_pago);
+        this.authService.patchPago(this.pagoAuxiliar).subscribe(data => {
+          if (this.usuario.pago != undefined && indexArray != undefined) {
+            this.usuario.pago[indexArray] = this.pagoAuxiliar;
+            this.pagoAuxiliar = new Pago()
+          }
+        })
+      }else {
+        console.log('alert el numero debe ser mayor a 0')
       }
-    })
+    }
   }
 
   goProductos() {

@@ -1,0 +1,259 @@
+<div class="container-fluid">
+	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
+		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+				<a class="navbar-brand "><label class="text-menu">Menú</label></a>
+				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+					<span class="navbar-toggler-icon"></span>
+				</a>
+				<div class="collapse navbar-collapse sidebar">
+					<ul class="flex-column navbar-nav w-100 justify-content-between">
+						<li class="nav-item" (click)="goPedidos()">
+							<a class="nav-link"><span>Pedidos</span></a>
+						</li>
+						<li class="nav-item active" (click)="goUsuarios()">
+							<a class="nav-link"><span class="span-active">Usuarios</span></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<main class="col">
+			<header class="p-1 text-bg-dark">
+				<button type="button" class="btn btn-warning" (click)="goUsuarios()">Volver a la lista de
+					Usuarios</button>
+			</header>
+			<div class="margin">
+				<div class="card">
+					<div class="card-header text-center">
+						<ul class="nav nav-tabs card-header-tabs">
+							<li class="nav-item" (click)="tablNavegador('informacion')">
+								<a class="nav-link active" *ngIf="tabNavegador=='informacion'">Datos personales</a>
+								<a class="nav-link disabled" *ngIf="tabNavegador!='informacion'">Datos personales</a>
+							</li>
+							<li class="nav-item" (click)="tablNavegador('pagos')">
+								<a class="nav-link active" *ngIf="tabNavegador=='pagos'">Pagos Realizados</a>
+								<a class="nav-link disabled" *ngIf="tabNavegador!='pagos'">Pagos Realizados</a>
+							</li>
+							<li class="nav-item" (click)="tablNavegador('direcciones')">
+								<a class="nav-link active" *ngIf="tabNavegador=='direcciones'"> Direcciones</a>
+								<a class="nav-link disabled" *ngIf="tabNavegador!='direcciones'">Direcciones</a>
+							</li>
+						</ul>
+					</div>
+					<div class="card-body" *ngIf="tabNavegador=='informacion'">
+						<h3 class="card-title">{{cliente.nombre_usu}} </h3>
+						<p class="font-weight-bold">Numero de documento</p>
+						<p class="card-text">{{cliente.nroDocu_usu}}</p>
+						<p class="font-weight-bold">Celular: </p>
+						<p class="card-text">{{cliente.celular_usu}}</p>
+						<p class="font-weight-bold">Correo o Usuario: </p>
+						<p class="card-text">{{cliente.correo_usu}}</p>
+						<p class="font-weight-bold">Estado: </p>
+						<p class="card-text">{{cliente.estado_usu}}</p>
+						<p class="font-weight-bold">Deuda Total: </p>
+						<p class="card-text">{{cliente.deuda_usu}}</p>
+						<p class="font-weight-bold" *ngIf="cliente.observacion_usu != ''">Observaciones: </p>
+						<p class="card-text">{{cliente.observacion_usu}}</p>
+						<button type="button" class="btn btn-warning" data-toggle="modal"
+						data-target="#editarCliente">Editar cliente</button>
+					</div>
+					<div class="card-body" *ngIf="tabNavegador=='pagos'">
+						<button type="button" class="btn btn-warning" data-toggle="modal"
+							data-target="#realizarPago">Realizar pago</button>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">Monto</th>
+									<th class="text-center" scope="col">Fecha</th>
+									<th class="text-center" scope="col">Accion</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let pago of cliente.pago">
+									<td class="text-center">{{pago.cantidad_pago}}</td>
+									<td class="text-center">{{getFechaFormato(pago.fecha_pago)}}</td>
+									<td (click)="editarPago(pago)" data-toggle="modal" data-target="#editarPago"
+										class="text-center">
+										<i class="bi bi-pencil-square"></i>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="card-body" *ngIf="tabNavegador=='direcciones'">
+						<button type="button" class="btn btn-warning" data-toggle="modal"
+							data-target="#nuevaDireccion">Agregar nueva dirección</button>
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">Nombre Dirección</th>
+									<th class="text-center" scope="col">Descripcion</th>
+									<th class="text-center" scope="col">Rubro</th>
+									<th class="text-center" scope="col">Telefono</th>
+									<th class="text-center" scope="col">Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let direccion of cliente.direccion">
+									<td class="text-center">{{direccion.nombre_direc}}</td>
+									<td class="text-center">{{direccion.descripcion_direc}}</td>
+									<td class="text-center">{{direccion.rubro_direc}}</td>
+									<td class="text-center">{{direccion.telefono_direc}}</td>
+									<td class="text-center">
+										<i class="bi bi-pencil-square mr-1 i-plain" (click)="selectDireccion(direccion)" data-toggle="modal"
+											data-target="#editarDireccion"></i>
+										<i class="bi bi-geo-alt ml-1 i-plain" data-toggle="modal"
+											data-target="#verDireccion"></i>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</div>
+
+<div class="modal fade" id="realizarPago" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Registrar pago</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form #formPagos="ngForm">
+					<div class="form-group">
+						<label>Monto a pagar:</label>
+						<input name="monto" type="number" placeholder="Ingrese el monto" ngModel required
+							class="form-control">
+					</div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button class="btn btn-warning" (click)="registrarPago(formPagos.form.value)"
+						[disabled]="formPagos.invalid" data-dismiss="modal">Guardar
+						cambios</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarPago" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Editar Pago</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Nombre del envase:</label>
+						<input type="text" name="e" [(ngModel)]="pagoAuxiliar.cantidad_pago" class="form-control">
+					</div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" (click)="guardarPagoEditado()" data-dismiss="modal"
+						class="btn btn-warning">Guardar cambios</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar usuario</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Nombre del usuario</label>
+						<input type="text" class="form-control" name="nombre_usu" [(ngModel)]="clienteAuxiliar.nombre_usu">
+					</div>
+					<div class="form-group">
+						<label>Numero de documento</label>
+						<input type="text" class="form-control" name="nroDocu" [(ngModel)]="clienteAuxiliar.nroDocu_usu">
+					</div>
+					<div class="form-group">
+						<label>Celular</label>
+						<input type="text" class="form-control" name="celular" [(ngModel)]="clienteAuxiliar.celular_usu">
+					</div>
+					<fieldset class="form-group">
+						<div class="row">
+							<legend class="col-form-label col-sm-10 col-sm-2 pt-0">Género</legend>
+							<div class="col-sm-10" *ngFor="let genero of generos">
+								<div class="form-check">
+									<input class="form-check-input" type="radio"
+										(change)="changeRadioGenero($event.target)" name="generoRadio"
+										[value]="genero" [checked]="genero == cliente.sexo_usu">
+									<label class="form-check-label">
+										{{genero}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="form-group">
+						<label>Observacion</label>
+						<input type="text" class="form-control" name="observacion" [(ngModel)]="clienteAuxiliar.observacion_usu">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editUsuario()">Guardar cambios</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarDireccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Direccion</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Nombre de la direccion</label>
+						<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
+					</div>
+					<div class="form-group">
+						<label>Descripcion</label>
+						<input type="text" class="form-control" name="descripcion" [(ngModel)]="direccionAuxiliar.descripcion_direc">
+					</div>
+					<div class="form-group">
+						<label>Rubro</label>
+						<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
+					</div>
+					<div class="form-group">
+						<label>Telefono de la direccion</label>
+						<input type="text" class="form-control" name="observacion" [(ngModel)]="direccionAuxiliar.telefono_direc">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editarDireccion()">Guardar cambios</button>
+			</div>
+		</div>
+	</div>
+</div>
+

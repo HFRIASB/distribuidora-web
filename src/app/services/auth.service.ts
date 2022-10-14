@@ -53,6 +53,30 @@ export class AuthService {
     return this.http.get(this.api_url + "usuario/detalle-cliente/" + cliente.toString());
   }
 
+
+  patchUsuario(usuario: Usuario){
+    let payload = {
+      nombre_usu: usuario.nombre_usu,
+      nroDocu_usu: usuario.nroDocu_usu,
+      sexo_usu: usuario.sexo_usu,
+      celular_usu: usuario.celular_usu,
+      observacion_usu: usuario.observacion_usu
+    }
+    return this.http.patch(this.api_url+'usuario/'+usuario.id_usu, payload)
+  }
+
+  patchDireccion(direccion: Direccion){
+    let payload =  {
+      nombre_direc: direccion.nombre_direc,
+      descripcion_direc: direccion.descripcion_direc,
+      // lat
+      // long
+      rubro_direc: direccion.rubro_direc,
+      telefono_direc: direccion.telefono_direc
+    }
+    return this.http.patch(this.api_url+'direccion/'+direccion.id_direc, payload)
+  }
+
   getUsuariosByRol(rol: string) {
     return this.http.get(this.api_url + "usuario/rol/" + rol);
   }

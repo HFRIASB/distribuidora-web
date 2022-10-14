@@ -41,7 +41,6 @@ export class PedidoDetalleComponent implements OnInit {
           this.authService.getUsuarioDireccion(this.pedido.usuario?.id_usu)
             .subscribe((direcciones: Direccion[]) => {
               this.direcciones = direcciones;
-              console.log(direcciones)
             })
           this.pedidoAuxiliar.estado_ord = this.pedido.estado_ord;
           this.pedidoAuxiliar.direccion = this.pedido.direccion
@@ -52,10 +51,15 @@ export class PedidoDetalleComponent implements OnInit {
   }
 
   onClick(direccion: any){
-    console.log(direccion.value)
-    let direc= new Direccion();
-    direc = direccion.value;
-    console.log(direc)
+    // console.log(Object.assign({},direccion.value))
+    // let direc= new Direccion();
+    // direc = direccion.value;
+    // console.log(direc)
+    // console.log(this.pedidoAuxiliar.direccion)
+  }
+
+  getNameDirec(direc: Direccion){
+    return direc.nombre_direc;
   }
 
   formatoFecha(date: Date) {
@@ -65,6 +69,7 @@ export class PedidoDetalleComponent implements OnInit {
 
   editPedidos(f: NgForm) {
     console.log(f.form.value)
+    this.pedidoAuxiliar
   }
 
   changeRadio(event: any) {
