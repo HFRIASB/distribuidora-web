@@ -9,6 +9,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
 import { PedidoDetalleComponent } from './pedido-detalle/pedido-detalle.component';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 
@@ -25,7 +26,8 @@ import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.compo
     VendedorRoutingModule,
     FormsModule,
     Ng2SearchPipeModule,
-    NgbModule
+    NgbModule,
+    GoogleMapsModule
   ]
 })
 export class VendedorModule { }

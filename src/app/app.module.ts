@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { VendedorModule } from './vendedor/vendedor.module';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { VendedorModule } from './vendedor/vendedor.module';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    GoogleMapsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
