@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/adapters/ngb-date-adapter';
 import { IngresoProducto } from 'src/app/models/ingreso';
 import { EstadoIngreso } from 'src/app/models/enums/estado-ingreso';
 import { TipoIngreso } from 'src/app/models/enums/tipo-ingreso';
@@ -13,22 +11,20 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
-  selector: 'app-nuevo-registro',
-  templateUrl: './nuevo-registro.component.html',
-  styleUrls: ['./nuevo-registro.component.css']
+  selector: 'app-ingreso',
+  templateUrl: './ingreso.component.html',
+  styleUrls: ['./ingreso.component.css']
 })
-export class NuevoRegistroComponent implements OnInit {
-  fecha: NgbDateStruct = this.calendar.getToday();
-  searchText = '';
+export class IngresoComponent implements OnInit {
+  searchText: string = '';
   administrador: Usuario = new Usuario();
-  auxiliar: IngresoProducto = new IngresoProducto()
-  nuevosRegistros: IngresoProducto[] = [];
+  ingreso: IngresoProducto[] = [];
   productos: Producto[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private productoService: ProductoService,
+    public productoService: ProductoService,
     private calendar: NgbCalendar
   ) {
     this.route.params.subscribe(params => {
@@ -37,6 +33,11 @@ export class NuevoRegistroComponent implements OnInit {
           this.administrador = user;
         })
     });
+    this.productoService.getIngreso()
+      .subscribe((items: any) => {
+        this.ingreso = items;
+      })
+
     this.productoService.getProductos()
       .subscribe((productos: Producto[]) => {
         this.productos = productos;
@@ -46,56 +47,23 @@ export class NuevoRegistroComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  selectProduct(producto: Producto) {
-    let nuevo = new IngresoProducto()
-    nuevo.producto = producto;
-    this.nuevosRegistros.push(nuevo)
-    this.searchText = '';
-  }
 
-  guardarRegistro() {
-    if (this.validarRegistro()) {
-      this.auxiliar.fecha_ingreso_producto = new Date(this.fecha.year, this.fecha.month - 1, this.fecha.day)
-      this.nuevosRegistros.forEach((n: IngresoProducto, index) => {
-        let payload = new IngresoProducto();
-        payload.chofer_ingreso_producto = this.auxiliar.chofer_ingreso_producto;
-        payload.fecha_ingreso_producto = this.auxiliar.fecha_ingreso_producto;
-        payload.cantidad_ingreso_producto = n.cantidad_ingreso_producto;
-        payload.producto = n.producto;
-        this.productoService.postIngreso(payload)
-          .subscribe((data) => {
-            this.productoService.patchStockProducto(n.producto.id_prod, n.cantidad_ingreso_producto)
-            .subscribe(d=>{
-              if (index == this.nuevosRegistros.length - 1) {
-                console.log('alert todo se guarodo')
-                this.volverIngreso()
-              }
-            })
-            
-          })
+  deleteIngreso(item: IngresoProducto) {
+    this.productoService.deleteIngreso(item.id_ingreso_producto)
+    .subscribe(data=> {
+      console.log(data)
+      this.productoService.patchStockProducto(item.producto.id_prod, -item.cantidad_ingreso_producto)
+      .subscribe(stock=>{
+        window.location.reload();
       })
-    } else {
-      console.log('alert de ingresar bien los datos')
-    }
-  }
-
-  validarRegistro() {
-    if (
-      this.auxiliar.chofer_ingreso_producto != '' &&
-      this.nuevosRegistros.length > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  clearSearch() {
-    this.searchText = '';
+    }, error => {
+      console.log('alerta ocurrio un error')
+    })
   }
 
   goProductos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
+
   }
 
   goUsuarios() {
@@ -105,7 +73,11 @@ export class NuevoRegistroComponent implements OnInit {
   goPedidos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
   }
-  
+
+  nuevoRegistro() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'nuevo-registro'], { replaceUrl: true });
+  }
+
   goVarios(){
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
   }
@@ -121,9 +93,8 @@ export class NuevoRegistroComponent implements OnInit {
   goCFEnvase(){
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
-  
-  volverIngreso() {
-    this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
-  }
 
+  clearSearch() {
+    this.searchText = '';
+  }
 }

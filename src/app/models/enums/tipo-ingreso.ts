@@ -1,4 +1,4 @@
-export enum TipoAlmacen {
+export enum TipoIngreso {
 	Producto = 'Producto',
 	Envase = 'Envase'
 }

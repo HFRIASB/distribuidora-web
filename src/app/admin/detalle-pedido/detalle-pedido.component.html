@@ -41,8 +41,8 @@
 						<li class="nav-item" (click)="goUsuarios()">
 							<a class="nav-link"><span>Usuarios</span></a>
 						</li>
-						<li class="nav-item" (click)="goAlmacen()">
-							<a class="nav-link"><span>Almacen</span></a>
+						<li class="nav-item" (click)="goIngreso()">
+							<a class="nav-link"><span>Ingreso</span></a>
 						</li>
 					</ul>
 				</div>
@@ -62,16 +62,16 @@
 				<div id="content1">
 					<div class="border m-3 p-3">
 						<h3>Detalle del pedido
-							<i class="bi bi-pencil-square icon" data-toggle="modal"
+							<i *ngIf="pedido.estado_ord != 'Cancelado'" class="bi bi-pencil-square icon" data-toggle="modal"
 								data-target="#editarDetallePedido"></i>
 						</h3>
 						<label class="font-weight-bold">Usuario: </label>
 						<label class="ml-1"> {{this.pedido.usuario?.correo_usu}} ({{this.pedido.usuario?.nombre_usu}})
 						</label><br>
 						<label class="font-weight-bold">Fecha de pedido: </label>
-						<label class="ml-1">{{this.pedido.fVenta_ord}}</label><br>
+						<label class="ml-1">{{this.productoService.getFechaFormat(this.pedido.fVenta_ord.toString())}}</label><br>
 						<label class="font-weight-bold">Fecha de entrega: </label>
-						<label class="ml-1">{{this.pedido.fEntrega_ord}}</label><br>
+						<label class="ml-1">{{this.productoService.getFechaFormat(this.pedido.fEntrega_ord.toString())}}</label><br>
 						<label class="font-weight-bold">Dirección: </label>
 						<label class="ml-1">{{this.pedido.direccion.nombre_direc}}</label>
 						<label class="ml-1">{{this.pedido.direccion.descripcion_direc}}</label> <br>
@@ -183,7 +183,7 @@
 					<label>Nro nota:</label>
 					<input type="number" name="precio" [(ngModel)]="pedidoAuxiliar.numNota_ord" class="form-control">
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label>Estado:</label>
 					<fieldset class="form-group">
 						<div class="row">
@@ -200,7 +200,7 @@
 							</div>
 						</div>
 					</fieldset>
-				</div>
+				</div> -->
 				<div class="form-group">
 					<label>Foto del recibo:</label>
 					<input type="text" name="url" [(ngModel)]="pedidoAuxiliar.url_ord" class="form-control">

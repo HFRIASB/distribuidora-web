@@ -10,7 +10,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
-import { AlmacenComponent } from './almacen/almacen.component';
+import { IngresoComponent } from './ingreso/ingreso.component';
 import { NuevoRegistroComponent } from './nuevo-registro/nuevo-registro.component';
 import { DetallePedidoComponent } from './detalle-pedido/detalle-pedido.component';
 import { GlobalComponent } from './reporte/global/global.component';
@@ -27,7 +27,7 @@ import { EnvasesComponent } from './control-fisico/envases/envases.component';
     VistaUsuarioComponent,
     PedidosComponent,
     NuevoPedidoComponent,
-    AlmacenComponent,
+    IngresoComponent,
     NuevoRegistroComponent,
     DetallePedidoComponent,
     GlobalComponent,

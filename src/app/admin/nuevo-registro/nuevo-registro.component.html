@@ -42,7 +42,7 @@
 							<a class="nav-link"><span>Usuarios</span></a>
 						</li>
 						<li class="nav-item active">
-							<a class="nav-link"><span class="span-active">Almacen</span></a>
+							<a class="nav-link"><span class="span-active">Ingreso</span></a>
 						</li>
 					</ul>
 				</div>
@@ -52,7 +52,7 @@
 			<header class="p-3 text-bg-dark">
 				<div class="d-grid gap-2 col-3">
 					<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#nuevoProducto"
-						(click)="volverAlmacen()">Volver atrás</button>
+						(click)="volverIngreso()">Volver atrás</button>
 				</div>
 			</header>
 			<div class="margin">
@@ -60,7 +60,7 @@
 					<div class="d-grid gap-2 content-responsive">
 						<div class="form-group">
 							<label>Chofer: </label>
-							<input type="text" class="form-control" [(ngModel)]="auxiliar.chofer_almacen" name="chofer"
+							<input type="text" class="form-control" [(ngModel)]="auxiliar.chofer_ingreso_producto" name="chofer"
 								required>
 						</div>
 						<div class="">
@@ -72,45 +72,13 @@
 									type="button"></button>
 							</div>
 						</div>
-						<fieldset class="form-group">
-							<div class="row">
-								<legend class="col-form-label ">Estado:</legend>
-								<div *ngFor="let estado of estadoAlmacen">
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											(change)="cambiarEstadoRadio($event.target)" name="estado"
-											value="{{estado}}">
-										<label class="form-check-label">
-											{{estado}}
-										</label>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<fieldset class="form-group">
-							<div class="row">
-								<legend class="col-form-label ">Tipo:</legend>
-								<div *ngFor="let tipo of tipoAlmacen">
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											(change)="cambiarTipoRadio($event.target)" name="tipo" value="{{tipo}}">
-										<label class="form-check-label">
-											{{tipo}}
-										</label>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<button *ngIf="auxiliar.tipo_almacen == 'Producto'" type="button" class="btn btn-warning"
+						<button type="button" class="btn btn-warning"
 							(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarProducto">Seleccionar
 							Producto</button>
-						<button *ngIf="auxiliar.tipo_almacen =='Envase'" type="button" class="btn btn-warning"
-							(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarEnvase">Seleccionar
-							Envase</button>
 						<div *ngFor="let item of nuevosRegistros">
 							<div class="container-items">
-								<label>{{item.item_almacen}}</label>
-								<input class="form-control" name="cantidad" [(ngModel)]="item.cantidad_almacen"
+								<label>{{item.producto.nombre_prod}}</label>
+								<input class="form-control" name="cantidad" [(ngModel)]="item.cantidad_ingreso_producto"
 									type="number" min="1">
 							</div>
 						</div>
@@ -146,36 +114,6 @@
 							data-dismiss="modal">
 							<td>{{producto.nombre_prod}}</td>
 							<td>{{producto.uniMedida_prod}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="seleccionarEnvase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar Producto</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<input type="text" name="search" [(ngModel)]="searchText" class="form-control form-control text-bg"
-					placeholder="Buscar envase..." aria-label="Search">
-				<table class="table">
-					<thead class="text-center">
-						<tr>
-							<th scope="col">Nombre</th>
-						</tr>
-					</thead>
-					<tbody class="text-center">
-						<tr *ngFor="let envase of envases | filter:searchText" (click)="selectEnvase(envase)"
-							data-dismiss="modal">
-							<td>{{envase.nombre_envase}}</td>
 						</tr>
 					</tbody>
 				</table>

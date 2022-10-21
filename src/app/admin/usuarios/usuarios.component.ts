@@ -93,8 +93,8 @@ export class UsuariosComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
   }
 
-  goAlmacen(){
-    this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
+  goIngreso(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }
 
   goVarios(){

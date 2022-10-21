@@ -41,8 +41,8 @@
                         <li class="nav-item" (click)="goUsuarios()">
                             <a class="nav-link"><span>Usuarios</span></a>
                         </li>
-                        <li class="nav-item" (click)="goAlmacen()">
-                            <a class="nav-link"><span>Almacén</span></a>
+                        <li class="nav-item" (click)="goIngreso()">
+                            <a class="nav-link"><span>Ingreso</span></a>
                         </li>
                     </ul>
                 </div>
@@ -78,18 +78,18 @@
                         <table class="table">
                             <thead class="text-center">
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Medida</th>
+                                    <th scope="col">Stock</th>
                                     <th scope="col">Estatus</th>
                                     <th scope="col">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 <tr *ngFor="let producto of productos | filter:searchText">
-                                    <td scope="row">{{producto.id_prod}}</td>
                                     <td>{{producto.nombre_prod}}</td>
                                     <td>{{producto.uniMedida_prod}}</td>
+                                    <td>{{producto.stock_prod}}</td>
                                     <td *ngIf="producto.estado_prod == 'Activo'">
                                         <a class="badge badge-warning">{{producto.estado_prod}}</a>
                                     </td>

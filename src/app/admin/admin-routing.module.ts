@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AlmacenComponent } from './almacen/almacen.component';
+import { IngresoComponent } from './ingreso/ingreso.component';
 import { EnvasesComponent } from './control-fisico/envases/envases.component';
 import { ProductoComponent } from './control-fisico/producto/producto.component';
 // import { ControlFisicoProductoComponent } from './control-fisico-producto/control-fisico-producto.component';
@@ -36,8 +36,8 @@ const routes: Routes = [
     component: NuevoPedidoComponent
   },
   {
-    path: 'almacen',
-    component: AlmacenComponent
+    path: 'ingreso',
+    component: IngresoComponent
   },
   {
     path: 'nuevo-registro',

@@ -1,7 +1,7 @@
 .datePicker {
-	display: flex;
-	flex-direction: row;
-	padding: 5px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
 }
 
 /* .picker {
@@ -9,12 +9,26 @@
 } */
 
 .select {
-	width: min-content;
+  width: min-content;
 }
 
-.select-container{
-	display: flex;
-	flex-direction: row;
-	margin: 10px;
-	align-items: center;
-  }
+.select-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  align-items: center;
+}
+
+.pendiente {
+  color: #ddb103;
+  text-decoration: underline;
+}
+
+.cancelado {
+  color: darkred;
+}
+
+.entregado {
+  color: darkgreen;
+  text-decoration: underline;
+}

@@ -1,4 +1,4 @@
-export enum EstadoAlmacen {
+export enum EstadoIngreso {
 	Ingreso = 'Ingreso',
 	Desapacho = 'Despacho'
 }
