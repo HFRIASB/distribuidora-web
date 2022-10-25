@@ -132,7 +132,7 @@ export class PedidosComponent implements OnInit {
     else if (fecha.getDay() == 5)
       day = 'Viernes'
     else if (fecha.getDay() == 6)
-      day = 'Sabado'
+      day = 'Sábado'
     return day + ', ' + fecha.getDate() + '/' + (fecha.getMonth() + 1).toString() + '/' + fecha.getFullYear();
   }
 
