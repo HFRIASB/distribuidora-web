@@ -9,9 +9,9 @@
 				<div class="collapse navbar-collapse sidebar">
 					<ul class="flex-column navbar-nav w-100 justify-content-between">
 						<li class="nav-item">
-							<a class="nav-link dropdown-toggle text-nowrap active" data-parent="#navbar1"
+							<a class="nav-link dropdown-toggle text-nowrap" href="#m1" data-parent="#navbar1"
 								data-toggle="collapse" data-target="#m1" aria-expanded="false">
-								<span class="span-active"> Reportes</span>
+								<span class=""> Reportes</span>
 							</a>
 							<div class="collapse" id="m1">
 								<ul class="flex-column nav">
@@ -41,49 +41,49 @@
 						<li class="nav-item" (click)="goUsuarios()">
 							<a class="nav-link"><span>Usuarios</span></a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link"><span>Ingreso</span></a>
+						<li class="nav-item active">
+							<a class="nav-link"><span class="span-active">Ingreso</span></a>
 						</li>
 					</ul>
 				</div>
 			</nav>
 		</aside>
 		<main class="col">
-			<!-- <header class="p-3 text-bg-dark">
-
+			<header class="p-3 text-bg-dark">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 					<form class="col-sm-8" role="search">
 						<input type="text" name="search" [(ngModel)]="searchText"
 							class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
 							aria-label="Search">
-						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+						<button type="button" class="btn btn-warning" data-toggle="modal"
 							data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
 					</form>
-
 				</div>
-			</header> -->
-			<div class="card">
-				<div class="card-header text-center">
-					<ul class="nav nav-tabs card-header-tabs">
-						<li class="nav-item" (click)="tablNavegador('general')">
-							<a class="nav-link active" *ngIf="tabNavegador=='general'">general</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='general'">general</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('saldos')">
-							<a class="nav-link active" *ngIf="tabNavegador=='saldos'">saldos</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='saldos'">saldos</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('vendedores')">
-							<a class="nav-link active" *ngIf="tabNavegador=='vendedores'">vendedores</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='vendedores'">vendedores</a>
-						</li>
-					</ul>
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='semanal'">
-
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='mensual'">
-				</div>
+			</header>
+			<div class="margin" style="overflow-x:auto;">
+				<table class="table">
+					<thead class="text-center">
+						<tr>
+							<th scope="col">Chofer</th>
+							<th scope="col">Producto</th>
+							<th scope="col">Cantidad</th>
+							<th scope="col">Fecha</th>
+							<th scope="col">Acción</th>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+						<tr *ngFor="let item of ingreso | filter:searchText">
+							<td>{{item.chofer_ingreso_producto}}</td>
+							<td>{{item.producto.nombre_prod}}</td>
+							<td>{{item.cantidad_ingreso_producto}}</td>
+							<td>{{productoService.getFechaFormat(item.fecha_ingreso_producto.toString())}}</td>
+							<td data-toggle="modal" (click)="deleteIngreso(item)"
+								data-target="#editarIngreso">
+								<i class="bi bi-trash-fill"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</main>
 	</div>

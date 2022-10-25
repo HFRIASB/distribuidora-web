@@ -28,7 +28,7 @@ export class DetallePedidoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private productoService: ProductoService,
+    public productoService: ProductoService,
     private calendar: NgbCalendar,
   ) {
     this.pedido.usuario = new Usuario();
@@ -108,8 +108,8 @@ export class DetallePedidoComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
   }
 
-  goAlmacen() {
-    this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
+  goIngreso() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }
 
   goVistaPedido(id: number) {

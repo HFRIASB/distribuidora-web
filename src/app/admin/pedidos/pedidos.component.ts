@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDate, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap'; import { Estado } from 'src/app/models/enums/estado';
 import { EstadoPedido } from 'src/app/models/enums/estado-pedido';
 import { Orden } from 'src/app/models/orden';
+import { OrdenProducto } from 'src/app/models/orden-producto';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -14,6 +15,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class PedidosComponent implements OnInit {
   estados: any = Object.keys(EstadoPedido)
+  EstadoPedido = EstadoPedido
   administrador: Usuario = new Usuario();
   searchTextCliente: string = '';
   fechaInicio: NgbDateStruct | undefined;
@@ -29,7 +31,7 @@ export class PedidosComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private productoService: ProductoService
+    public productoService: ProductoService
   ) {
     this.estados.unshift('Todos')
     this.filtros.estado = this.estados.Todos
@@ -117,23 +119,44 @@ export class PedidosComponent implements OnInit {
     }
   }
 
-  getFechaFormat(fecha: Date) {
-    let day = '';
-    if (fecha.getDay() == 0)
-      day = 'Domingo'
-    else if (fecha.getDay() == 1)
-      day = 'Lunes'
-    else if (fecha.getDay() == 2)
-      day = 'Martes'
-    else if (fecha.getDay() == 3)
-      day = 'Miercoles'
-    else if (fecha.getDay() == 4)
-      day = 'Jueves'
-    else if (fecha.getDay() == 5)
-      day = 'Viernes'
-    else if (fecha.getDay() == 6)
-      day = 'Sábado'
-    return day + ', ' + fecha.getDate() + '/' + (fecha.getMonth() + 1).toString() + '/' + fecha.getFullYear();
+
+  changeEstado(pedido: Orden) {
+    if (pedido.estado_ord == EstadoPedido.Pendiente) {
+      let payload = {
+        id_ord: pedido.id_ord,
+        estado_ord: EstadoPedido.Entregado
+      }
+      this.productoService.patchPedido(payload)
+        .subscribe(data => {
+          pedido.ordenProducto.forEach((op: OrdenProducto, index) => {
+            this.productoService.patchStockProducto(op.producto?.id_prod, -op.cantidad_op)
+              .subscribe(op => {
+                if (pedido.ordenProducto.length-1 == index) {
+                  console.log('todos estan actualizados')
+                  location.reload();
+                }
+              })
+
+          })
+        })
+    } else if (pedido.estado_ord == EstadoPedido.Entregado) {
+      let payload = {
+        id_ord: pedido.id_ord,
+        estado_ord: EstadoPedido.Pendiente
+      }
+      this.productoService.patchPedido(payload)
+        .subscribe(data => {
+          pedido.ordenProducto.forEach((op: OrdenProducto, index) => {
+            this.productoService.patchStockProducto(op.producto?.id_prod, op.cantidad_op)
+              .subscribe(op => {
+                if (pedido.ordenProducto.length-1 == index) {
+                  console.log('todos estan actualizados')
+                  location.reload();
+                }
+              })
+          })
+        })
+    }
   }
 
   filtrarPorFecha() {
@@ -199,7 +222,7 @@ export class PedidosComponent implements OnInit {
     }
   }
 
-  quitarFiltros(){
+  quitarFiltros() {
     location.reload()
   }
 
@@ -220,27 +243,27 @@ export class PedidosComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
   }
 
-  goAlmacen() {
-    this.router.navigate(['admin', this.administrador.id_usu, 'almacen'], { replaceUrl: true });
+  goIngreso() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }
 
   goVistaPedido(pedido: Orden) {
     this.router.navigate(['admin', this.administrador.id_usu, 'detalle-pedido', pedido.id_ord], { replaceUrl: true });
   }
 
-  goVarios(){
+  goVarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
   }
 
-  goGlobal(){
+  goGlobal() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
-  goCFProducto(){
+  goCFProducto() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
   }
 
-  goCFEnvase(){
+  goCFEnvase() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
 }
