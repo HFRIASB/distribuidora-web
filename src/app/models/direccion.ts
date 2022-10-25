@@ -5,7 +5,6 @@ export class Direccion {
 
     nombre_direc: string;
 
-
     descripcion_direc?: string;
 
     lat_direc?: string;
@@ -17,7 +16,6 @@ export class Direccion {
     telefono_direc?: string;
 
     usuario?: Usuario;
-
 
     constructor() {
         this.nombre_direc = '';

@@ -82,8 +82,7 @@
 						</table>
 					</div>
 					<div class="card-body" *ngIf="tabNavegador=='direcciones'">
-						<button type="button" class="btn btn-warning" data-toggle="modal"
-							data-target="#nuevaDireccion">Agregar nueva dirección</button>
+						<button type="button" class="btn btn-warning" (click)="nuevaDireccionModal()" data-toggle="modal" data-target="#agregarDireccion">Agregar nueva dirección</button>
 						<table class="table">
 							<thead>
 								<tr>
@@ -235,7 +234,6 @@
 				</button>
 			</div>
 			<div class="modal-body">
-
 				<div class="form-group">
 					<label>Nombre de la direccion</label>
 					<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
@@ -255,15 +253,62 @@
 						[(ngModel)]="direccionAuxiliar.telefono_direc">
 				</div>
 				<div>
-					<google-map height="500px" width="100%" [zoom]="15" [center]="center" [options]="options">
+					<google-map height="500px" width="100%" [zoom]="15" [center]="center" [options]="options"
+						(mapClick)="addMarker($event)">
+						<map-marker [position]="markerPosition"
+							[options]="markerOptions"></map-marker>
 					</google-map>
 				</div>
-
-
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editarDireccion()">Guardar
+					cambios</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="agregarDireccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Agregar Direccion</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Nombre de la direccion</label>
+					<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
+				</div>
+				<div class="form-group">
+					<label>Descripción</label>
+					<input type="text" class="form-control" name="descripcion"
+						[(ngModel)]="direccionAuxiliar.descripcion_direc">
+				</div>
+				<div class="form-group">
+					<label>Rubro</label>
+					<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
+				</div>
+				<div class="form-group">
+					<label>Telefono de la direccion</label>
+					<input type="text" class="form-control" name="observacion"
+						[(ngModel)]="direccionAuxiliar.telefono_direc">
+				</div>
+				<div>
+					<google-map height="500px" width="100%" [zoom]="15" [center]="center" [options]="options"
+						(mapClick)="addMarker($event)">
+						<map-marker [position]="markerPosition"
+							[options]="markerOptions"></map-marker>
+					</google-map>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="saveDireccion()">Guardar
 					cambios</button>
 			</div>
 		</div>

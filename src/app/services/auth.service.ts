@@ -65,12 +65,26 @@ export class AuthService {
     return this.http.patch(this.api_url+'usuario/'+usuario.id_usu, payload)
   }
 
+  postNuevaDireccion(direccion: Direccion){
+    console.log(direccion)
+    let payload = {
+      nombre_direc: direccion.nombre_direc,
+      descripcion_direc: direccion.descripcion_direc,
+      lat_direc: direccion.lat_direc,
+      lng_direc: direccion.lng_direc,
+      rubro_direc: direccion.rubro_direc,
+      telefono_direc: direccion.telefono_direc,
+      usuario: direccion.usuario?.id_usu
+    }
+    return this.http.post(this.api_url+'direccion', payload)
+  }
+
   patchDireccion(direccion: Direccion){
     let payload =  {
       nombre_direc: direccion.nombre_direc,
       descripcion_direc: direccion.descripcion_direc,
-      // lat
-      // long
+      lat_direc: direccion.lat_direc,
+      lng_direc: direccion.lng_direc,
       rubro_direc: direccion.rubro_direc,
       telefono_direc: direccion.telefono_direc
     }
@@ -121,4 +135,6 @@ export class AuthService {
   getRolByRolName(name: string){
     return this.http.get(this.api_url+"rol/rolName/"+name);
   }
+
+  
 }

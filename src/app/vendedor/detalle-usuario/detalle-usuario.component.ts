@@ -3,9 +3,11 @@ import { GoogleMap } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Direccion } from 'src/app/models/direccion';
 import { Genero } from 'src/app/models/enums/genero';
+import { OrdenProducto } from 'src/app/models/orden-producto';
 import { Pago } from 'src/app/models/pago';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -33,11 +35,19 @@ export class DetalleUsuarioComponent implements OnInit {
     minZoom: 10,
   };
 
+  display: any;
+
+
+  markerOptions: google.maps.MarkerOptions = {
+    draggable: false
+  };
+  markerPosition!: google.maps.LatLngLiteral;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private productoService: ProductoService
   ) {
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
@@ -72,6 +82,14 @@ export class DetalleUsuarioComponent implements OnInit {
   //   }
 
   // }
+
+  addMarker(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) {
+      this.markerPosition = event.latLng.toJSON();
+      this.direccionAuxiliar.lat_direc = event.latLng.toJSON().lat.toString()
+      this.direccionAuxiliar.lng_direc = event.latLng.toJSON().lng.toString()
+    }
+  }
 
   setAuxiliar(user: Usuario) {
     this.clienteAuxiliar.id_usu = user.id_usu;
@@ -136,6 +154,40 @@ export class DetalleUsuarioComponent implements OnInit {
     this.direccionAuxiliar.descripcion_direc = direccion.descripcion_direc;
     this.direccionAuxiliar.rubro_direc = direccion.rubro_direc;
     this.direccionAuxiliar.telefono_direc = direccion.telefono_direc;
+    if (direccion.lat_direc != undefined && direccion.lng_direc != undefined) {
+      this.markerPosition = {
+        lat: +direccion.lat_direc,
+        lng: +direccion.lng_direc
+      }
+      this.center = {
+        lat: +direccion.lat_direc,
+        lng: +direccion.lng_direc
+      }
+    }
+
+  }
+
+  nuevaDireccionModal() {
+    this.direccionAuxiliar = new Direccion();
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      this.markerPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
+  }
+
+  saveDireccion(){
+    this.direccionAuxiliar.usuario = this.cliente
+    this.authService.postNuevaDireccion(this.direccionAuxiliar)
+    .subscribe(data=>{
+      console.log(data)
+      window.location.reload()
+    })
   }
 
   editarDireccion() {
@@ -146,8 +198,11 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   getFechaFormato(fecha: any) {
-    let fechaFormato = new Date(fecha);
-    return fechaFormato.getDate() + '/' + (fechaFormato.getMonth() + 1) + '/' + fechaFormato.getFullYear();
+    if(fecha){
+      return this.productoService.getFechaFormat(fecha);
+    }else {
+      return this.productoService.getFechaFormat((new Date()).toString());
+    }
   }
 
   goReportes() {
@@ -156,7 +211,6 @@ export class DetalleUsuarioComponent implements OnInit {
 
   goPedidos() {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'pedidos'], { replaceUrl: true });
-
   }
 
   goUsuarios() {
