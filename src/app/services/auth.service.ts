@@ -89,6 +89,10 @@ export class AuthService {
     return this.http.get(this.api_url + "cartera-cliente/" + id);
   }
 
+  deleteCarteraCliente(id: number) {
+    return this.http.delete(this.api_url + "cartera-cliente/" + id)
+  }
+
   realizarPago(data: any) {
     const pago = {
       cantidad_pago: data.monto,

@@ -56,7 +56,7 @@
 						<p class="font-weight-bold" *ngIf="cliente.observacion_usu != ''">Observaciones: </p>
 						<p class="card-text">{{cliente.observacion_usu}}</p>
 						<button type="button" class="btn btn-warning" data-toggle="modal"
-						data-target="#editarCliente">Editar cliente</button>
+							data-target="#editarCliente">Editar cliente</button>
 					</div>
 					<div class="card-body" *ngIf="tabNavegador=='pagos'">
 						<button type="button" class="btn btn-warning" data-toggle="modal"
@@ -101,8 +101,8 @@
 									<td class="text-center">{{direccion.rubro_direc}}</td>
 									<td class="text-center">{{direccion.telefono_direc}}</td>
 									<td class="text-center">
-										<i class="bi bi-pencil-square mr-1 i-plain" (click)="selectDireccion(direccion)" data-toggle="modal"
-											data-target="#editarDireccion"></i>
+										<i class="bi bi-pencil-square mr-1 i-plain" (click)="selectDireccion(direccion)"
+											data-toggle="modal" data-target="#editarDireccion"></i>
 										<i class="bi bi-geo-alt ml-1 i-plain" data-toggle="modal"
 											data-target="#verDireccion"></i>
 									</td>
@@ -180,15 +180,18 @@
 				<form>
 					<div class="form-group">
 						<label>Nombre del usuario</label>
-						<input type="text" class="form-control" name="nombre_usu" [(ngModel)]="clienteAuxiliar.nombre_usu">
+						<input type="text" class="form-control" name="nombre_usu"
+							[(ngModel)]="clienteAuxiliar.nombre_usu">
 					</div>
 					<div class="form-group">
 						<label>Numero de documento</label>
-						<input type="text" class="form-control" name="nroDocu" [(ngModel)]="clienteAuxiliar.nroDocu_usu">
+						<input type="text" class="form-control" name="nroDocu"
+							[(ngModel)]="clienteAuxiliar.nroDocu_usu">
 					</div>
 					<div class="form-group">
 						<label>Celular</label>
-						<input type="text" class="form-control" name="celular" [(ngModel)]="clienteAuxiliar.celular_usu">
+						<input type="text" class="form-control" name="celular"
+							[(ngModel)]="clienteAuxiliar.celular_usu">
 					</div>
 					<fieldset class="form-group">
 						<div class="row">
@@ -196,8 +199,8 @@
 							<div class="col-sm-10" *ngFor="let genero of generos">
 								<div class="form-check">
 									<input class="form-check-input" type="radio"
-										(change)="changeRadioGenero($event.target)" name="generoRadio"
-										[value]="genero" [checked]="genero == cliente.sexo_usu">
+										(change)="changeRadioGenero($event.target)" name="generoRadio" [value]="genero"
+										[checked]="genero == cliente.sexo_usu">
 									<label class="form-check-label">
 										{{genero}}
 									</label>
@@ -207,13 +210,15 @@
 					</fieldset>
 					<div class="form-group">
 						<label>Observacion</label>
-						<input type="text" class="form-control" name="observacion" [(ngModel)]="clienteAuxiliar.observacion_usu">
+						<input type="text" class="form-control" name="observacion"
+							[(ngModel)]="clienteAuxiliar.observacion_usu">
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editUsuario()">Guardar cambios</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editUsuario()">Guardar
+					cambios</button>
 			</div>
 		</div>
 	</div>
@@ -230,32 +235,37 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form>
-					<div class="form-group">
-						<label>Nombre de la direccion</label>
-						<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
-					</div>
-					<div class="form-group">
-						<label>Descripción</label>
-						<input type="text" class="form-control" name="descripcion" [(ngModel)]="direccionAuxiliar.descripcion_direc">
-					</div>
-					<div class="form-group">
-						<label>Rubro</label>
-						<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
-					</div>
-					<div class="form-group">
-						<label>Telefono de la direccion</label>
-						<input type="text" class="form-control" name="observacion" [(ngModel)]="direccionAuxiliar.telefono_direc">
-					</div>
-					<google-map></google-map>
-				</form>
-				
+
+				<div class="form-group">
+					<label>Nombre de la direccion</label>
+					<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
+				</div>
+				<div class="form-group">
+					<label>Descripción</label>
+					<input type="text" class="form-control" name="descripcion"
+						[(ngModel)]="direccionAuxiliar.descripcion_direc">
+				</div>
+				<div class="form-group">
+					<label>Rubro</label>
+					<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
+				</div>
+				<div class="form-group">
+					<label>Telefono de la direccion</label>
+					<input type="text" class="form-control" name="observacion"
+						[(ngModel)]="direccionAuxiliar.telefono_direc">
+				</div>
+				<div>
+					<google-map height="500px" width="100%" [zoom]="15" [center]="center" [options]="options">
+					</google-map>
+				</div>
+
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editarDireccion()">Guardar cambios</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editarDireccion()">Guardar
+					cambios</button>
 			</div>
 		</div>
 	</div>
 </div>
-

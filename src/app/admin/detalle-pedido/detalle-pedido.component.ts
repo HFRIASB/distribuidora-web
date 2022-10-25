@@ -66,6 +66,19 @@ export class DetallePedidoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  cancelarPedido() {
+    let payload = {
+      id_ord: this.pedido.id_ord,
+      estado_ord: EstadoPedido.Cancelado
+    }
+    this.productoService.patchPedido(payload)
+      .subscribe(data => {
+        console.log('pedido cancelado')
+        location.reload();
+      })
+  }
+
+
   seleccionarProducto(producto: OrdenProducto) {
     this.productoSeleccionado.id_op = producto.id_op;
     this.productoSeleccionado.precioUni_op = Number(producto.precioUni_op);
@@ -120,19 +133,19 @@ export class DetallePedidoComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
   }
 
-  goVarios(){
+  goVarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
   }
 
-  goGlobal(){
+  goGlobal() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
-  goCFProducto(){
+  goCFProducto() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
   }
 
-  goCFEnvase(){
+  goCFEnvase() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
 

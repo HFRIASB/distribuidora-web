@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GoogleMap } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Direccion } from 'src/app/models/direccion';
 import { Genero } from 'src/app/models/enums/genero';
@@ -12,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./detalle-usuario.component.css']
 })
 export class DetalleUsuarioComponent implements OnInit {
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap | undefined
   generos = Object.values(Genero);
   vendedor: Usuario = new Usuario();
   cliente: Usuario = new Usuario();
@@ -19,6 +21,19 @@ export class DetalleUsuarioComponent implements OnInit {
   direccionAuxiliar: Direccion = new Direccion();
   pagoAuxiliar: Pago = new Pago();
   tabNavegador = "informacion";
+
+
+  center!: google.maps.LatLngLiteral;
+  options: google.maps.MapOptions = {
+    mapTypeId: 'roadmap',
+    zoomControl: true,
+    scrollwheel: false,
+    disableDoubleClickZoom: true,
+    maxZoom: 20,
+    minZoom: 10,
+  };
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -38,9 +53,27 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
   }
 
-  setAuxiliar(user: Usuario){
+
+
+  // click(event: google.maps.MapMouseEvent) {
+  //   console.log(event.latLng?.toJSON().lat)
+  //   if (event.latLng) {
+  //     console.log('asdf')
+  //     this.center.lat = event.latLng.toJSON().lat;
+  //     this.center.lng = event.latLng.toJSON().lng;
+  //   }
+
+  // }
+
+  setAuxiliar(user: Usuario) {
     this.clienteAuxiliar.id_usu = user.id_usu;
     this.clienteAuxiliar.nombre_usu = user.nombre_usu;
     this.clienteAuxiliar.celular_usu = user.celular_usu;
@@ -74,11 +107,11 @@ export class DetalleUsuarioComponent implements OnInit {
     this.pagoAuxiliar.fecha_pago = pago.fecha_pago;
   }
 
-  editUsuario(){
+  editUsuario() {
     this.authService.patchUsuario(this.clienteAuxiliar)
-    .subscribe((data: any) => {
-      window.location.reload()
-    })
+      .subscribe((data: any) => {
+        window.location.reload()
+      })
   }
 
   guardarPagoEditado() {
@@ -97,7 +130,7 @@ export class DetalleUsuarioComponent implements OnInit {
     }
   }
 
-  selectDireccion(direccion: Direccion){
+  selectDireccion(direccion: Direccion) {
     this.direccionAuxiliar.id_direc = direccion.id_direc;
     this.direccionAuxiliar.nombre_direc = direccion.nombre_direc;
     this.direccionAuxiliar.descripcion_direc = direccion.descripcion_direc;
@@ -105,11 +138,11 @@ export class DetalleUsuarioComponent implements OnInit {
     this.direccionAuxiliar.telefono_direc = direccion.telefono_direc;
   }
 
-  editarDireccion(){
+  editarDireccion() {
     this.authService.patchDireccion(this.direccionAuxiliar)
-    .subscribe(data=>[
-      window.location.reload()
-    ])
+      .subscribe(data => [
+        window.location.reload()
+      ])
   }
 
   getFechaFormato(fecha: any) {
