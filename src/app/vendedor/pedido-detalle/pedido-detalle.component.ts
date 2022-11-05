@@ -108,4 +108,8 @@ export class PedidoDetalleComponent implements OnInit {
       replaceUrl: true,
     });
   }
+
+  goLogin(){
+    this.router.navigate([''], { replaceUrl: true });
+  }
 }

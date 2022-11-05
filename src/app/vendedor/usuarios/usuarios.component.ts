@@ -100,4 +100,8 @@ export class UsuariosComponent implements OnInit {
   goUsuarioDetalle(usuario: Usuario) {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'detalle-usuario', usuario.id_usu], { replaceUrl: true });
   }
+  goLogin(){
+    this.router.navigate([''], { replaceUrl: true });
+
+  }
 }

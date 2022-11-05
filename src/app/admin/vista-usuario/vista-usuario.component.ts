@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { GoogleMap } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Direccion } from 'src/app/models/direccion';
 import { Genero } from 'src/app/models/enums/genero';
 import { Pago } from 'src/app/models/pago';
 import { Usuario } from 'src/app/models/usuario';
@@ -12,6 +14,7 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./vista-usuario.component.css']
 })
 export class VistaUsuarioComponent implements OnInit {
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap | undefined
   generos = Object.values(Genero);
   searchText: string = '';
   administrador: Usuario = new Usuario();
@@ -23,6 +26,26 @@ export class VistaUsuarioComponent implements OnInit {
   clienteSeleccionado = new Usuario();
   usuarioAuxiliar: Usuario = new Usuario();
   pagoAuxiliar: Pago = new Pago();
+
+
+  direccionAuxiliar: Direccion = new Direccion();
+  center!: google.maps.LatLngLiteral;
+  options: google.maps.MapOptions = {
+    mapTypeId: 'roadmap',
+    zoomControl: true,
+    scrollwheel: false,
+    disableDoubleClickZoom: true,
+    maxZoom: 20,
+    minZoom: 10,
+  };
+
+  display: any;
+
+
+  markerOptions: google.maps.MarkerOptions = {
+    draggable: false
+  };
+  markerPosition!: google.maps.LatLngLiteral;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -56,6 +79,20 @@ export class VistaUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
+  }
+
+  addMarker(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) {
+      this.markerPosition = event.latLng.toJSON();
+      this.direccionAuxiliar.lat_direc = event.latLng.toJSON().lat.toString()
+      this.direccionAuxiliar.lng_direc = event.latLng.toJSON().lng.toString()
+    }
   }
 
   setAuxiliar(user: Usuario) {
@@ -91,6 +128,55 @@ export class VistaUsuarioComponent implements OnInit {
       this.usuario.pago?.unshift(data)
     })
   }
+
+  selectDireccion(direccion: Direccion) {
+    this.direccionAuxiliar.id_direc = direccion.id_direc;
+    this.direccionAuxiliar.nombre_direc = direccion.nombre_direc;
+    this.direccionAuxiliar.descripcion_direc = direccion.descripcion_direc;
+    this.direccionAuxiliar.rubro_direc = direccion.rubro_direc;
+    this.direccionAuxiliar.telefono_direc = direccion.telefono_direc;
+    if (direccion.lat_direc != undefined && direccion.lng_direc != undefined) {
+      this.markerPosition = {
+        lat: +direccion.lat_direc,
+        lng: +direccion.lng_direc
+      }
+      this.center = {
+        lat: +direccion.lat_direc,
+        lng: +direccion.lng_direc
+      }
+    }
+  }
+
+  nuevaDireccionModal() {
+    this.direccionAuxiliar = new Direccion();
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      this.markerPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
+  }
+
+  saveDireccion(){
+    this.direccionAuxiliar.usuario = this.usuario
+    this.authService.postNuevaDireccion(this.direccionAuxiliar)
+    .subscribe(data=>{
+      console.log(data)
+      window.location.reload()
+    })
+  }
+
+  editarDireccion() {
+    this.authService.patchDireccion(this.direccionAuxiliar)
+      .subscribe(data => [
+        window.location.reload()
+      ])
+  }
+
 
   getFecha(fecha: any) {
       if(fecha != undefined) {

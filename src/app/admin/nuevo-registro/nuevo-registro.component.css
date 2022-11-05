@@ -2,11 +2,24 @@
 	margin: 20px
 }
 
-.input-number {
-	/* width: min-content; */
+.icon {
+	font-size: x-large;
 }
 
 .container-items {
 	display : flex;
 	flex-direction : row;
+	justify-content: space-between;
+	align-content: center;
+	vertical-align: middle;
+}
+
+.cantidad {
+	font-size: large;
+}
+
+.name-product{
+	margin-bottom: auto;
+	margin-top: auto;
+	vertical-align: middle;
 }

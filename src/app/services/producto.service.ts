@@ -104,7 +104,8 @@ export class ProductoService {
     let payload = {
       cantidad_op: carrito.cantidad_producto,
       producto: carrito.producto.id_prod,
-      orden: id_ord
+      orden: id_ord,
+      precioUni_op: carrito.precio
     }
     return this.http.post(`${this.api_url}orden-producto`, payload)
   }

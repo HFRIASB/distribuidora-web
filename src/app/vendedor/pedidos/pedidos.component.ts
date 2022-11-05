@@ -99,4 +99,10 @@ export class PedidosComponent implements OnInit {
       replaceUrl: true,
     });
   }
+
+  goLogin(){
+    this.router.navigate([''], {
+      replaceUrl: true,
+    });
+  }
 }

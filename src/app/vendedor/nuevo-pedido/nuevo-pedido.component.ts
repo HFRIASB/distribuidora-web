@@ -97,16 +97,17 @@ export class NuevoPedidoComponent implements OnInit {
 
   goReportes() {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'reportes'], { replaceUrl: true });
-
   }
 
   goPedidos() {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'pedidos'], { replaceUrl: true });
-
   }
 
   goUsuarios() {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'usuarios'], { replaceUrl: true });
+  }
 
+  goLogin(){
+    this.router.navigate([''], { replaceUrl: true });
   }
 }

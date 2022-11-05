@@ -19,7 +19,6 @@ export class IngresoComponent implements OnInit {
   searchText: string = '';
   administrador: Usuario = new Usuario();
   ingreso: IngresoProducto[] = [];
-  productos: Producto[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -36,11 +35,6 @@ export class IngresoComponent implements OnInit {
     this.productoService.getIngreso()
       .subscribe((items: any) => {
         this.ingreso = items;
-      })
-
-    this.productoService.getProductos()
-      .subscribe((productos: Producto[]) => {
-        this.productos = productos;
       })
   }
 

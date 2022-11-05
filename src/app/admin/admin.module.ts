@@ -18,6 +18,7 @@ import { VariosComponent } from './reporte/varios/varios.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ProductoComponent } from './control-fisico/producto/producto.component';
 import { EnvasesComponent } from './control-fisico/envases/envases.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { EnvasesComponent } from './control-fisico/envases/envases.component';
     FormsModule,
     Ng2SearchPipeModule,
     NgbModule,
-    NgChartsModule
+    NgChartsModule,
+    GoogleMapsModule
   ]
 })
 export class AdminModule { }

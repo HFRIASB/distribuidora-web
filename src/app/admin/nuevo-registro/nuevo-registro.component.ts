@@ -24,6 +24,11 @@ export class NuevoRegistroComponent implements OnInit {
   auxiliar: IngresoProducto = new IngresoProducto()
   nuevosRegistros: IngresoProducto[] = [];
   productos: Producto[] = [];
+
+  registroSeleccionado = {
+    cantidad: 0,
+    index: 0
+  };
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -53,6 +58,19 @@ export class NuevoRegistroComponent implements OnInit {
     this.searchText = '';
   }
 
+  seleccionarRegistro(item: IngresoProducto, index: number) {
+    this.registroSeleccionado.cantidad = item.cantidad_ingreso_producto;
+    this.registroSeleccionado.index = index;
+  }
+
+  saveRegistro() {
+    this.nuevosRegistros[this.registroSeleccionado.index].cantidad_ingreso_producto = this.registroSeleccionado.cantidad;
+  }
+
+  deleteRegistro(index: number){
+    this.nuevosRegistros.splice(index,1)
+  }
+
   guardarRegistro() {
     if (this.validarRegistro()) {
       this.auxiliar.fecha_ingreso_producto = new Date(this.fecha.year, this.fecha.month - 1, this.fecha.day)
@@ -71,7 +89,7 @@ export class NuevoRegistroComponent implements OnInit {
                 this.volverIngreso()
               }
             })
-            
+
           })
       })
     } else {
@@ -105,23 +123,23 @@ export class NuevoRegistroComponent implements OnInit {
   goPedidos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'pedidos'], { replaceUrl: true });
   }
-  
-  goVarios(){
+
+  goVarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
   }
 
-  goGlobal(){
+  goGlobal() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
-  goCFProducto(){
+  goCFProducto() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
   }
 
-  goCFEnvase(){
+  goCFEnvase() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
-  
+
   volverIngreso() {
     this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }

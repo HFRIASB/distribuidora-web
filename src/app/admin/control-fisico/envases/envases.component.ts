@@ -33,7 +33,7 @@ export class EnvasesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private productoService: ProductoService,
+    public productoService: ProductoService,
     private calendar: NgbCalendar
   ) {
     this.route.params.subscribe(params => {

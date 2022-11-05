@@ -14,6 +14,9 @@
 						<li class="nav-item active" (click)="goUsuarios()">
 							<a class="nav-link"><span class="span-active">Usuarios</span></a>
 						</li>
+						<li class="nav-item" (click)="goLogin()">
+							<a class="nav-link"><span>Cerrar Sesion</span></a>
+						</li>
 					</ul>
 				</div>
 			</nav>
@@ -83,7 +86,7 @@
 					</div>
 					<div class="card-body" *ngIf="tabNavegador=='direcciones'">
 						<button type="button" class="btn btn-warning" (click)="nuevaDireccionModal()" data-toggle="modal" data-target="#agregarDireccion">Agregar nueva dirección</button>
-						<table class="table">
+						<table class="table mt-1">
 							<thead>
 								<tr>
 									<th class="text-center" scope="col">Nombre Dirección</th>
@@ -100,9 +103,9 @@
 									<td class="text-center">{{direccion.rubro_direc}}</td>
 									<td class="text-center">{{direccion.telefono_direc}}</td>
 									<td class="text-center">
-										<i class="bi bi-pencil-square mr-1 i-plain" (click)="selectDireccion(direccion)"
+										<i class="bi bi-pencil-square mr-2 i-plain" (click)="selectDireccion(direccion)"
 											data-toggle="modal" data-target="#editarDireccion"></i>
-										<i class="bi bi-geo-alt ml-1 i-plain" data-toggle="modal"
+										<i class="bi bi-geo-alt ml-2 i-plain"(click)="selectDireccion(direccion)"  data-toggle="modal"
 											data-target="#verDireccion"></i>
 									</td>
 								</tr>
@@ -310,6 +313,31 @@
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="saveDireccion()">Guardar
 					cambios</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="verDireccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Ver Direccion</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<google-map height="500px" width="100%" [zoom]="16" [center]="center" [options]="options">
+						<map-marker [position]="markerPosition"
+							[options]="markerOptions"></map-marker>
+					</google-map>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>

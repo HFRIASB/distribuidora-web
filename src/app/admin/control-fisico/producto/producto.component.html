@@ -88,7 +88,7 @@
 					</thead>
 					<tbody class="text-center">
 						<tr *ngFor="let control of controles">
-							<td>{{control.fecha_cfp}}</td>
+							<td>{{productoService.getFechaFormat(control.fecha_cfp.toString())}}</td>
 							<td>
 								{{control.detalle_cfp}}
 							</td>

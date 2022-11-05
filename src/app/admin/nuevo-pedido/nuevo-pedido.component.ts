@@ -22,6 +22,10 @@ export class NuevoPedidoComponent implements OnInit {
   fecha: NgbDateStruct = this.calendar.getToday();
   productos: Producto[] = [];
   carrito: any = [];
+  carritoSeleccionado = {
+    index: 0,
+    precio: 0
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -61,7 +65,6 @@ export class NuevoPedidoComponent implements OnInit {
       cantidad_producto: 1,
       precio: Number(producto.precioCompra_prod)
     })
-    console.log(this.carrito)
   }
 
   seleccionarCliente(cliente: Usuario) {
@@ -69,26 +72,56 @@ export class NuevoPedidoComponent implements OnInit {
     this.cliente = cliente;
   }
 
+  minus(item: any, index: number) {
+    if (item.cantidad_producto > 1) {
+      item.cantidad_producto--;
+    } else {
+      this.carrito.splice(index,1);
+    }
+  }
+
+  plus(item: any) {
+    item.cantidad_producto++;
+  }
+
+  editarPrecioProducto(index: number) {
+    this.carritoSeleccionado.index = index;
+    this.carritoSeleccionado.precio = this.carrito[index].precio;
+  }
+
+  savePrecioCarrito() {
+    this.carrito[this.carritoSeleccionado.index].precio = this.carritoSeleccionado.precio;
+  }
+
+  totalAPagar() {
+    let total = 0;
+    this.carrito.forEach((cart: any) => {
+      total += (cart.precio * cart.cantidad_producto);
+    })
+    return total;
+  }
+
   realizarPedido() {
     let payload = {
       fVenta_ord: new Date(),
       fEntrega_ord: new Date(this.fecha.year, this.fecha.month - 1, this.fecha.day),
       usuario: this.cliente.id_usu,
-      direccion: this.direccion.id_direc
+      direccion: this.direccion.id_direc,
+      total_ord: this.totalAPagar()
     }
     if (payload.usuario != undefined
       && payload.direccion != undefined
       && this.carrito.length > 0
     ) {
       this.productoService.postPedido(payload)
-      .subscribe((data: any)=>{
-        console.log(data)
-        this.carrito.forEach(async (item: any) => {
-          await this.productoService.postDetallePedido(item, data.id_ord)
-          .subscribe((detalle: any)=>{
-          })
-        });
-      })
+        .subscribe((data: any) => {
+          console.log(data)
+          this.carrito.forEach(async (item: any) => {
+            await this.productoService.postDetallePedido(item, data.id_ord)
+              .subscribe((detalle: any) => {
+              })
+          });
+        })
     } else {
       console.log('alerta error en los datos')
     }
@@ -110,19 +143,19 @@ export class NuevoPedidoComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'usuarios'], { replaceUrl: true });
   }
 
-  goVarios(){
+  goVarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
   }
 
-  goGlobal(){
+  goGlobal() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
-  goCFProducto(){
+  goCFProducto() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
   }
 
-  goCFEnvase(){
+  goCFEnvase() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
 }

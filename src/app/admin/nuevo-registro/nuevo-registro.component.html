@@ -60,8 +60,8 @@
 					<div class="d-grid gap-2 content-responsive">
 						<div class="form-group">
 							<label>Chofer: </label>
-							<input type="text" class="form-control" [(ngModel)]="auxiliar.chofer_ingreso_producto" name="chofer"
-								required>
+							<input type="text" class="form-control" [(ngModel)]="auxiliar.chofer_ingreso_producto"
+								name="chofer" required>
 						</div>
 						<div class="">
 							<label>Fecha: </label>
@@ -72,14 +72,18 @@
 									type="button"></button>
 							</div>
 						</div>
-						<button type="button" class="btn btn-warning"
-							(click)="clearSearch()" data-toggle="modal" data-target="#seleccionarProducto">Seleccionar
+						<button type="button" class="btn btn-warning" (click)="clearSearch()" data-toggle="modal"
+							data-target="#seleccionarProducto">Seleccionar
 							Producto</button>
-						<div *ngFor="let item of nuevosRegistros">
+						<div *ngFor="let item of nuevosRegistros; let i=index">
 							<div class="container-items">
-								<label>{{item.producto.nombre_prod}}</label>
-								<input class="form-control" name="cantidad" [(ngModel)]="item.cantidad_ingreso_producto"
-									type="number" min="1">
+								<label class="name-product">{{item.producto.nombre_prod}}</label>
+								<div>
+									<label class="cantidad">{{item.cantidad_ingreso_producto}}</label>
+									<i class="bi bi-pencil-fill icon" (click)="seleccionarRegistro(item, i)"
+										data-toggle="modal" data-target="#editCantidadProducto"></i>
+									<i class="bi bi-trash-fill icon" (click)="deleteRegistro(i)"></i>
+								</div>
 							</div>
 						</div>
 						<button class="btn btn-warning" (click)="guardarRegistro()">Guardar registro</button>
@@ -117,6 +121,31 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="editCantidadProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Cantidad</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Cantidad:</label>
+						<input type="number" name="cantidadd" [(ngModel)]="registroSeleccionado.cantidad"
+							class="form-control">
+					</div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" [disabled]="registroSeleccionado.cantidad < 1" data-dismiss="modal" class="btn btn-warning" (click)="saveRegistro()">Guardar
+						cambios</button>
+				</form>
 			</div>
 		</div>
 	</div>

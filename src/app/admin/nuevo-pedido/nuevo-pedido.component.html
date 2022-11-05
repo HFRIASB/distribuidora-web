@@ -84,7 +84,7 @@
 							</div>
 							<div>
 								<h3>Mi Carrito</h3>
-								<div *ngFor="let item of carrito">
+								<div *ngFor="let item of carrito; let i=index">
 									<div class="carrito border">
 										<div class="div1"><img src="{{item.producto.foto_prod}}"></div>
 										<div class="div2">
@@ -94,17 +94,18 @@
 											</div>
 										</div>
 										<div class="div3">
-											<input class="form-control" name="cantidad"
-												[(ngModel)]="item.cantidad_producto" type="number">
+											<i class="bi bi-dash-circle icon" (click)="minus(item, i)"></i>
+											<label class="cantidad">{{item.cantidad_producto}}</label>
+											<i class="bi bi-plus-circle icon" (click)="plus(item)"></i>
 										</div>
 										<div class="div4">
 											<label>Precio por unidad:</label>
-
 										</div>
-										<!-- <div class="div5">
-											<input class="form-control" name="precio" id="precio"
-												[(ngModel)]="item.precio" type="number">
-										</div> -->
+										<div class="div5">
+											<label class="cantidad">{{item.precio}}</label>
+											<i class="bi bi-pencil icon" (click)="editarPrecioProducto(i)" data-toggle="modal"
+											data-target="#editPrecioProducto"></i>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -122,7 +123,7 @@
 									<label>{{producto.uniMedida_prod}}</label>
 								</div>
 								<div class="icon-cart">
-									<i class="bi bi-cart-plus" (click)="addToCart(producto)"></i>
+									<i class="bi bi-cart-plus icon" (click)="addToCart(producto)"></i>
 								</div>
 							</div>
 						</div>
@@ -188,6 +189,32 @@
 						(click)="seleccionarCliente(cliente)" data-dismiss="modal">
 						<label>{{cliente.nombre_usu}} | {{cliente.correo_usu}}</label>
 					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editPrecioProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Precio</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Cantidad:</label>
+						<input type="number" name="cantidadd" [(ngModel)]="carritoSeleccionado.precio"
+							class="form-control">
+					</div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" [disabled]="carritoSeleccionado.precio < 1" data-dismiss="modal" class="btn btn-warning" (click)="savePrecioCarrito()">Guardar
+						cambios</button>
 				</form>
 			</div>
 		</div>

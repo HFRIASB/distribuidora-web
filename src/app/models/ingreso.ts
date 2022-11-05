@@ -15,7 +15,7 @@ export class IngresoProducto {
 		this.id_ingreso_producto = -1;
 		this.chofer_ingreso_producto = '';
 		this.fecha_ingreso_producto = new Date();
-		this.cantidad_ingreso_producto = 0;
+		this.cantidad_ingreso_producto = 1;
 		this.producto = new Producto();
 	}
 }
