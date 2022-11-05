@@ -266,4 +266,12 @@ export class PedidosComponent implements OnInit {
   goCFEnvase() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
+
+  goDirecciones(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
+  }
+
+  goLogin(){
+    this.router.navigate([''], { replaceUrl: true });
+  }
 }

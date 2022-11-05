@@ -65,6 +65,10 @@ export class AuthService {
     return this.http.patch(this.api_url+'usuario/'+usuario.id_usu, payload)
   }
 
+  getAllDirecciones(): Observable<Direccion[]>{
+    return this.http.get<Direccion[]>(this.api_url+'direccion');
+  }
+
   postNuevaDireccion(direccion: Direccion){
     console.log(direccion)
     let payload = {

@@ -91,4 +91,12 @@ export class IngresoComponent implements OnInit {
   clearSearch() {
     this.searchText = '';
   }
+
+  goDirecciones(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
+  }
+
+  goLogin(){
+    this.router.navigate([''], { replaceUrl: true });
+  }
 }

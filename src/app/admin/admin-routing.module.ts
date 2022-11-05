@@ -13,6 +13,7 @@ import { GlobalComponent } from './reporte/global/global.component';
 import { VariosComponent } from './reporte/varios/varios.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { VistaUsuarioComponent } from './vista-usuario/vista-usuario.component';
+import { DireccionesComponent } from './direcciones/direcciones.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path: 'control-fisico-envase',
     component: EnvasesComponent
+  },
+  {
+    path: 'direcciones',
+    component: DireccionesComponent
   }
 ];
 

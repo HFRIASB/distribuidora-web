@@ -144,4 +144,12 @@ export class NuevoRegistroComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }
 
+  goDirecciones(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
+  }
+
+  goLogin(){
+    this.router.navigate([''], { replaceUrl: true });
+  }
+
 }

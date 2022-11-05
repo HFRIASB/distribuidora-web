@@ -144,5 +144,11 @@ export class HomeComponent implements OnInit {
     this.tabNavegador = dato;
   }
 
-  
+  goDirecciones(){
+    this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
+  }
+
+  goLogin(){
+    this.router.navigate([''], { replaceUrl: true });
+  }
 }

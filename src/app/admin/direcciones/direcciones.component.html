@@ -2,7 +2,7 @@
 	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
 		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
 			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
-				<a class="navbar-brand "><label class="text-menu">Menú</label></a>
+				<a class="navbar-brand "><label class="text-menu">Menu</label></a>
 				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
 					<span class="navbar-toggler-icon"></span>
 				</a>
@@ -23,7 +23,7 @@
 						<li class="nav-item">
 							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
 								data-toggle="collapse" data-target="#m2" aria-expanded="false">
-								<span class=""> Control <br> fisico</span>
+								<span class=""> Control <br> físico</span>
 							</a>
 							<div class="collapse" id="m2">
 								<ul class="flex-column nav">
@@ -41,11 +41,11 @@
 						<li class="nav-item" (click)="goUsuarios()">
 							<a class="nav-link"><span>Usuarios</span></a>
 						</li>
-						<li class="nav-item active">
-							<a class="nav-link"><span class="span-active">Ingreso</span></a>
+						<li class="nav-item" (click)="goIngreso()">
+							<a class="nav-link"><span>Ingreso</span></a>
 						</li>
-						<li class="nav-item" (click)="goDirecciones()">
-							<a class="nav-link"><span>Direcciones</span></a>
+						<li class="nav-item">
+							<a class="nav-link"><span class=" span-active">Direcciones</span></a>
 						</li>
 						<li class="nav-item" (click)="goLogin()">
 							<a class="nav-link"><span>Cerrar Sesion</span></a>
@@ -55,42 +55,32 @@
 			</nav>
 		</aside>
 		<main class="col">
-			<header class="p-3 text-bg-dark">
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<form class="col-sm-8" role="search">
-						<input type="text" name="search" [(ngModel)]="searchText"
-							class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
-							aria-label="Search">
-						<button type="button" class="btn btn-warning" data-toggle="modal"
-							data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
-					</form>
-				</div>
-			</header>
-			<div class="margin" style="overflow-x:auto;">
-				<table class="table">
-					<thead class="text-center">
-						<tr>
-							<th scope="col">Chofer</th>
-							<th scope="col">Producto</th>
-							<th scope="col">Cantidad</th>
-							<th scope="col">Fecha</th>
-							<th scope="col">Acción</th>
-						</tr>
-					</thead>
-					<tbody class="text-center">
-						<tr *ngFor="let item of ingreso | filter:searchText">
-							<td>{{item.chofer_ingreso_producto}}</td>
-							<td>{{item.producto.nombre_prod}}</td>
-							<td>{{item.cantidad_ingreso_producto}}</td>
-							<td>{{productoService.getFechaFormat(item.fecha_ingreso_producto.toString())}}</td>
-							<td data-toggle="modal" (click)="deleteIngreso(item)"
-								data-target="#editarIngreso">
-								<i class="bi bi-trash-fill"></i>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="mapas">
+				<google-map height="100%" width="100%" [zoom]="16" [center]="center" [options]="options">
+					<div *ngFor="let marker of markers; let i=index">
+						<map-marker [position]="marker.position" (mapClick)="openInfo(i)" data-toggle="modal"
+							data-target="#infoMarker"></map-marker>
+					</div>
+				</google-map>
 			</div>
+
 		</main>
+	</div>
+</div>
+
+<div class="modal fade" id="infoMarker" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Info</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+			</div>
+		</div>
 	</div>
 </div>

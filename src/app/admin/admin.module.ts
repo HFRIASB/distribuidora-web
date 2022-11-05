@@ -19,6 +19,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ProductoComponent } from './control-fisico/producto/producto.component';
 import { EnvasesComponent } from './control-fisico/envases/envases.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { DireccionesComponent } from './direcciones/direcciones.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     GlobalComponent,
     VariosComponent,
     ProductoComponent,
-    EnvasesComponent
+    EnvasesComponent,
+    DireccionesComponent
   ],
   imports: [
     CommonModule,
