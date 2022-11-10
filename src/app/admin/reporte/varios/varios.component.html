@@ -15,7 +15,7 @@
 							</a>
 							<div class="collapse" id="m1">
 								<ul class="flex-column nav">
-									<a class="nav-link text-truncate" (click)="goVarios()">Varios</a>
+									<a class="nav-link text-truncate" (click)="goVarios()">Vendedor</a>
 									<a class="nav-link text-truncate" (click)="goGlobal()">Global</a>
 								</ul>
 							</div>
@@ -69,27 +69,7 @@
 				</div>
 			</header> -->
 			<div class="card">
-				<div class="card-header text-center">
-					<ul class="nav nav-tabs card-header-tabs">
-						<li class="nav-item" (click)="tablNavegador('general')">
-							<a class="nav-link active" *ngIf="tabNavegador=='general'">general</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='general'">general</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('saldos')">
-							<a class="nav-link active" *ngIf="tabNavegador=='saldos'">saldos</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='saldos'">saldos</a>
-						</li>
-						<li class="nav-item" (click)="tablNavegador('vendedores')">
-							<a class="nav-link active" *ngIf="tabNavegador=='vendedores'">vendedores</a>
-							<a class="nav-link disabled" *ngIf="tabNavegador!='vendedores'">vendedores</a>
-						</li>
-					</ul>
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='semanal'">
-
-				</div>
-				<div class="card-body" *ngIf="tabNavegador=='mensual'">
-				</div>
+				
 			</div>
 		</main>
 	</div>

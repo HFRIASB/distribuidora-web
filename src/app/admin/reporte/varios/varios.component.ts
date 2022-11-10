@@ -13,7 +13,6 @@ import { ProductoService } from 'src/app/services/producto.service';
 export class VariosComponent implements OnInit {
 
   administrador: Usuario = new Usuario();
-  tabNavegador='general'
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,13 +31,8 @@ export class VariosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-  tablNavegador(nav: string){
-    this.tabNavegador = nav;
-  }
   goProductos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
-
   }
 
   goUsuarios() {
