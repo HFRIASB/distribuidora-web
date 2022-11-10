@@ -1,10 +1,7 @@
 .table-pago{
   width: 500px;
 }
-/* .bi {
-  margin: 0px 10px;
-  padding: 3px;
-} */
+
 .i-plain:hover {
   color: black;
   background-color: #fecb00!important;
@@ -16,11 +13,16 @@
   transform: scale(1.2);
 }
 
-.btn {
-  margin: 20px 0px;
-}
 
 .label{
   margin-top: 5px;
   margin-left: 10px;
+}
+
+.link-active{
+  text-decoration: underline;
+}
+
+.link-active:hover {
+  color: #fecb00;
 }

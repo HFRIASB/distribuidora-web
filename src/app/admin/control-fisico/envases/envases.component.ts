@@ -24,6 +24,7 @@ export class EnvasesComponent implements OnInit {
   fechaSeleccionada: NgbDateStruct = this.calendar.getToday();
   meses: any = Object.values(Meses);
   years: any = Object.values(Years)
+  controlSeleccionado: ControlFisicoEnvase = new ControlFisicoEnvase();
   filtros = {
     mes: (new Date()).getMonth(),
     year: (new Date()).getFullYear().toString()
@@ -52,7 +53,17 @@ export class EnvasesComponent implements OnInit {
   }
 
   abrirModalEditarControlEnvase(control: ControlFisicoEnvase) {
+    this.controlSeleccionado.id_cfe = control.id_cfe;
+    this.controlSeleccionado.detalle_cfe = control.detalle_cfe;
+    this.controlSeleccionado.entrada_cfe = control.entrada_cfe;
+    this.controlSeleccionado.salida_cfe = control.salida_cfe;
+  }
 
+  editControl(){
+    this.productoService.patchControlFisicoEnvase(this.controlSeleccionado)
+    .subscribe((data)=>{
+      location.reload();
+    })
   }
 
   saveControlEnvase(f: NgForm) {

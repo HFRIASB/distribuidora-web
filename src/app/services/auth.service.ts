@@ -54,15 +54,8 @@ export class AuthService {
   }
 
 
-  patchUsuario(usuario: Usuario){
-    let payload = {
-      nombre_usu: usuario.nombre_usu,
-      nroDocu_usu: usuario.nroDocu_usu,
-      sexo_usu: usuario.sexo_usu,
-      celular_usu: usuario.celular_usu,
-      observacion_usu: usuario.observacion_usu
-    }
-    return this.http.patch(this.api_url+'usuario/'+usuario.id_usu, payload)
+  patchUsuario(payload: any){
+    return this.http.patch(this.api_url+'usuario/'+payload.id_usu, payload)
   }
 
   getAllDirecciones(): Observable<Direccion[]>{
@@ -114,7 +107,7 @@ export class AuthService {
   realizarPago(data: any) {
     const pago = {
       cantidad_pago: data.monto,
-      fecha_pago: new Date(),
+      fecha_pago: data.fecha,
       usuario: data.usuario
     }
     return this.http.post(this.api_url+"pago", pago)

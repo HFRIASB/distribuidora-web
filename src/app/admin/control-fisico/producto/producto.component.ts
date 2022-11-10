@@ -27,6 +27,7 @@ export class ProductoComponent implements OnInit {
     mes: (new Date()).getMonth(),
     year: (new Date()).getFullYear().toString()
   }
+  controlSeleccionado: ControlFisicoProducto = new ControlFisicoProducto();
   valorInicial: number = 0;
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +52,17 @@ export class ProductoComponent implements OnInit {
   }
 
   abrirModalEditarControlProducto(control: ControlFisicoProducto) {
+    this.controlSeleccionado.id_cfp = control.id_cfp;
+    this.controlSeleccionado.detalle_cfp = control.detalle_cfp;
+    this.controlSeleccionado.entrada_cfp = control.entrada_cfp;
+    this.controlSeleccionado.salida_cfp = control.salida_cfp;
+  }
 
+  editControlProducto(){
+    this.productoService.patchControlProducto(this.controlSeleccionado)
+    .subscribe(data=>{
+      location.reload();
+    })
   }
 
   saveControlProducto(f: NgForm) {
@@ -68,7 +79,7 @@ export class ProductoComponent implements OnInit {
         control.producto = this.productoSeleccionado;
         this.productoService.postControlProducto(control)
           .subscribe((control: any) => {
-            
+
           })
       } else {
         console.log('por favor seleccione una fecha y detalle ALERT')
@@ -145,11 +156,11 @@ export class ProductoComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }
 
-  goDirecciones(){
+  goDirecciones() {
     this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
   }
 
-  goLogin(){
+  goLogin() {
     this.router.navigate([''], { replaceUrl: true });
   }
 }

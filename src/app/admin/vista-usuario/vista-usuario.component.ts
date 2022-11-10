@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Direccion } from 'src/app/models/direccion';
 import { Genero } from 'src/app/models/enums/genero';
 import { Pago } from 'src/app/models/pago';
@@ -15,6 +16,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class VistaUsuarioComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap | undefined
+  fecha: NgbDateStruct = this.calendar.getToday();
   generos = Object.values(Genero);
   searchText: string = '';
   administrador: Usuario = new Usuario();
@@ -26,6 +28,11 @@ export class VistaUsuarioComponent implements OnInit {
   clienteSeleccionado = new Usuario();
   usuarioAuxiliar: Usuario = new Usuario();
   pagoAuxiliar: Pago = new Pago();
+  changePassword: boolean = false;
+  password = {
+    pass: '',
+    passConfirm: ''
+  }
 
 
   direccionAuxiliar: Direccion = new Direccion();
@@ -50,6 +57,7 @@ export class VistaUsuarioComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private calendar: NgbCalendar,
     public productoService: ProductoService
   ) {
     this.usuario.pago = [];
@@ -87,6 +95,12 @@ export class VistaUsuarioComponent implements OnInit {
     });
   }
 
+  changePasswordActive(bool: boolean) {
+    this.password.pass = '';
+    this.password.passConfirm = '';
+    this.changePassword = bool;
+  }
+
   addMarker(event: google.maps.MapMouseEvent) {
     if (event.latLng != null) {
       this.markerPosition = event.latLng.toJSON();
@@ -105,7 +119,28 @@ export class VistaUsuarioComponent implements OnInit {
   }
 
   editUsuario() {
-    this.authService.patchUsuario(this.usuarioAuxiliar)
+    let payload;
+    if (this.changePassword && this.password.pass == this.password.passConfirm) {
+      payload = {
+        id_usu: this.usuarioAuxiliar.id_usu,
+        nombre_usu: this.usuarioAuxiliar.nombre_usu,
+        nroDocu_usu: this.usuarioAuxiliar.nroDocu_usu,
+        sexo_usu: this.usuarioAuxiliar.sexo_usu,
+        celular_usu: this.usuarioAuxiliar.celular_usu,
+        observacion_usu: this.usuarioAuxiliar.observacion_usu,
+        password_usu: this.password.pass
+      }
+    }else{
+      payload = {
+        id_usu: this.usuarioAuxiliar.id_usu,
+        nombre_usu: this.usuarioAuxiliar.nombre_usu,
+        nroDocu_usu: this.usuarioAuxiliar.nroDocu_usu,
+        sexo_usu: this.usuarioAuxiliar.sexo_usu,
+        celular_usu: this.usuarioAuxiliar.celular_usu,
+        observacion_usu: this.usuarioAuxiliar.observacion_usu
+      }
+    }
+    this.authService.patchUsuario(payload)
       .subscribe((data: any) => {
         window.location.reload()
       })
@@ -123,7 +158,8 @@ export class VistaUsuarioComponent implements OnInit {
     console.log(value)
     this.authService.realizarPago({
       monto: value.monto,
-      usuario: this.usuario.id_usu
+      usuario: this.usuario.id_usu,
+      fecha: new Date(this.fecha.year, this.fecha.month - 1, this.fecha.day)
     }).subscribe(data => {
       this.usuario.pago?.unshift(data)
     })
@@ -161,13 +197,13 @@ export class VistaUsuarioComponent implements OnInit {
     });
   }
 
-  saveDireccion(){
+  saveDireccion() {
     this.direccionAuxiliar.usuario = this.usuario
     this.authService.postNuevaDireccion(this.direccionAuxiliar)
-    .subscribe(data=>{
-      console.log(data)
-      window.location.reload()
-    })
+      .subscribe(data => {
+        console.log(data)
+        window.location.reload()
+      })
   }
 
   editarDireccion() {
@@ -179,11 +215,11 @@ export class VistaUsuarioComponent implements OnInit {
 
 
   getFecha(fecha: any) {
-      if(fecha != undefined) {
-        return this.productoService.getFechaFormat(fecha.toString())
-      } else {
-        return this.productoService.getFechaFormat((new Date()).toString())
-      }
+    if (fecha != undefined) {
+      return this.productoService.getFechaFormat(fecha.toString())
+    } else {
+      return this.productoService.getFechaFormat((new Date()).toString())
+    }
   }
 
   regristrarCliente() {
@@ -207,11 +243,18 @@ export class VistaUsuarioComponent implements OnInit {
     this.pagoAuxiliar.id_pago = pago.id_pago;
     this.pagoAuxiliar.cantidad_pago = pago.cantidad_pago;
     this.pagoAuxiliar.fecha_pago = pago.fecha_pago;
+    if(pago.fecha_pago != undefined){
+      let date = new Date(pago.fecha_pago.toString())
+      this.fecha =  { day: date.getDate(), month: date.getUTCMonth()+1, year: date.getUTCFullYear()}
+      console.log(this.fecha)
+    }
+   
   }
 
   guardarPagoEditado() {
     if (this.pagoAuxiliar.cantidad_pago != undefined) {
       if (this.pagoAuxiliar?.cantidad_pago > 0) {
+        this.pagoAuxiliar.fecha_pago =  new Date(this.fecha.year, this.fecha.month - 1, this.fecha.day)
         let indexArray = this.usuario.pago?.findIndex((p: Pago) => p.id_pago == this.pagoAuxiliar.id_pago);
         this.authService.patchPago(this.pagoAuxiliar).subscribe(data => {
           if (this.usuario.pago != undefined && indexArray != undefined) {
@@ -270,11 +313,11 @@ export class VistaUsuarioComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
 
-  goDirecciones(){
+  goDirecciones() {
     this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
   }
 
-  goLogin(){
+  goLogin() {
     this.router.navigate([''], { replaceUrl: true });
   }
 }

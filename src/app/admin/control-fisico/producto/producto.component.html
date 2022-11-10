@@ -105,7 +105,7 @@
 								<label *ngIf="control.salida_cfp!=0">{{control.salida_cfp}}</label>
 							</td>
 							<td>{{control.saldo_cfp}}</td>
-							<td data-toggle="modal" (click)="abrirModalEditarControlProducto(control)"
+							<td (click)="abrirModalEditarControlProducto(control)" data-toggle="modal"
 								data-target="#editarControlProducto">
 								<i class="bi bi-pencil-square"></i>
 							</td>
@@ -163,6 +163,32 @@
 					<label class="mt-1">Salida: </label>
 					<input class="form-control" name="salida" ngModel type="number">
 					<button type="submit" class="btn btn-warning m-1" (click)="saveControlProducto(f)"
+						data-dismiss="modal">Guardar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarControlProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Agregar nuevo control de producto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<label class="mt-1">Detalle: </label>
+					<input class="form-control" name="detalle" [(ngModel)]="controlSeleccionado.detalle_cfp" type="text">
+					<label class="mt-1">Entrada: </label>
+					<input class="form-control" name="entrada" [(ngModel)]="controlSeleccionado.entrada_cfp" type="number">
+					<label class="mt-1">Salida: </label>
+					<input class="form-control" name="salida" [(ngModel)]="controlSeleccionado.salida_cfp" type="number">
+					<button type="submit" class="btn btn-warning m-1" (click)="editControlProducto()"
 						data-dismiss="modal">Guardar</button>
 				</form>
 			</div>

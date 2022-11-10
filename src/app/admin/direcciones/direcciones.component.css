@@ -1,4 +1,24 @@
-.mapas{
-	background-color: red;
-	height: 100%;
+.mapas {
+  background-color: red;
+  height: 100%;
+}
+
+.card {
+  border: 1px solid #5c5c5c;
+  border-radius: 10px;
+  width: 300px;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 15px auto;
+}
+
+.hover {
+	text-decoration: underline; 
+}
+
+.hover:hover {
+  color: #fecb00;
 }

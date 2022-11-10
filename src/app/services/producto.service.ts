@@ -148,6 +148,15 @@ export class ProductoService {
     return this.http.post(`${this.api_url}control-fisico-producto`, payload)
   }
 
+  patchControlProducto(control: any){
+    let payload = {
+      detalle_cfp: control.detalle_cfp,
+      entrada_cfp: control.entrada_cfp,
+      salida_cfp: control.salida_cfp
+    }
+    return this.http.patch(`${this.api_url}control-fisico-producto/${control.id_cfp}`, payload)
+  }
+
   getControlProducto(month: number, year: string, idProducto: number) {
     return this.http.get(`${this.api_url}control-fisico-producto/producto/${idProducto}/month/${month}/year/${year}`)
   }
@@ -161,6 +170,15 @@ export class ProductoService {
       tipo_envase: control.envase.id_envase
     }
     return this.http.post(`${this.api_url}control-fisico-envase`, payload)
+  }
+
+  patchControlFisicoEnvase(control: any){
+    let payload ={
+      detalle_cfe: control.detalle_cfe,
+      entrada_cfe: control.entrada_cfe,
+      salida_cfe: control.salida_cfe
+    }
+    return this.http.patch(`${this.api_url}control-fisico-envase/${control.id_cfe}`, payload)
   }
 
   getControlFisicoEnvase(month: number, year: string, id_envase: number) {

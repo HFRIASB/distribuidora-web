@@ -90,15 +90,6 @@ export class GlobalComponent implements OnInit {
     responsive: false,
   };
 
-
-
-
-
-
-
-
-
-
   ngOnInit(): void {
   }
 
@@ -138,6 +129,8 @@ export class GlobalComponent implements OnInit {
         for (let index = 1; index < 12; index++) {
           if (this.datosReporte[index - 1] != 0 && this.datosReporte[index] != 0) {
             this.variacionPorcentual[index] = Number((((this.datosReporte[index] * this.filtros.cantidad) / (this.datosReporte[index - 1] * this.filtros.cantidad)) - 1) * 100).toFixed(2);
+          }else{
+            this.variacionPorcentual[index] = 0;
           }
         }
         this.datosReporte.forEach(e => {
@@ -171,6 +164,8 @@ export class GlobalComponent implements OnInit {
         for (let index = 1; index < 12; index++) {
           if (this.datosReporte[index - 1] != 0 && this.datosReporte[index] != 0) {
             this.variacionPorcentual[index] = Number((((this.datosReporte[index] * this.filtros.cantidad) / (this.datosReporte[index - 1] * this.filtros.cantidad)) - 1) * 100).toFixed(2);
+          } else {
+            this.variacionPorcentual[index] = 0;
           }
         }
         this.datosReporte.forEach(e => {

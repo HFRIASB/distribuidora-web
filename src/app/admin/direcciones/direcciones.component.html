@@ -63,12 +63,21 @@
 					</div>
 				</google-map>
 			</div>
-
+			<div class="card" *ngIf="data.active">
+				<div>
+					<label class="mr-1">Cliente: </label>
+					<label class="link hover" (click)="goUser()">{{data.usuario}}</label>
+				</div>
+				<label>Direccion: {{data.nombreDireccion}}</label>
+				<label>Descripcion: {{data.descripcionDireccion}}</label>
+				<label>Rubro: {{data.rubroDireccion}}</label>
+				<label>Telefono: {{data.telefono}}</label>
+			</div>
 		</main>
 	</div>
 </div>
 
-<div class="modal fade" id="infoMarker" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="infoMarker" tabindex="-1" tarole="dialog" aria-labelledby="exampleModalCenterTitle"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">

@@ -16,6 +16,16 @@ export class DireccionesComponent implements OnInit {
   direcciones: Direccion[] = [];
   markers: any = [];
 
+  data = {
+    active: false,
+    idUser: 0,
+    usuario: '',
+    nombreDireccion: '',
+    descripcionDireccion: '',
+    rubroDireccion: '',
+    telefono: ''
+  };
+
   center!: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
     mapTypeId: 'roadmap',
@@ -68,10 +78,18 @@ export class DireccionesComponent implements OnInit {
     })
   }
 
-  openInfo(index: any){
-    // google.maps.event.addListener(index, 'click', function(){
-    //   $('infoMarker').modal('show')
-    // })
+  openInfo(index: any) {
+    let nombre = this.direcciones[index].usuario?.nombre_usu;
+    let id = this.direcciones[index].usuario?.id_usu;
+    if (nombre != undefined && id != undefined) {
+      this.data.usuario = nombre;
+      this.data.idUser = id;
+    }
+    this.data.nombreDireccion = this.direcciones[index].nombre_direc;
+    this.data.descripcionDireccion = this.direcciones[index].descripcion_direc;
+    this.data.rubroDireccion = this.direcciones[index].rubro_direc;
+    this.data.telefono = this.direcciones[index].telefono_direc;
+    this.data.active = true;
   }
 
   ngOnInit(): void {
@@ -81,6 +99,10 @@ export class DireccionesComponent implements OnInit {
         lng: position.coords.longitude,
       };
     });
+  }
+
+  goUser() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'vista-usuario', this.data.idUser], { replaceUrl: true });
   }
 
   goProductos() {
