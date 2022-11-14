@@ -133,5 +133,10 @@ export class AuthService {
     return this.http.get(this.api_url+"rol/rolName/"+name);
   }
 
-  
+  resetPassword(id: number, password: string){
+    let payload = {
+      password_usu: password
+    }
+    return this.http.patch(this.api_url+"usuario/resetPassword/"+id, payload)
+  }
 }

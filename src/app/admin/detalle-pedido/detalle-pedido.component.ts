@@ -18,6 +18,7 @@ export class DetallePedidoComponent implements OnInit {
   estados: any = Object.keys(EstadoPedido)
   administrador: Usuario = new Usuario();
   pedido: Orden = new Orden()
+  EstadoPedido = EstadoPedido;
   pedidoAuxiliar: Orden = new Orden();
   ordenProductos: OrdenProducto[] = [];
   direcciones: Direccion[] = [];
@@ -57,9 +58,7 @@ export class DetallePedidoComponent implements OnInit {
       this.productoService.getPedidoProductos(params['idPedido'])
         .subscribe((ordenProductos: any) => {
           this.ordenProductos = ordenProductos
-          console.log(ordenProductos)
         })
-
     });
   }
 

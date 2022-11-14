@@ -123,7 +123,8 @@
 								<i class="bi bi-pencil-fill"></i>
 							</td>
 							<td *ngIf="EstadoPedido.Cancelado== pedido.estado_ord" class="text-center cancelado">{{pedido.estado_ord}}</td>
-							<td *ngIf="EstadoPedido.Entregado == pedido.estado_ord" class="text-center entregado" (click)="changeEstado(pedido)">{{pedido.estado_ord}}
+							<td *ngIf="EstadoPedido.Entregado == pedido.estado_ord" class="text-center entregado" data-toggle="modal"
+							data-target="#editarEntregado" (click)="selectPedido(pedido)">{{pedido.estado_ord}}
 								<i class="bi bi-pencil-fill"></i>
 							</td>
 							<td class="text-center">{{pedido.direccion.nombre_direc}}</td>
@@ -158,6 +159,25 @@
 						<label>{{cliente.nombre_usu}} | {{cliente.correo_usu}}</label>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarEntregado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Alerta!</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<label>¿Está seguro de cambiar el estado a Pendiente? Esta acción eliminará todos los envases registrados en este pedido.</label>
+				<button type="button" class="btn btn-danger"  data-dismiss="modal">Cancelar</button>
+				<button type="button" class="ml-1 btn btn-warning" (click)="cambiarEntregado()" data-dismiss="modal">Cambiar Estado</button>
 			</div>
 		</div>
 	</div>

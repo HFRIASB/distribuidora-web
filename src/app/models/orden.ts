@@ -1,3 +1,4 @@
+import { ControlEnvase } from "./control-envase";
 import { Direccion } from "./direccion";
 import { OrdenProducto } from "./orden-producto";
 import { Usuario } from "./usuario";
@@ -25,10 +26,13 @@ export class Orden {
 
     ordenProducto: OrdenProducto[];
 
+    controlEnvase: ControlEnvase[];
+
     constructor() {
         this.fVenta_ord = new Date();
         this.fEntrega_ord = new Date();
         this.ordenProducto = [];
         this.direccion = new Direccion();
+        this.controlEnvase = [];
     }
 }

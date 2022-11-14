@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbDate, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap'; import { Estado } from 'src/app/models/enums/estado';
+import { NgbDate, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap';import { ControlEnvase } from 'src/app/models/control-envase';
+ import { Estado } from 'src/app/models/enums/estado';
 import { EstadoPedido } from 'src/app/models/enums/estado-pedido';
 import { Orden } from 'src/app/models/orden';
 import { OrdenProducto } from 'src/app/models/orden-producto';
@@ -27,6 +28,8 @@ export class PedidosComponent implements OnInit {
     cliente: new Usuario(),
     estado: 'Todos'
   }
+
+  pedidoSeleccionado: Orden = new Orden();
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -120,7 +123,15 @@ export class PedidosComponent implements OnInit {
   }
 
 
-  changeEstado(pedido: Orden) {
+  selectPedido(pedido: Orden) {
+    this.pedidoSeleccionado = pedido;
+  }
+
+  cambiarEntregado() {
+    this.changeEstado(this.pedidoSeleccionado);
+  }
+
+  async changeEstado(pedido: Orden) {
     if (pedido.estado_ord == EstadoPedido.Pendiente) {
       let payload = {
         id_ord: pedido.id_ord,
@@ -131,12 +142,11 @@ export class PedidosComponent implements OnInit {
           pedido.ordenProducto.forEach((op: OrdenProducto, index) => {
             this.productoService.patchStockProducto(op.producto?.id_prod, -op.cantidad_op)
               .subscribe(op => {
-                if (pedido.ordenProducto.length-1 == index) {
+                if (pedido.ordenProducto.length - 1 == index) {
                   console.log('todos estan actualizados')
                   location.reload();
                 }
               })
-
           })
         })
     } else if (pedido.estado_ord == EstadoPedido.Entregado) {
@@ -144,12 +154,19 @@ export class PedidosComponent implements OnInit {
         id_ord: pedido.id_ord,
         estado_ord: EstadoPedido.Pendiente
       }
+      if (pedido.controlEnvase.length > 0) {
+        await pedido.controlEnvase.forEach((ce: ControlEnvase)=>{
+          this.productoService.deleteControlEnvase(ce.id_ce)
+          .subscribe(()=>{
+          })
+        })
+      }
       this.productoService.patchPedido(payload)
         .subscribe(data => {
           pedido.ordenProducto.forEach((op: OrdenProducto, index) => {
             this.productoService.patchStockProducto(op.producto?.id_prod, op.cantidad_op)
               .subscribe(op => {
-                if (pedido.ordenProducto.length-1 == index) {
+                if (pedido.ordenProducto.length - 1 == index) {
                   console.log('todos estan actualizados')
                   location.reload();
                 }
@@ -267,11 +284,11 @@ export class PedidosComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
 
-  goDirecciones(){
+  goDirecciones() {
     this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
   }
 
-  goLogin(){
+  goLogin() {
     this.router.navigate([''], { replaceUrl: true });
   }
 }

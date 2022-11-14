@@ -186,7 +186,11 @@ export class ProductoService {
   }
 
   getOrdenesByVendedor(id: number) {
-    return this.http.get(`${this.api_url}orden/vendedor/${id}`)
+    return this.http.get(`${this.api_url}orden/vendedor/${id}`);
+  }
+
+  deleteControlEnvase(id: any){
+    return this.http.delete(this.api_url+"control-envase/" + id);
   }
 
   getFechaFormat(fecha: string) {

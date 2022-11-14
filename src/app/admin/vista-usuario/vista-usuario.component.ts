@@ -119,26 +119,19 @@ export class VistaUsuarioComponent implements OnInit {
   }
 
   editUsuario() {
-    let payload;
-    if (this.changePassword && this.password.pass == this.password.passConfirm) {
-      payload = {
-        id_usu: this.usuarioAuxiliar.id_usu,
-        nombre_usu: this.usuarioAuxiliar.nombre_usu,
-        nroDocu_usu: this.usuarioAuxiliar.nroDocu_usu,
-        sexo_usu: this.usuarioAuxiliar.sexo_usu,
-        celular_usu: this.usuarioAuxiliar.celular_usu,
-        observacion_usu: this.usuarioAuxiliar.observacion_usu,
-        password_usu: this.password.pass
-      }
-    }else{
-      payload = {
-        id_usu: this.usuarioAuxiliar.id_usu,
-        nombre_usu: this.usuarioAuxiliar.nombre_usu,
-        nroDocu_usu: this.usuarioAuxiliar.nroDocu_usu,
-        sexo_usu: this.usuarioAuxiliar.sexo_usu,
-        celular_usu: this.usuarioAuxiliar.celular_usu,
-        observacion_usu: this.usuarioAuxiliar.observacion_usu
-      }
+    let payload = {
+      id_usu: this.usuarioAuxiliar.id_usu,
+      nombre_usu: this.usuarioAuxiliar.nombre_usu,
+      nroDocu_usu: this.usuarioAuxiliar.nroDocu_usu,
+      sexo_usu: this.usuarioAuxiliar.sexo_usu,
+      celular_usu: this.usuarioAuxiliar.celular_usu,
+      observacion_usu: this.usuarioAuxiliar.observacion_usu,
+    }
+    if (this.changePassword && this.password.pass == this.password.passConfirm && this.usuarioAuxiliar.id_usu !=undefined && this.usuarioAuxiliar.password_usu!=undefined) {
+      this.authService.resetPassword(this.usuarioAuxiliar.id_usu, this.usuarioAuxiliar.password_usu)
+      .subscribe(()=>{
+        
+      })
     }
     this.authService.patchUsuario(payload)
       .subscribe((data: any) => {
