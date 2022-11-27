@@ -47,3 +47,14 @@
 .icon {
   color: #fecb00;
 }
+
+.border-bottom {
+  border-bottom: 1px solid #A4A4A4;
+}
+
+.motivo-entrada{
+  color: green;
+}
+.motivo-salida{
+  color: red;
+}

@@ -45,7 +45,7 @@ export class ProductoService {
   }
 
   getEnvases() {
-    return this.http.get(`${this.api_url}tipo-envase`);
+    return this.http.get<TipoEnvase[]>(`${this.api_url}tipo-envase`);
   }
   postEnvase(data: string) {
     return this.http.post(`${this.api_url}tipo-envase`,
@@ -187,6 +187,10 @@ export class ProductoService {
 
   getOrdenesByVendedor(id: number) {
     return this.http.get(`${this.api_url}orden/vendedor/${id}`);
+  }
+
+  postControlEnvase(payload: any){
+    return this.http.post(this.api_url+"control-envase", payload);
   }
 
   deleteControlEnvase(id: any){

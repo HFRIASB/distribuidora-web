@@ -9,11 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   usuario = {
     correo_usu: null,
     password_usu: null
   }
+  flag = false;
 
   constructor(
     private authService: AuthService,
@@ -39,7 +39,16 @@ export class LoginComponent implements OnInit {
           })
       }, error => {
         console.log(error)
+        this.flag=true;
       }
     )
+  }
+
+  tamanoString(palabra: any){
+    if(palabra==null){
+      return 0;
+    }else{
+      return palabra.length;
+    }
   }
 }

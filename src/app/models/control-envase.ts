@@ -1,11 +1,8 @@
+import { TipoEnvase } from "./tipo-envase";
 import { Usuario } from "./usuario";
 
 export class ControlEnvase {
     id_ce?: number;
-
-    estado_ce?: string;
-
-    tipEnvase_ce?: string;
 
     garantia_ce?: number;
 
@@ -16,4 +13,10 @@ export class ControlEnvase {
     fecha_ce?: Date;
 
     usuario?: Usuario;
+
+    tipoEnvase: any;
+
+    constructor(){
+        
+    }
 }
