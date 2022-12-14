@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Estado } from 'src/app/models/enums/estado';
-import { UniMedi  } from 'src/app/models/enums/unidad-medida';
+import { UniMedi } from 'src/app/models/enums/unidad-medida';
 import { Producto } from 'src/app/models/producto';
 import { TipoEnvase } from 'src/app/models/tipo-envase';
 import { Usuario } from 'src/app/models/usuario';
@@ -14,7 +14,7 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  estados:any = Object.keys(Estado)
+  estados: any = Object.keys(Estado)
   uniMedis: any = Object.values(UniMedi)
   administrador: Usuario = new Usuario();
   productos: Producto[] = [];
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     this.productoSeleccionado.estado_prod = producto.estado_prod;
     this.productoSeleccionado.foto_prod = producto.foto_prod;
     this.productoSeleccionado.nombre_prod = producto.nombre_prod;
-    this.productoSeleccionado.precioCompra_prod =producto.precioCompra_prod;
+    this.productoSeleccionado.precioCompra_prod = producto.precioCompra_prod;
     this.productoSeleccionado.stock_prod = producto.stock_prod;
     this.productoSeleccionado.uniMedida_prod = producto.uniMedida_prod;
   }
@@ -90,15 +90,31 @@ export class HomeComponent implements OnInit {
   }
 
   crearNuevoProducto() {
-    this.productoSeleccionado.uniMedida_prod = this.uniMedi.cantidad.toString() + '-'+this.uniMedi.medida;
+    this.productoSeleccionado.uniMedida_prod = this.uniMedi.cantidad.toString() + '-' + this.uniMedi.medida;
     if (this.productoSeleccionado.nombre_prod || this.productoSeleccionado.uniMedida_prod || this.productoSeleccionado.stock_prod || this.productoSeleccionado.precioCompra_prod) {
       this.productoService.postProducto(this.productoSeleccionado)
-        .subscribe(((data :any) => {
+        .subscribe(((data: any) => {
           this.productos.push(data)
           this.productoSeleccionado = new Producto();
         }))
     } else {
       console.log('alerta!')
+    }
+  }
+
+  tamanoString(palabra: any) {
+    if (palabra == null) {
+      return 0;
+    } else {
+      return palabra.length;
+    }
+  }
+
+  tamanoNumero(numero: any) {
+    if (numero == undefined) {
+      return 0;
+    } else {
+      return numero;
     }
   }
 
@@ -115,19 +131,19 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }
 
-  goVarios(){
+  goVarios() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-varios'], { replaceUrl: true });
   }
 
-  goGlobal(){
+  goGlobal() {
     this.router.navigate(['admin', this.administrador.id_usu, 'reporte-global'], { replaceUrl: true });
   }
 
-  goCFProducto(){
+  goCFProducto() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-producto'], { replaceUrl: true });
   }
 
-  goCFEnvase(){
+  goCFEnvase() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });
   }
 
@@ -144,11 +160,11 @@ export class HomeComponent implements OnInit {
     this.tabNavegador = dato;
   }
 
-  goDirecciones(){
+  goDirecciones() {
     this.router.navigate(['admin', this.administrador.id_usu, 'direcciones'], { replaceUrl: true });
   }
 
-  goLogin(){
+  goLogin() {
     this.router.navigate([''], { replaceUrl: true });
   }
 }

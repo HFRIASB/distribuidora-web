@@ -81,8 +81,11 @@ export class UsuariosComponent implements OnInit {
         this.usuarios.push(data);
         this.usuarioAuxiliar = new Usuario();
         this.usuarioAuxiliar.observacion_usu = '';
+        window.location.reload();
       }
+
     )
+    
   }
 
   goProductos(){
@@ -120,4 +123,25 @@ export class UsuariosComponent implements OnInit {
   goLogin(){
     this.router.navigate([''], { replaceUrl: true });
   }
+
+  tamanoString(palabra: any) {
+    if (palabra == null) {
+      return 0;
+    } else {
+      return palabra.length;
+    }
+  }
+
+  tamanoNumero(numero: any) {
+    if (numero == undefined) {
+      return 0;
+    } else {
+      return numero;
+    }
+  }
+
+  title = 'FormValidation';
+  mobNumberPattern = "^((\\+91-?|0)?[0-9]{7}$";
+  isValidFormSubmitted = false;
+
 }

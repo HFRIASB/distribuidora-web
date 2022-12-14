@@ -153,22 +153,26 @@
                         <label for="exampleFormControlInput1">Nombre del producto</label>
                         <input type="text" name="nombre" [(ngModel)]="productoSeleccionado.nombre_prod"
                             class="form-control">
-                    </div>
+                            <label *ngIf="tamanoString(productoSeleccionado.nombre_prod)<=5" class="alertas">*Este campo debe tener almenos 6 caracteres</label>
+                        </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Unidad de medida</label>
                         <input type="text" name="uniMedi" [(ngModel)]="productoSeleccionado.uniMedida_prod"
                             class="form-control">
-                    </div>
+                            <label class="alertas">*Tenga cuidado al cambiar este campo, ya que debe cumplir el formato establecido.</label>
+                        </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Stock</label>
                         <input type="number" name="stock" [(ngModel)]="productoSeleccionado.stock_prod"
                             class="form-control">
-                    </div>
+                            <label *ngIf="tamanoNumero(productoSeleccionado.stock_prod) <= 0" class="alertas">*Este campo debe ser mayor a cero.</label>
+                        </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Precio de compra</label>
                         <input type="number" name="precio" [(ngModel)]="productoSeleccionado.precioCompra_prod"
                             class="form-control">
-                    </div>
+                            <label *ngIf="tamanoNumero(productoSeleccionado.precioCompra_prod) <= 0" class="alertas">*Este campo debe ser mayor a cero.</label>
+                        </div>
                     <fieldset class="form-group">
                         <div class="row">
                             <legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
@@ -195,6 +199,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal"
+                [disabled]="tamanoString(productoSeleccionado.nombre_prod)<=5 || tamanoNumero(productoSeleccionado.stock_prod) <= 0 || tamanoNumero(productoSeleccionado.precioCompra_prod) <= 0"
                     (click)="guardarProductoEditado()">Guardar cambios</button>
             </div>
         </div>
@@ -216,27 +221,31 @@
                         <label for="exampleFormControlInput1">Nombre del producto</label>
                         <input type="text" name="nombre" required [(ngModel)]="productoSeleccionado.nombre_prod"
                             class="form-control">
+                        <label *ngIf="tamanoString(productoSeleccionado.nombre_prod)<=5" class="alertas">*Este campo debe tener almenos 6 caracteres</label>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Unidad de medida</label>
                         <input type="number" name="numeroUniMedi" required [(ngModel)]="uniMedi.cantidad"
                             class="form-control width-min">
-                        <label class="etiqueta">Cantidad : 300, 200, 1 ,etc</label>
+                        <label class="etiqueta">Cantidad : 300, 200, 1 ,etc</label><br>
+                        <label *ngIf="uniMedi.cantidad <1" class="alertas">*Este campo debe ser mayor a cero.</label>
                         <select class="form-select width-min" name="medida" [(ngModel)]="uniMedi.medida">
                             <option *ngFor="let uniMedi of uniMedis">{{uniMedi}}</option>
                         </select>
-                        <label class="etiqueta"> Medida: ml, gr, kl ,etc</label>
+                        <label class="etiqueta"> Medida: ml, gr, kl ,etc</label><br>
+                        <label *ngIf="tamanoString(uniMedi.medida)<1" class="alertas">*Por favor seleccione una medida.</label>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Stock</label>
                         <input type="number" name="stock" required [(ngModel)]="productoSeleccionado.stock_prod"
                             class="form-control">
+                            <label *ngIf="tamanoNumero(productoSeleccionado.stock_prod) <= 0" class="alertas">*Este campo debe ser mayor a cero.</label>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Precio de compra</label>
                         <input type="number" name="precio" required [(ngModel)]="productoSeleccionado.precioCompra_prod"
                             class="form-control">
-                    </div>
+                             </div>
                     <fieldset class="form-group">
                         <div class="row">
                             <legend class="col-form-label col-sm-10 col-sm-2 pt-0">Estado</legend>
@@ -261,7 +270,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-warning" (click)="crearNuevoProducto()"
+                <button type="button" class="btn btn-warning" (click)="crearNuevoProducto()" 
+                [disabled]="tamanoString(productoSeleccionado.nombre_prod)<=5 || uniMedi.cantidad <1 || tamanoString(uniMedi.medida)<1 || tamanoNumero(productoSeleccionado.stock_prod) <= 0 "
                     data-dismiss="modal">Guardar cambios</button>
             </div>
         </div>
@@ -282,9 +292,12 @@
                     <div class="form-group">
                         <label>Nombre del envase:</label>
                         <input type="text" ngModel name="nombre" class="form-control">
+                        <label *ngIf="tamanoString(envaseForm.form.value.nombre)<=5" class="alertas">*Este campo debe tener almenos 6 caracteres</label>
+                    
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-warning" (click)="crearEnvase(envaseForm.form.value)"
+                    
                         data-dismiss="modal">Guardar cambios</button>
                 </form>
             </div>
@@ -306,10 +319,11 @@
                     <div class="form-group">
                         <label>Nombre del envase:</label>
                         <input type="text" name="e" [(ngModel)]="envaseSeleccionado.nombre_envase" class="form-control">
+                        <label *ngIf="tamanoString(envaseSeleccionado.nombre_envase)<=4" class="alertas">*Este campo debe tener almenos 5 caracteres</label>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" (click)="editarEnvase()" data-dismiss="modal" class="btn btn-warning">Guardar
-                        cambios</button>
+                    <button type="submit" (click)="editarEnvase()" data-dismiss="modal" class="btn btn-warning"
+                    >Guardar cambios</button>
                 </form>
             </div>
         </div>

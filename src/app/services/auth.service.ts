@@ -53,7 +53,6 @@ export class AuthService {
     return this.http.get(this.api_url + "usuario/detalle-cliente/" + cliente.toString());
   }
 
-
   patchUsuario(payload: any){
     return this.http.patch(this.api_url+'usuario/'+payload.id_usu, payload)
   }
