@@ -218,7 +218,10 @@ export class GlobalComponent implements OnInit {
 
   goProductos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
+  }
 
+  goIngreso() {
+    this.router.navigate(['admin', this.administrador.id_usu, 'ingreso'], { replaceUrl: true });
   }
 
   goUsuarios() {

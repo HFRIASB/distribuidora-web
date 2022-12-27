@@ -46,7 +46,7 @@
 					</div>
 					<div class="card-body" *ngIf="tabNavegador=='informacion'">
 						<h3 class="card-title">{{cliente.nombre_usu}} </h3>
-						<p class="font-weight-bold">Numero de documento</p>
+						<p class="font-weight-bold">Número de documento</p>
 						<p class="card-text">{{cliente.nroDocu_usu}}</p>
 						<p class="font-weight-bold">Celular: </p>
 						<p class="card-text">{{cliente.celular_usu}}</p>
@@ -69,7 +69,7 @@
 								<tr>
 									<th class="text-center" scope="col">Monto</th>
 									<th class="text-center" scope="col">Fecha</th>
-									<th class="text-center" scope="col">Accion</th>
+									<th class="text-center" scope="col">Acción</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -184,9 +184,11 @@
 						<label>Nombre del usuario</label>
 						<input type="text" class="form-control" name="nombre_usu"
 							[(ngModel)]="clienteAuxiliar.nombre_usu">
+							<label *ngIf="tamanoString(clienteAuxiliar.nombre_usu)<=2" class="alertas">*Este campo debe
+								tener almenos 3 caracteres</label>
 					</div>
 					<div class="form-group">
-						<label>Numero de documento</label>
+						<label>Número de documento</label>
 						<input type="text" class="form-control" name="nroDocu"
 							[(ngModel)]="clienteAuxiliar.nroDocu_usu">
 					</div>
@@ -194,6 +196,8 @@
 						<label>Celular</label>
 						<input type="text" class="form-control" name="celular"
 							[(ngModel)]="clienteAuxiliar.celular_usu">
+							<label *ngIf="tamanoString(clienteAuxiliar.celular_usu)<=6" class="alertas">*Este campo debe
+								tener almenos 7 caracteres</label>
 					</div>
 					<fieldset class="form-group">
 						<div class="row">
@@ -211,7 +215,7 @@
 						</div>
 					</fieldset>
 					<div class="form-group">
-						<label>Observacion</label>
+						<label>Observación</label>
 						<input type="text" class="form-control" name="observacion"
 							[(ngModel)]="clienteAuxiliar.observacion_usu">
 					</div>
@@ -219,7 +223,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editUsuario()">Guardar
+				<button type="button" 
+				[disabled]="tamanoString(clienteAuxiliar.celular_usu)<=6 || tamanoString(clienteAuxiliar.nombre_usu)<=2"
+				class="btn btn-warning" data-dismiss="modal" (click)="editUsuario()">Guardar
 					cambios</button>
 			</div>
 		</div>
@@ -231,14 +237,14 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Editar Direccion</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Dirección</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label>Nombre de la direccion</label>
+					<label>Nombre de la dirección</label>
 					<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
 				</div>
 				<div class="form-group">
@@ -251,7 +257,7 @@
 					<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
 				</div>
 				<div class="form-group">
-					<label>Telefono de la direccion</label>
+					<label>Teléfono de la dirección</label>
 					<input type="text" class="form-control" name="observacion"
 						[(ngModel)]="direccionAuxiliar.telefono_direc">
 				</div>
@@ -277,14 +283,14 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Agregar Direccion</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle">Agregar Dirección</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label>Nombre de la direccion</label>
+					<label>Nombre de la dirección</label>
 					<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
 				</div>
 				<div class="form-group">
@@ -297,7 +303,7 @@
 					<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
 				</div>
 				<div class="form-group">
-					<label>Telefono de la direccion</label>
+					<label>Teléfono de la dirección</label>
 					<input type="text" class="form-control" name="observacion"
 						[(ngModel)]="direccionAuxiliar.telefono_direc">
 				</div>
@@ -323,7 +329,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Ver Direccion</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle">Ver Dirección</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>

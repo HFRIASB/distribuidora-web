@@ -118,6 +118,21 @@ export class ProductoComponent implements OnInit {
     this.productoSeleccionado.uniMedida_prod = p.uniMedida_prod;
   }
 
+  tamanoString(palabra: any) {
+    if (palabra == null) {
+      return 0;
+    } else {
+      return palabra.length;
+    }
+  }
+
+  tamanoNumero(numero: any) {
+    if (numero == undefined) {
+      return 0;
+    } else {
+      return numero;
+    }
+  }
 
   goCFEnvase() {
     this.router.navigate(['admin', this.administrador.id_usu, 'control-fisico-envase'], { replaceUrl: true });

@@ -46,10 +46,10 @@
 								</div>
 							</div>
 							<div *ngIf="cliente.nombre_usu != undefined" class="group-space-between m-1">
-								<div>Direccion: </div>
+								<div>Dirección: </div>
 								<div class="input-group select">
 									<select class="form-select select" name="direc" [(ngModel)]="direccion">
-										<option [ngValue]="null" selected disabled>Seleccione una direccion</option>
+										<option [ngValue]="null" selected disabled>Seleccione una dirección</option>
 										<option *ngFor="let direccion of cliente.direccion" [ngValue]="direccion">
 											{{direccion.nombre_direc}}</option>
 									</select>
@@ -118,7 +118,7 @@
 			<div class="modal-body">
 				<label>Porfavor verifique todos los datos antes de realizar el pedidos.</label>
 				<h5>Cliente:</h5><label>{{this.cliente.nombre_usu}}</label>
-				<h5>Direccion:</h5><label>{{this.direccion.nombre_direc}}</label>
+				<h5>Dirección:</h5><label>{{this.direccion.nombre_direc}}</label>
 				<h5>fecha de entrega:</h5><label>{{fecha.day}}/{{fecha.month}}/{{fecha.year}}</label>
 				<h5>Productos</h5>
 				<div *ngFor="let item of carrito">

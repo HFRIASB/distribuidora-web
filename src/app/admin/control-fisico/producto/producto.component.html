@@ -23,7 +23,7 @@
 						<li class="nav-item active">
 							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
 								data-toggle="collapse" data-target="#m2" aria-expanded="false">
-								<span class=" span-active"> Control <br> fisico</span>
+								<span class=" span-active"> Control <br> físico</span>
 							</a>
 							<div class="collapse" id="m2">
 								<ul class="flex-column nav">
@@ -158,12 +158,16 @@
 					</div>
 					<label class="mt-1">Detalle: </label>
 					<input class="form-control" name="detalle" ngModel type="text">
+					<!-- <label *ngIf="tamanoString(f.form.value.detalle)<=5" class="alertas">*Este campo debe tener almenos 6 caracteres</label> -->
 					<label class="mt-1">Entrada: </label>
 					<input class="form-control" name="entrada" ngModel type="number">
+					<!-- <label *ngIf="f.form.value.entrada> 0" class="alertas">*Este campo debe ser mayor a cero.</label> -->
 					<label class="mt-1">Salida: </label>
 					<input class="form-control" name="salida" ngModel type="number">
+					<!-- <label *ngIf="f.form.value.salida > 0" class="alertas">*Este campo debe ser mayor a cero.</label> -->
 					<button type="submit" class="btn btn-warning m-1" (click)="saveControlProducto(f)"
-						data-dismiss="modal">Guardar</button>
+						
+					data-dismiss="modal">Guardar</button>
 				</form>
 			</div>
 		</div>

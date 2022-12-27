@@ -23,7 +23,7 @@
 						<li class="nav-item">
 							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
 								data-toggle="collapse" data-target="#m2" aria-expanded="false">
-								<span class=""> Control <br> fisico</span>
+								<span class=""> Control <br> físico</span>
 							</a>
 							<div class="collapse" id="m2">
 								<ul class="flex-column nav">
@@ -83,7 +83,7 @@
 					</div>
 					<div class="card-body" *ngIf="tabNavegador=='informacion'">
 						<h3 class="card-title">{{usuario.nombre_usu}} </h3>
-						<p class="font-weight-bold">Numero de documento</p>
+						<p class="font-weight-bold">Número de documento</p>
 						<p class="card-text">{{usuario.nroDocu_usu}}</p>
 						<p class="font-weight-bold">Celular: </p>
 						<p class="card-text">{{usuario.celular_usu}}</p>
@@ -104,7 +104,7 @@
 								<tr>
 									<th class="text-center" scope="col">Monto</th>
 									<th class="text-center" scope="col">Fecha</th>
-									<th class="text-center" scope="col">Accion</th>
+									<th class="text-center" scope="col">Acción</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -158,9 +158,9 @@
 									<th class="text-center" scope="col">Estado</th>
 									<th class="text-center" scope="col">Celular</th>
 									<th class="text-center" scope="col">nro Documento</th>
-									<th class="text-center" scope="col">Observacion</th>
+									<th class="text-center" scope="col">Observación</th>
 									<th class="text-center" scope="col">Deuda</th>
-									<th class="text-center" scope="col">Accion</th>
+									<th class="text-center" scope="col">Acción</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -255,29 +255,34 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Editar Direccion</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Dirección</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label>Nombre de la direccion</label>
+					<label>Nombre de la dirección</label>
 					<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
+					<label *ngIf="tamanoString(direccionAuxiliar.nombre_direc)<=5" class="alertas">*Este campo debe
+						tener almenos 6 caracteres</label>
 				</div>
 				<div class="form-group">
 					<label>Descripción</label>
 					<input type="text" class="form-control" name="descripcion"
 						[(ngModel)]="direccionAuxiliar.descripcion_direc">
+						<label *ngIf="tamanoString(direccionAuxiliar.descripcion_direc)<=9" class="alertas">*Este campo debe
+							tener almenos 10 caracteres</label>
 				</div>
 				<div class="form-group">
 					<label>Rubro</label>
 					<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
 				</div>
 				<div class="form-group">
-					<label>Telefono de la direccion</label>
+					<label>Teléfono de la dirección</label>
 					<input type="text" class="form-control" name="observacion"
 						[(ngModel)]="direccionAuxiliar.telefono_direc">
+						<label *ngIf="tamanoString(direccionAuxiliar.telefono_direc)<=6" class="alertas">*Este campo debe tener almenos 7 caracteres</label>
 				</div>
 				<div>
 					<google-map height="500px" width="100%" [zoom]="15" [center]="center" [options]="options"
@@ -288,8 +293,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editarDireccion()">Guardar
-					cambios</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editarDireccion()"
+				[disabled]="tamanoString(direccionAuxiliar.nombre_direc)<=5 || tamanoString(direccionAuxiliar.descripcion_direc)<=9 || tamanoString(direccionAuxiliar.telefono_direc)<=6"
+				>Guardar cambios</button>
 			</div>
 		</div>
 	</div>
@@ -300,29 +306,38 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Agregar Direccion</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle">Agregar Dirección</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label>Nombre de la direccion</label>
+					<label>Nombre de la dirección</label>
 					<input type="text" class="form-control" name="nombre" [(ngModel)]="direccionAuxiliar.nombre_direc">
+					<label *ngIf="tamanoString(direccionAuxiliar.nombre_direc)<=5" class="alertas">*Este campo debe
+						tener almenos 6 caracteres</label>
+
 				</div>
 				<div class="form-group">
 					<label>Descripción</label>
 					<input type="text" class="form-control" name="descripcion"
 						[(ngModel)]="direccionAuxiliar.descripcion_direc">
+						<label class="etiqueta">ejemplo: Sucre, entre 25 de Mayo y San Martin #000</label>
+						<label class="etiqueta">ejemplo: Mercado Calatayud, Caseta #000</label>
+					<label *ngIf="tamanoString(direccionAuxiliar.descripcion_direc)<=9" class="alertas">*Este campo debe
+						tener almenos 10 caracteres</label>
+
 				</div>
 				<div class="form-group">
 					<label>Rubro</label>
 					<input type="text" class="form-control" name="rubro" [(ngModel)]="direccionAuxiliar.rubro_direc">
 				</div>
 				<div class="form-group">
-					<label>Telefono de la direccion</label>
+					<label>Teléfono de la dirección</label>
 					<input type="text" class="form-control" name="observacion"
 						[(ngModel)]="direccionAuxiliar.telefono_direc">
+						<label *ngIf="tamanoString(direccionAuxiliar.telefono_direc)<=6" class="alertas">*Este campo debe tener almenos 7 caracteres</label>
 				</div>
 				<div>
 					<google-map height="500px" width="100%" [zoom]="15" [center]="center" [options]="options"
@@ -333,8 +348,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="saveDireccion()">Guardar
-					cambios</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="saveDireccion()"
+				[disabled]="tamanoString(direccionAuxiliar.nombre_direc)<=5 || tamanoString(direccionAuxiliar.descripcion_direc)<=9 || tamanoString(direccionAuxiliar.telefono_direc)<=6"
+				>Guardar cambios</button>
 			</div>
 		</div>
 	</div>
@@ -345,7 +361,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Ver Direccion</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle">Ver Dirección</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -407,9 +423,11 @@
 						<label>Nombre del usuario</label>
 						<input type="text" class="form-control" name="nombre_usu"
 							[(ngModel)]="usuarioAuxiliar.nombre_usu">
+						<label *ngIf="tamanoString(usuarioAuxiliar.nombre_usu)<=2" class="alertas">*Este campo debe
+							tener almenos 3 caracteres</label>
 					</div>
 					<div class="form-group">
-						<label>Numero de documento</label>
+						<label>Número de documento</label>
 						<input type="text" class="form-control" name="nroDocu"
 							[(ngModel)]="usuarioAuxiliar.nroDocu_usu">
 					</div>
@@ -417,6 +435,8 @@
 						<label>Celular</label>
 						<input type="text" class="form-control" name="celular"
 							[(ngModel)]="usuarioAuxiliar.celular_usu">
+						<label *ngIf="tamanoString(usuarioAuxiliar.celular_usu)<=6" class="alertas">*Este campo debe
+							tener almenos 7 caracteres</label>
 					</div>
 					<fieldset class="form-group">
 						<div class="row">
@@ -434,7 +454,7 @@
 						</div>
 					</fieldset>
 					<div class="form-group">
-						<label>Observacion</label>
+						<label>Observación</label>
 						<input type="text" class="form-control" name="observacion"
 							[(ngModel)]="usuarioAuxiliar.observacion_usu">
 					</div>
@@ -459,8 +479,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button type="button" [disabled]="password.pass!=password.passConfirm" class="btn btn-warning"
-					data-dismiss="modal" (click)="editUsuario()">Guardar cambios</button>
+				<button type="button"
+					[disabled]="password.pass!=password.passConfirm || tamanoString(usuarioAuxiliar.celular_usu)<=6 || tamanoString(usuarioAuxiliar.nombre_usu)<=2"
+					class="btn btn-warning" data-dismiss="modal" (click)="editUsuario()">Guardar cambios</button>
 			</div>
 		</div>
 	</div>

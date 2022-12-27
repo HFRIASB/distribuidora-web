@@ -23,7 +23,7 @@
 						<li class="nav-item">
 							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
 								data-toggle="collapse" data-target="#m2" aria-expanded="false">
-								<span class=""> Control <br> fisico</span>
+								<span class=""> Control <br> físico</span>
 							</a>
 							<div class="collapse" id="m2">
 								<ul class="flex-column nav">
@@ -68,6 +68,8 @@
 							<label>Chofer: </label>
 							<input type="text" class="form-control" [(ngModel)]="auxiliar.chofer_ingreso_producto"
 								name="chofer" required>
+								<label *ngIf="tamanoString(auxiliar.chofer_ingreso_producto)<=4" class="alertas">*Este campo debe
+									tener almenos 5 caracteres</label>
 						</div>
 						<div class="">
 							<label>Fecha: </label>
@@ -92,7 +94,8 @@
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-warning" (click)="guardarRegistro()">Guardar registro</button>
+						<button class="btn btn-warning" (click)="guardarRegistro()"
+						[disabled]="tamanoString(auxiliar.chofer_ingreso_producto)<=4">Guardar registro</button>
 					</div>
 				</form>
 			</div>

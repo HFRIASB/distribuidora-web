@@ -69,6 +69,22 @@ export class UsuariosComponent implements OnInit {
     )
   }
 
+  tamanoString(palabra: any) {
+    if (palabra == null) {
+      return 0;
+    } else {
+      return palabra.length;
+    }
+  }
+
+  tamanoNumero(numero: any) {
+    if (numero == undefined) {
+      return 0;
+    } else {
+      return numero;
+    }
+  }
+
   getClienteRol() {
     this.authService.getRolByRolName(RolEnum.cliente)
       .subscribe((rol: Rol) => {

@@ -116,7 +116,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre del envase</th>
-                                    <th scope="col">Accion</th>
+                                    <th scope="col">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -322,7 +322,9 @@
                         <label *ngIf="tamanoString(envaseSeleccionado.nombre_envase)<=4" class="alertas">*Este campo debe tener almenos 5 caracteres</label>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" (click)="editarEnvase()" data-dismiss="modal" class="btn btn-warning"
+                    <button type="submit" (click)="editarEnvase()" 
+                    [disabled]="tamanoString(envaseSeleccionado.nombre_envase)<=4"
+                    data-dismiss="modal" class="btn btn-warning"
                     >Guardar cambios</button>
                 </form>
             </div>

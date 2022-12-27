@@ -81,6 +81,7 @@
 					<div class="form-group">
 						<label>Nombre del cliente</label>
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.nombre_usu" name="nombre">
+						<label *ngIf="tamanoString(usuarioAuxiliar.nombre_usu)<=2" class="alertas">*Este campo debe tener almenos 3 caracteres</label>
 					</div>
 					<div class="form-group">
 						<label>Número de documento</label>
@@ -90,6 +91,7 @@
 						<label>Número de celular/teléfono:</label>
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.celular_usu"
 							name="telefono">
+							<label *ngIf="tamanoString(usuarioAuxiliar.celular_usu)<=6" class="alertas">*Este campo debe tener almenos 7 caracteres</label>
 					</div>
 					<fieldset class="form-group">
 						<div class="row">
@@ -124,11 +126,13 @@
 					<div class="form-group">
 						<label>Correo electrónico o Nombre de usuario del cliente</label>
 						<input type="text" class="form-control" [(ngModel)]="usuarioAuxiliar.correo_usu" name="correo">
+						<label *ngIf="tamanoString(usuarioAuxiliar.correo_usu)<=4" class="alertas">*Este campo debe tener almenos 5 caracteres</label>
 					</div>
 					<div class="form-group">
 						<label>Contraseña</label>
 						<input type="password" class="form-control" [(ngModel)]="usuarioAuxiliar.password_usu"
 							name="password">
+							<label *ngIf="tamanoString(usuarioAuxiliar.password_usu)<=4" class="alertas">*Este campo debe tener almenos 5 caracteres</label>
 					</div>
 					<div class="form-group">
 						<label>Observación</label>
@@ -137,7 +141,8 @@
 					</div>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 					<button type="submit" class="btn btn-warning" (click)="registrarUsuario()"
-						data-dismiss="modal">Guardar cambios</button>
+					[disabled]="tamanoString(usuarioAuxiliar.nombre_usu)<=2 ||  tamanoString(usuarioAuxiliar.celular_usu)<=6 || tamanoString(usuarioAuxiliar.correo_usu)<=4  || tamanoString(usuarioAuxiliar.password_usu)<=4"
+							data-dismiss="modal">Guardar cambios</button>
 				</form>
 			</div>
 		</div>

@@ -108,6 +108,22 @@ export class NuevoRegistroComponent implements OnInit {
     }
   }
 
+  tamanoString(palabra: any) {
+    if (palabra == null) {
+      return 0;
+    } else {
+      return palabra.length;
+    }
+  }
+
+  tamanoNumero(numero: any) {
+    if (numero == undefined) {
+      return 0;
+    } else {
+      return numero;
+    }
+  }
+
   clearSearch() {
     this.searchText = '';
   }

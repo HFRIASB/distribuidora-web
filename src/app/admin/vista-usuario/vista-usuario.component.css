@@ -13,7 +13,6 @@
   transform: scale(1.2);
 }
 
-
 .label{
   margin-top: 5px;
   margin-left: 10px;
@@ -25,4 +24,9 @@
 
 .link-active:hover {
   color: #fecb00;
+}
+
+.etiqueta{
+	font-size: small;
+	color:#555555;
 }
