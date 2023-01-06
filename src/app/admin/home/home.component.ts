@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
   }
   abrirModalEditarEnvase(envase: TipoEnvase) {
     this.envaseSeleccionado.id_envase = envase.id_envase;
+    this.envaseSeleccionado.precio_envase=envase.precio_envase;
     this.envaseSeleccionado.nombre_envase = envase.nombre_envase;
     // this.envaseSeleccionado = this.envases[index];
   }
@@ -148,7 +149,8 @@ export class HomeComponent implements OnInit {
   }
 
   crearEnvase(nombre_envase: any) {
-    this.productoService.postEnvase(nombre_envase.nombre)
+    console.log(nombre_envase,"esto recibe del envase")
+    this.productoService.postEnvase(nombre_envase)
       .subscribe(
         (data: any) => {
           this.envases.push(data);

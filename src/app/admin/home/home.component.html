@@ -2,12 +2,17 @@
     <div class="row wrapper min-vh-100 flex-column flex-sm-row">
         <aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
+                <a class="nav-link"><label class="text-menu">{{this.administrador.nombre_usu}}</label></a>
+                <a class="nav-link"><label class="text-menu">{{this.administrador.rol?.nombre_rol}}</label></a>
                 <a class="navbar-brand "><label class="text-menu">Menú</label></a>
                 <a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
                     <span class="navbar-toggler-icon"></span>
                 </a>
                 <div class="collapse navbar-collapse sidebar">
                     <ul class="flex-column navbar-nav w-100 justify-content-between">
+                        <li class="nav-link" >
+                           
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link dropdown-toggle text-nowrap" href="#m1" data-parent="#navbar1"
                                 data-toggle="collapse" data-target="#m1" aria-expanded="false">
@@ -116,6 +121,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre del envase</th>
+                                    <th scope="col">Precio</th>
                                     <th scope="col">Accion</th>
                                 </tr>
                             </thead>
@@ -123,6 +129,7 @@
                                 <tr *ngFor="let envase of envases; let i = index">
                                     <td scope="row">{{envase.id_envase}}</td>
                                     <td>{{envase.nombre_envase}}</td>
+                                    <td>{{envase.precio_envase}}</td>
                                     <td data-toggle="modal" (click)="abrirModalEditarEnvase(envase)"
                                         data-target="#editarEnvase">
                                         <i class="bi bi-pencil-square"></i>
@@ -292,8 +299,9 @@
                     <div class="form-group">
                         <label>Nombre del envase:</label>
                         <input type="text" ngModel name="nombre" class="form-control">
-                        <label *ngIf="tamanoString(envaseForm.form.value.nombre)<=5" class="alertas">*Este campo debe tener almenos 6 caracteres</label>
-                    
+                        <label *ngIf="tamanoString(envaseForm.form.value.nombre)<=5" class="alertas">*Este campo debe tener almenos 6 caracteres</label><br>
+                        <label>Precio del envase:</label>
+                        <input type="number" ngModel name="precio" class="form-control">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-warning" (click)="crearEnvase(envaseForm.form.value)"
@@ -320,6 +328,8 @@
                         <label>Nombre del envase:</label>
                         <input type="text" name="e" [(ngModel)]="envaseSeleccionado.nombre_envase" class="form-control">
                         <label *ngIf="tamanoString(envaseSeleccionado.nombre_envase)<=4" class="alertas">*Este campo debe tener almenos 5 caracteres</label>
+                        <label>Precio del envase:</label>
+                        <input type="number" name="p" [(ngModel)]="envaseSeleccionado.precio_envase" class="form-control">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" (click)="editarEnvase()" data-dismiss="modal" class="btn btn-warning"

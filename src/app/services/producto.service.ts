@@ -47,16 +47,19 @@ export class ProductoService {
   getEnvases() {
     return this.http.get<TipoEnvase[]>(`${this.api_url}tipo-envase`);
   }
-  postEnvase(data: string) {
-    return this.http.post(`${this.api_url}tipo-envase`,
-      {
-        nombre_envase: data
-      })
+  postEnvase(data:any) {
+    console.log(data,"esto recibe el service")
+    let payload={
+      precio_envase: data.precio,
+      nombre_envase: data.nombre
+    }
+    return this.http.post(`${this.api_url}tipo-envase`,payload)
   }
 
   updateEnvase(data: TipoEnvase) {
     return this.http.patch(`${this.api_url}tipo-envase/${data.id_envase}`,
       {
+        precio_envase:data.precio_envase,
         nombre_envase: data.nombre_envase
       })
   }
