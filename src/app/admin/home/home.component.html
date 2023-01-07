@@ -122,7 +122,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre del envase</th>
                                     <th scope="col">Precio</th>
-                                    <th scope="col">Accion</th>
+                                    <th scope="col">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -305,7 +305,8 @@
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-warning" (click)="crearEnvase(envaseForm.form.value)"
-                    
+                    [disabled]="tamanoString(envaseForm.form.value.nombre)<=5"
+               
                         data-dismiss="modal">Guardar cambios</button>
                 </form>
             </div>
@@ -327,12 +328,14 @@
                     <div class="form-group">
                         <label>Nombre del envase:</label>
                         <input type="text" name="e" [(ngModel)]="envaseSeleccionado.nombre_envase" class="form-control">
-                        <label *ngIf="tamanoString(envaseSeleccionado.nombre_envase)<=4" class="alertas">*Este campo debe tener almenos 5 caracteres</label>
+                        <label *ngIf="tamanoString(envaseSeleccionado.nombre_envase)<=4" class="alertas">*Este campo debe tener almenos 5 caracteres</label> <br>
                         <label>Precio del envase:</label>
                         <input type="number" name="p" [(ngModel)]="envaseSeleccionado.precio_envase" class="form-control">
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" (click)="editarEnvase()" data-dismiss="modal" class="btn btn-warning"
+                    <button type="submit" (click)="editarEnvase()" 
+                    [disabled]="tamanoString(envaseSeleccionado.nombre_envase)<=4"
+                    data-dismiss="modal" class="btn btn-warning"
                     >Guardar cambios</button>
                 </form>
             </div>

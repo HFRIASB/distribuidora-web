@@ -112,6 +112,22 @@ export class NuevoRegistroComponent implements OnInit {
     this.searchText = '';
   }
 
+   tamanoString(palabra: any) {
+    if (palabra == null) {
+      return 0;
+    } else {
+      return palabra.length;
+    }
+  }
+
+  tamanoNumero(numero: any) {
+    if (numero == undefined) {
+      return 0;
+    } else {
+      return numero;
+    }
+  }
+
   goProductos() {
     this.router.navigate(['admin', this.administrador.id_usu, 'home'], { replaceUrl: true });
   }

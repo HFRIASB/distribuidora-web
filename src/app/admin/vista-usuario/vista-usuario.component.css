@@ -26,3 +26,8 @@
 .link-active:hover {
   color: #fecb00;
 }
+
+.etiqueta{
+	font-size: small;
+	color:#555555;
+}
