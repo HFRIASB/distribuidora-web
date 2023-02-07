@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Direccion } from 'src/app/models/direccion';
@@ -14,6 +15,7 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./nuevo-pedido.component.css']
 })
 export class NuevoPedidoComponent implements OnInit {
+  validacion = false;
   administrador: Usuario = new Usuario();
   cliente: Usuario = new Usuario();
   clientes: Usuario[] = [];
@@ -34,6 +36,7 @@ export class NuevoPedidoComponent implements OnInit {
     private authService: AuthService,
     private productoService: ProductoService
   ) {
+   
     this.cliente.direccion = [];
     this.route.params.subscribe(params => {
       this.authService.getUsuarioById(params['id'])
@@ -65,6 +68,7 @@ export class NuevoPedidoComponent implements OnInit {
       cantidad_producto: 1,
       precio: Number(producto.precioCompra_prod)
     })
+    this.validacion = true;
   }
 
   seleccionarCliente(cliente: Usuario) {
@@ -121,9 +125,11 @@ export class NuevoPedidoComponent implements OnInit {
               .subscribe((detalle: any) => {
               })
           });
+          this.goPedidos();
         })
     } else {
       console.log('alerta error en los datos')
+
     }
   }
 

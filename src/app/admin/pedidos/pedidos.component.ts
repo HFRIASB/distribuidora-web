@@ -73,7 +73,8 @@ export class PedidosComponent implements OnInit {
     if (this.filtros.cliente.id_usu == undefined && this.fechaInicio == undefined && this.fechaFin == undefined) {
       if (this.filtros.estado == 'Todos')
         this.pedidos = this.pedidosTodos.filter((obj) => {
-          return obj.estado_ord === this.filtros.estado;
+          //return obj.estado_ord === this.filtros.estado;
+          return true;
         })
       else {
         this.pedidos = this.pedidosTodos.filter((obj) => {

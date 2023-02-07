@@ -21,6 +21,10 @@ export class NuevoPedidoComponent implements OnInit {
   fecha: NgbDateStruct = this.calendar.getToday();
   productos: Producto[] = [];
   carrito: any = [];
+  carritoSeleccionado = {
+    index: 0,
+    precio: 0
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +69,10 @@ export class NuevoPedidoComponent implements OnInit {
     console.log(this.carrito)
   }
 
+  savePrecioCarrito() {
+    this.carrito[this.carritoSeleccionado.index].precio = this.carritoSeleccionado.precio;
+  }
+
   seleccionarCliente(cliente: Usuario) {
     this.direccion = new Direccion();
     this.cliente = cliente;
@@ -89,11 +97,17 @@ export class NuevoPedidoComponent implements OnInit {
               .subscribe((detalle: any) => {
               })
           });
+          this.goPedidos();
         })
     } else {
       console.log('alerta error en los datos')
     }
   }
+
+  editarPrecioProducto(index: number) {
+    this.carritoSeleccionado.index = index;
+    this.carritoSeleccionado.precio = this.carrito[index].precio;
+  }
 
   goReportes() {
     this.router.navigate(['vendedor', this.vendedor.id_usu, 'reportes'], { replaceUrl: true });

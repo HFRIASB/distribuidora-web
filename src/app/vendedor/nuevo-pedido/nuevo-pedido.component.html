@@ -57,7 +57,7 @@
 							</div>
 							<div>
 								<h3>Mi Carrito</h3>
-								<div *ngFor="let item of carrito">
+								<div *ngFor="let item of carrito; let i=index" >
 									<div class="carrito border">
 										<div class="div1"><img src="{{item.producto.foto_prod}}"></div>
 										<div class="div2">
@@ -72,12 +72,13 @@
 										</div>
 										<div class="div4">
 											<label>Precio por unidad:</label>
-
 										</div>
-										<!-- <div class="div5">
-											<input class="form-control" name="precio" id="precio"
-												[(ngModel)]="item.precio" type="number">
-										</div> -->
+										
+										<div class="div5">
+											<label class="cantidad">{{item.precio}}</label>
+											<i class="bi bi-pencil icon" (click)="editarPrecioProducto(i)" data-toggle="modal"
+											data-target="#editPrecioProducto"></i>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -161,6 +162,32 @@
 						(click)="seleccionarCliente(cliente.usuario)" data-dismiss="modal">
 						<label>{{cliente.usuario.nombre_usu}} | {{cliente.usuario.correo_usu}}</label>
 					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editPrecioProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Editar Precio</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>Precio de Venta:</label>
+						<input type="number" name="cantidadd" [(ngModel)]="carritoSeleccionado.precio"
+							class="form-control">
+					</div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" [disabled]="carritoSeleccionado.precio < 1" data-dismiss="modal" class="btn btn-warning" (click)="savePrecioCarrito()">Guardar
+						cambios</button>
 				</form>
 			</div>
 		</div>

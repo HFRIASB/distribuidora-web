@@ -10,6 +10,11 @@
   .select {
 	width: auto;
   }
+
+  .icon {
+	color: #fecb00;
+	font-size: x-large;
+  }
   
   .border {
 	margin: 10px;

@@ -62,9 +62,9 @@
 			<div class="container grid">
 				<div class="row">
 					<div class="col-md border">
-						<form>
+						<form >
 							<button data-toggle="modal" data-target="#confirmarPedido" type="submit"
-								class="btn btn-warning btn-block">Realizar pedido</button>
+								class="btn btn-warning btn-block" [disabled]="!validacion" >Realizar pedido</button>
 							<div class="form-group m-1">
 								<label>Elegir Cliente: </label>
 								<label class="ml-2 mr-2">{{this.cliente.correo_usu}}</label>
@@ -118,6 +118,7 @@
 								</div>
 							</div>
 						</form>
+						
 					</div>
 					<div class="col-md border productos">
 						<h3>Mi Carrito</h3>
@@ -171,7 +172,8 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-warning" (click)="realizarPedido()" data-dismiss="modal">Confirmar
+				<button class="btn btn-warning" (click)="realizarPedido()" data-dismiss="modal"
+				>Confirmar
 					pedido</button>
 			</div>
 		</div>
