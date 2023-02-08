@@ -1,14 +1,16 @@
 //Install express server
 const express = require('express');
 
-let app=express();
+const path = require('path');
+
+const app = express();
 
 
 // Serve only the static files form the dist directory
-app.use(express.static(__dirname+'/dist/distribuidora-web'));
+app.use(express.static('./dist/distribuidora-web'));
 
 app.get('/*', (req, res) =>
-    res.sendFile(__dirname+'/dist/distribuidora-web/index.html'),
+    res.sendFile('index.html', {root: 'dist/distribuidora-web/'}),
 );
 
 // Start the app by listening on the default Heroku port
