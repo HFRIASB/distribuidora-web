@@ -20,3 +20,8 @@
 	font-size: small;
 	color:#555555;
 }
+.img-producto {
+	display: flex; 
+	margin: 10px auto;
+	width: 50px;
+}

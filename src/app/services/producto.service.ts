@@ -22,6 +22,8 @@ export class ProductoService {
   }
 
   patchProductos(data: any) {
+    let id_drive=data.foto_prod?.split('/');
+    data.foto_prod=`https://drive.google.com/uc?id=${id_drive[5]}`
     return this.http.patch(`${this.api_url}producto/${data.id_prod}`, data)
   }
 
@@ -29,9 +31,11 @@ export class ProductoService {
     if (!data.foto_prod) {
       data.foto_prod = "";//imagen que vamos a crear
     }
+    let id_drive=data.foto_prod.split('/')
+    id_drive[5]
     let payload = {
       nombre_prod: data.nombre_prod,
-      foto_prod: data.foto_prod,
+      foto_prod:`https://drive.google.com/uc?id=${id_drive[5]}`,
       stock_prod: data.stock_prod,
       precioCompra_prod: data.precioCompra_prod,
       estado_prod: data.estado_prod,
@@ -126,10 +130,16 @@ export class ProductoService {
   }
 
   patchPedido(pedido: any) {
-    let payload = {
-
+    let id_drive=pedido.url_ord.split('/')
+    id_drive[5]
+    let payload ={
+    fEntrega_ord:pedido.fEntrega_ord,
+    fVenta_ord:pedido.fVenta_ord,
+    direccion:pedido.direccion.id_direc,
+    numNota_ord:pedido.numNota_ord,
+    url_ord: `https://drive.google.com/uc?id=${id_drive[5]}`
     }
-    return this.http.patch(`${this.api_url}orden/${pedido.id_ord}`, pedido)
+    return this.http.patch(`${this.api_url}orden/${pedido.id_ord}`, payload)
   }
 
   getProductoVendidoPorYear(id_prod: string, semana: string, year: string) {
