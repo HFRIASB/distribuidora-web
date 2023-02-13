@@ -88,7 +88,9 @@
                     <div class="card-body" *ngIf="tabNavegador=='productos'">
                         <table class="table">
                             <thead class="text-center">
+                                
                                 <tr>
+                                    <th scope="col"></th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Medida</th>
                                     <th scope="col">Stock</th>
@@ -98,6 +100,9 @@
                             </thead>
                             <tbody class="text-center">
                                 <tr *ngFor="let producto of productos | filter:searchText">
+                                    <td >
+										<img class="img-producto" [src]="producto?.foto_prod">
+									</td>
                                     <td>{{producto.nombre_prod}}</td>
                                     <td>{{producto.uniMedida_prod}}</td>
                                     <td>{{producto.stock_prod}}</td>
