@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 import { Pago } from '../models/pago';
 import { Usuario } from '../models/usuario';
 import { Direccion } from '../models/direccion';
+import {  Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   api_url = environment.api_url
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
   validarUsuario(datos: any): Observable<any> {
@@ -53,15 +54,15 @@ export class AuthService {
     return this.http.get(this.api_url + "usuario/detalle-cliente/" + cliente.toString());
   }
 
-  patchUsuario(payload: any){
-    return this.http.patch(this.api_url+'usuario/'+payload.id_usu, payload)
+  patchUsuario(payload: any) {
+    return this.http.patch(this.api_url + 'usuario/' + payload.id_usu, payload)
   }
 
-  getAllDirecciones(): Observable<Direccion[]>{
-    return this.http.get<Direccion[]>(this.api_url+'direccion');
+  getAllDirecciones(): Observable<Direccion[]> {
+    return this.http.get<Direccion[]>(this.api_url + 'direccion');
   }
 
-  postNuevaDireccion(direccion: Direccion){
+  postNuevaDireccion(direccion: Direccion) {
     console.log(direccion)
     let payload = {
       nombre_direc: direccion.nombre_direc,
@@ -72,11 +73,11 @@ export class AuthService {
       telefono_direc: direccion.telefono_direc,
       usuario: direccion.usuario?.id_usu
     }
-    return this.http.post(this.api_url+'direccion', payload)
+    return this.http.post(this.api_url + 'direccion', payload)
   }
 
-  patchDireccion(direccion: Direccion){
-    let payload =  {
+  patchDireccion(direccion: Direccion) {
+    let payload = {
       nombre_direc: direccion.nombre_direc,
       descripcion_direc: direccion.descripcion_direc,
       lat_direc: direccion.lat_direc,
@@ -84,7 +85,7 @@ export class AuthService {
       rubro_direc: direccion.rubro_direc,
       telefono_direc: direccion.telefono_direc
     }
-    return this.http.patch(this.api_url+'direccion/'+direccion.id_direc, payload)
+    return this.http.patch(this.api_url + 'direccion/' + direccion.id_direc, payload)
   }
 
   getUsuariosByRol(rol: string) {
@@ -95,7 +96,7 @@ export class AuthService {
     return this.http.get(this.api_url + "rol/rolesName");
   }
 
-  getCarteraClientes(id?: string){
+  getCarteraClientes(id?: string) {
     return this.http.get(this.api_url + "cartera-cliente/" + id);
   }
 
@@ -109,33 +110,33 @@ export class AuthService {
       fecha_pago: data.fecha,
       usuario: data.usuario
     }
-    return this.http.post(this.api_url+"pago", pago)
+    return this.http.post(this.api_url + "pago", pago)
   }
 
-  patchPago(data: Pago){
-    return this.http.patch(this.api_url+"pago/"+data.id_pago?.toString(), data)
+  patchPago(data: Pago) {
+    return this.http.patch(this.api_url + "pago/" + data.id_pago?.toString(), data)
   }
 
-  registrarCarteraCliente(data: any){
+  registrarCarteraCliente(data: any) {
     const cartera = {
       id_vendedor: data.id_vendedor,
       usuario: data.id_cliente
     }
-    return this.http.post(this.api_url+"cartera-cliente", cartera)
+    return this.http.post(this.api_url + "cartera-cliente", cartera)
   }
 
   getRolNameByIdUsuario(id: string) {
-     return this.http.get(this.api_url+"usuario/rola-name/" + id);
+    return this.http.get(this.api_url + "usuario/rola-name/" + id);
   }
 
-  getRolByRolName(name: string){
-    return this.http.get(this.api_url+"rol/rolName/"+name);
+  getRolByRolName(name: string) {
+    return this.http.get(this.api_url + "rol/rolName/" + name);
   }
 
-  resetPassword(id: number, password: string){
+  resetPassword(id: number, password: string) {
     let payload = {
       password_usu: password
     }
-    return this.http.patch(this.api_url+"usuario/resetPassword/"+id, payload)
+    return this.http.patch(this.api_url + "usuario/resetPassword/" + id, payload)
   }
 }

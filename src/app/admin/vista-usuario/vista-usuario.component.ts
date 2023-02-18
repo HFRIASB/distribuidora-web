@@ -3,6 +3,7 @@ import { GoogleMap } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Direccion } from 'src/app/models/direccion';
+import { Estado } from 'src/app/models/enums/estado';
 import { Genero } from 'src/app/models/enums/genero';
 import { Pago } from 'src/app/models/pago';
 import { Usuario } from 'src/app/models/usuario';
@@ -18,6 +19,7 @@ export class VistaUsuarioComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap | undefined
   fecha: NgbDateStruct = this.calendar.getToday();
   generos = Object.values(Genero);
+  estados=Object.values(Estado);
   searchText: string = '';
   administrador: Usuario = new Usuario();
   usuario: Usuario = new Usuario();
@@ -115,16 +117,22 @@ export class VistaUsuarioComponent implements OnInit {
     this.usuarioAuxiliar.celular_usu = user.celular_usu;
     this.usuarioAuxiliar.nroDocu_usu = user.nroDocu_usu;
     this.usuarioAuxiliar.sexo_usu = user.sexo_usu;
+    this.usuarioAuxiliar.estado_usu=user.estado_usu;
     this.usuarioAuxiliar.observacion_usu = user.observacion_usu;
+    this.usuarioAuxiliar.deuda_usu=user.deuda_usu;
+    this.usuarioAuxiliar.correo_usu=user.correo_usu;
   }
 
   editUsuario() {
     let payload = {
       id_usu: this.usuarioAuxiliar.id_usu,
       nombre_usu: this.usuarioAuxiliar.nombre_usu,
+      correo_usu:this.usuarioAuxiliar.correo_usu,
       nroDocu_usu: this.usuarioAuxiliar.nroDocu_usu,
       sexo_usu: this.usuarioAuxiliar.sexo_usu,
+      deuda_usu:this.usuarioAuxiliar.deuda_usu,
       celular_usu: this.usuarioAuxiliar.celular_usu,
+      estado_usu:this.usuarioAuxiliar.estado_usu,
       observacion_usu: this.usuarioAuxiliar.observacion_usu,
     }
     if (this.changePassword && this.password.pass == this.password.passConfirm && this.usuarioAuxiliar.id_usu !=undefined && this.usuarioAuxiliar.password_usu!=undefined) {
@@ -228,6 +236,9 @@ export class VistaUsuarioComponent implements OnInit {
     this.usuarioAuxiliar.sexo_usu = event.value;
   }
 
+  changeRadioEstado(event: any) {
+    this.usuarioAuxiliar.estado_usu = event.value;
+  }
   selectCliente(cliente: any) {
     this.clienteSeleccionado = cliente;
   }
