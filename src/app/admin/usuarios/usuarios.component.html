@@ -77,11 +77,12 @@
 					<select class="form-select" [(ngModel)]="rolSelect" (change)="rolSeleccionado()">
 						<option *ngFor="let rol of roles">{{rol.nombre_rol}}</option>
 					</select>
+					<label class="usercount">Numero de Usuarios: {{this.rolCount}}</label>
 				</div>
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class="text-center" scope="col">#</th>
+							
 							<th class="text-center" scope="col">Nombre</th>
 							<th class="text-center" scope="col">Usuario</th>
 							<th class="text-center" scope="col">Rol</th>
@@ -92,7 +93,7 @@
 					<tbody>
 						<tr *ngFor="let usuario of usuarios | filter:searchText" (click)="seleccionarUsuario(usuario)">
 
-							<th class="text-center" scope="row">{{usuario.id_usu}}</th>
+							
 							<td class="text-center">{{usuario.nombre_usu}}</td>
 							<td class="text-center">{{usuario.correo_usu}}</td>
 							<td class="text-center">{{usuario.rol.nombre_rol}}</td>

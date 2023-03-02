@@ -15,6 +15,7 @@ export class UsuariosComponent implements OnInit {
   generos:any = Object.keys(Genero)
   estados:any = Object.keys(Estado)
   searchText = "";
+  rolCount=0;
   usuarioAuxiliar: Usuario = new Usuario();
   roles: Rol[] = [{ nombre_rol: "Todos" }];
   rolUsuario: Rol[] = [];
@@ -41,6 +42,9 @@ export class UsuariosComponent implements OnInit {
     })
     this.authService.getUsuariosByRol(this.rolSelect).subscribe((data: any) => {
       this.usuarios = data
+      this.usuarios.forEach(element=>{
+        this.rolCount=this.rolCount+1;
+      })
     })
   }
 
@@ -52,8 +56,12 @@ export class UsuariosComponent implements OnInit {
   }
 
   rolSeleccionado() {
+    this.rolCount=0;
     this.authService.getUsuariosByRol(this.rolSelect).subscribe((data: any) => {
-      this.usuarios = data
+      this.usuarios = data;
+      this.usuarios.forEach(element=>{
+        this.rolCount=this.rolCount+1;
+      })
     })
   }
   seleccionarUsuario(usuario: Usuario) {

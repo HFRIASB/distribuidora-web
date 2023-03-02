@@ -32,6 +32,9 @@
                                         <button [disabled]="tamanoString(usuario.password_usu)<=4 || !(tamanoString(usuario.correo_usu)>=1)" (click)="verificar_Usuario()" class="btn btn-dark btn-lg btn-block"
                                             type="button">Iniciar sesión</button>
                                     </div>
+                                    <div *ngIf="flagInactive" class="alert alert-danger" role="alert">
+                                        Hubo un error al iniciar sesión, la cuenta se encuentra inactiva.
+                                    </div>
                                     <div *ngIf="flag" class="alert alert-danger" role="alert">
                                         Hubo un error al iniciar sesión, verifique que su usuario y contraseña sean correctos.
                                     </div>
