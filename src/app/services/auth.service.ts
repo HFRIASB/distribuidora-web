@@ -137,6 +137,7 @@ export class AuthService {
     let payload = {
       password_usu: password
     }
+    console.log(this.http.patch(this.api_url + "usuario/resetPassword/" + id, payload))
     return this.http.patch(this.api_url + "usuario/resetPassword/" + id, payload)
   }
 }

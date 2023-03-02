@@ -133,10 +133,10 @@ export class VistaUsuarioComponent implements OnInit {
       deuda_usu:this.usuarioAuxiliar.deuda_usu,
       celular_usu: this.usuarioAuxiliar.celular_usu,
       estado_usu:this.usuarioAuxiliar.estado_usu,
-      observacion_usu: this.usuarioAuxiliar.observacion_usu,
+      observacion_usu: this.usuarioAuxiliar.observacion_usu,      
     }
-    if (this.changePassword && this.password.pass == this.password.passConfirm && this.usuarioAuxiliar.id_usu !=undefined && this.usuarioAuxiliar.password_usu!=undefined) {
-      this.authService.resetPassword(this.usuarioAuxiliar.id_usu, this.usuarioAuxiliar.password_usu)
+    if (this.changePassword && this.password.pass == this.password.passConfirm && this.usuarioAuxiliar.id_usu !=undefined && this.password.pass!=undefined) {
+      this.authService.resetPassword(this.usuarioAuxiliar.id_usu, this.password.pass)
       .subscribe(()=>{
         
       })
