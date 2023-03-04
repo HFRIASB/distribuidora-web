@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDate, NgbDateStruct, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ControlEnvase } from 'src/app/models/control-envase';
+import { EstadoPedido } from 'src/app/models/enums/estado-pedido';
 import { Orden } from 'src/app/models/orden';
+import { OrdenProducto } from 'src/app/models/orden-producto';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -13,7 +16,9 @@ import { ProductoService } from 'src/app/services/producto.service';
 })
 export class PedidosComponent implements OnInit {
   searchText = '';
+  EstadoPedido = EstadoPedido;
   clientes: Usuario[] = [];
+  pedidoSeleccionado: Orden = new Orden();
   cliente: Usuario = new Usuario();
   vendedor: Usuario = new Usuario();
   fechaInicio: NgbDateStruct | undefined;
@@ -64,6 +69,56 @@ export class PedidosComponent implements OnInit {
           item.usuario.id_usu == this.cliente.id_usu
       })
 
+    }
+  }
+  selectPedido(pedido: Orden) {
+    this.pedidoSeleccionado = pedido;
+  }
+
+  cambiarEntregado() {
+    this.changeEstado(this.pedidoSeleccionado);
+    location.reload();
+  }
+  async changeEstado(pedido: Orden) {
+    if (pedido.estado_ord == EstadoPedido.Pendiente) {
+      let payload = {
+        id_ord: pedido.id_ord,
+        estado_ord: EstadoPedido.Entregado
+      }
+      this.productoService.patchPedido(payload)
+        .subscribe(data => {
+          pedido.ordenProducto.forEach((op: OrdenProducto, index) => {
+            this.productoService.patchStockProducto(op.producto?.id_prod, -op.cantidad_op)
+              .subscribe(op => {
+                if (pedido.ordenProducto.length - 1 == index) {
+                  location.reload();
+                }
+              })
+          })
+        })
+    } else if (pedido.estado_ord == EstadoPedido.Entregado) {
+      let payload = {
+        id_ord: pedido.id_ord,
+        estado_ord: EstadoPedido.Pendiente
+      }
+      if (pedido.controlEnvase.length > 0) {
+        await pedido.controlEnvase.forEach((ce: ControlEnvase)=>{
+          this.productoService.deleteControlEnvase(ce.id_ce)
+          .subscribe(()=>{
+          })
+        })
+      }
+      this.productoService.patchPedido(payload)
+        .subscribe(data => {
+          pedido.ordenProducto.forEach((op: OrdenProducto, index) => {
+            this.productoService.patchStockProducto(op.producto?.id_prod, op.cantidad_op)
+              .subscribe(op => {
+                if (pedido.ordenProducto.length - 1 == index) {
+                  location.reload();
+                }
+              })
+          })
+        })
     }
   }
 

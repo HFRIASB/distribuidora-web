@@ -26,6 +26,9 @@ export class ProductoService {
     data.foto_prod=`https://drive.google.com/uc?id=${id_drive[5]}`
     return this.http.patch(`${this.api_url}producto/${data.id_prod}`, data)
   }
+  patchProductosVendedor(data: any) {
+    return this.http.patch(`${this.api_url}producto/${data.id_prod}`, data)
+  }
 
   postProducto(data: any) {
     if (!data.foto_prod) {
@@ -130,15 +133,9 @@ export class ProductoService {
   }
 
   patchPedido(pedido: any) {
-    let id_drive=pedido.url_ord.split('/')
-    id_drive[5]
-    let payload ={
-    fEntrega_ord:pedido.fEntrega_ord,
-    fVenta_ord:pedido.fVenta_ord,
-    direccion:pedido.direccion.id_direc,
-    numNota_ord:pedido.numNota_ord,
-    url_ord: `https://drive.google.com/uc?id=${id_drive[5]}`
-    }
+     let payload ={
+      estado_ord:pedido.estado_ord
+     }
     return this.http.patch(`${this.api_url}orden/${pedido.id_ord}`, payload)
   }
 

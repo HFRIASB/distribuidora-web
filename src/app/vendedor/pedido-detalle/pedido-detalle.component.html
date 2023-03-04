@@ -114,22 +114,6 @@
 							[(ngModel)]="fechaEntrega" ngbDatepicker #fecha1="ngbDatepicker">
 						<button class="btn btn-warning bi-calendar3" (click)="fecha1.toggle()" type="button"></button>
 					</div>
-					<label class="mt-1">Estado: </label>
-					<fieldset class="form-group">
-						<div class="row">
-							<legend class="col-form-label">Estado</legend>
-							<div *ngFor="let estado of estadosPedido">
-								<div class="form-check">
-									<input class="form-check-input" type="radio" (change)="changeRadio($event.target)"
-										name="estadoRadio" ngModel value="{{estado}}"
-										[(ngModel)]="pedidoAuxiliar.estado_ord" [checked]="pedido.estado_ord == estado">
-									<label class="form-check-label">
-										{{estado}}
-									</label>
-								</div>
-							</div>
-						</div>
-					</fieldset>
 					<div>Dirección: </div>
 					<div class="input-group select">
 						<select class="form-select select" (change)="onClick($event.target)"  name="direc" [(ngModel)]="pedidoAuxiliar.direccion">

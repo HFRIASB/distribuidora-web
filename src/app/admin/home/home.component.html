@@ -124,7 +124,6 @@
                         <table class="table">
                             <thead class="text-center">
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">Nombre del envase</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Acción</th>
@@ -132,7 +131,6 @@
                             </thead>
                             <tbody class="text-center">
                                 <tr *ngFor="let envase of envases; let i = index">
-                                    <td scope="row">{{envase.id_envase}}</td>
                                     <td>{{envase.nombre_envase}}</td>
                                     <td>{{envase.precio_envase}}</td>
                                     <td data-toggle="modal" (click)="abrirModalEditarEnvase(envase)"

@@ -8,3 +8,16 @@
    display: flex;
    width: 100%;
  }
+ .pendiente {
+  color: #ddb103;
+  text-decoration: underline;
+}
+
+.cancelado {
+  color: darkred;
+}
+
+.entregado {
+  color: darkgreen;
+  text-decoration: underline;
+}
