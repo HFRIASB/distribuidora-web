@@ -130,6 +130,7 @@ export class PedidosComponent implements OnInit {
 
   cambiarEntregado() {
     this.changeEstado(this.pedidoSeleccionado);
+    location.reload();
   }
 
   async changeEstado(pedido: Orden) {
