@@ -26,10 +26,14 @@
 		<main class="col">
 			<header class="p-3 text-bg-dark">
 				<div class="container">
-					<div class="d-flex flex-wrap">
-						<input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Buscar Cliente..." aria-label="Search">
-						<button type="button" class="btn btn-warning" data-toggle="modal"
-						data-target="#nuevoUsuario">Crear nuevo usuario</button>
+					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+						<form class="col-sm-8" role="search">
+							<input type="text" name="search" [(ngModel)]="searchText"
+								class="form-control form-control-dark text-bg-dark " placeholder="Buscar usuario..."
+								aria-label="Search">
+						</form>
+						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
+							data-target="#nuevoUsuario">Crear nuevo usuario</button>
 					</div>
 				</div>
 			</header>
@@ -76,7 +80,6 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<label class="advertencia">Advertencia: Solo tiene permisos para registrar clientes. Recuerde que solo el administrador puede agregarlo a su cartera de clientes.</label>
 				<form #form1="ngForm">
 					<div class="form-group">
 						<label>Nombre del cliente</label>

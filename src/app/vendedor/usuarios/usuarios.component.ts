@@ -65,6 +65,12 @@ export class UsuariosComponent implements OnInit {
       (data: Usuario) => {
         this.usuarioAuxiliar = new Usuario();
         this.usuarioAuxiliar.observacion_usu = '';
+        this.authService.registrarCarteraCliente({
+          id_vendedor: this.vendedor.id_usu,
+          id_cliente: data.id_usu
+        }).subscribe(data => {
+          location.reload()
+        })
       }
     )
   }

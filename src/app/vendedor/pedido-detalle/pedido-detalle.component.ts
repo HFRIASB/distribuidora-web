@@ -20,7 +20,7 @@ export class PedidoDetalleComponent implements OnInit {
   pedido: Orden = new Orden();
   direcciones: Direccion[] = [];
   pedidoAuxiliar = new Orden();
-  fechaVenta: NgbDateStruct = this.calendar.getToday();
+  fechaPedido: NgbDateStruct = this.calendar.getToday();
   fechaEntrega: NgbDateStruct = this.calendar.getToday();
   constructor(
     private route: ActivatedRoute,
@@ -42,10 +42,13 @@ export class PedidoDetalleComponent implements OnInit {
             .subscribe((direcciones: Direccion[]) => {
               this.direcciones = direcciones;
             })
+          this.pedidoAuxiliar.id_ord = this.pedido.id_ord;
           this.pedidoAuxiliar.estado_ord = this.pedido.estado_ord;
           this.pedidoAuxiliar.direccion = this.pedido.direccion
-          this.fechaVenta = this.formatoFecha(this.pedido.fVenta_ord);
-          this.fechaEntrega = this.formatoFecha(this.pedido.fEntrega_ord);
+          let date = new Date(this.pedido.fVenta_ord)
+          this.fechaPedido = { day: date.getDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear() };
+          let date2 = new Date(this.pedido.fEntrega_ord)
+          this.fechaEntrega = { day: date2.getDate(), month: date2.getUTCMonth() + 1, year: date2.getUTCFullYear() };
         })
     });
   }
@@ -57,6 +60,9 @@ export class PedidoDetalleComponent implements OnInit {
     // console.log(direc)
     // console.log(this.pedidoAuxiliar.direccion)
   }
+  goVolverPedidos() {
+    this.router.navigate(['vendedor', this.vendedor.id_usu, 'pedidos'], { replaceUrl: true });
+  }
 
   getNameDirec(direc: Direccion){
     return direc.nombre_direc;
@@ -67,9 +73,14 @@ export class PedidoDetalleComponent implements OnInit {
     return { day: newDate.getDay(), month: newDate.getMonth() + 1, year: newDate.getFullYear() };
   }
 
-  editPedidos(f: NgForm) {
-    console.log(f.form.value)
-    this.pedidoAuxiliar
+  editPedidos() {
+    
+    this.pedidoAuxiliar.fVenta_ord = new Date(this.fechaPedido.year, this.fechaPedido.month - 1, this.fechaPedido.day)
+    this.pedidoAuxiliar.fEntrega_ord = new Date(this.fechaEntrega.year, this.fechaEntrega.month - 1, this.fechaEntrega.day)
+    this.productoService.patchPedidoVendedor(this.pedidoAuxiliar)
+      .subscribe((data: any) => {
+        location.reload()
+      })
   }
 
   changeRadio(event: any) {
