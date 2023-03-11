@@ -46,6 +46,7 @@ export class PedidosComponent implements OnInit {
     });
     this.authService.getOnlyClientes()
       .subscribe((data: any) => {
+        console.log(data,"esto devuelve en admin")
         this.clientes = data;
       })
   }

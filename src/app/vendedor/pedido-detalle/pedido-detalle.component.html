@@ -23,12 +23,15 @@
 		</aside>
 		<main class="col">
 			<header class="text-bg-dark p-3">
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarPedido">Editar
-					Pedido</button>
+				<button type="button" class="btn btn-warning" (click)="goVolverPedidos()">Volver a
+					pedidos</button>
 			</header>
 			<div class="display">
 				<div class="contenedor">
-					<label class="titulo">Detalle pedido</label>
+					<h3>Detalle del pedido
+						<i *ngIf="pedido.estado_ord != 'Cancelado'" class="bi bi-pencil-square icon"
+							data-toggle="modal" data-target="#editarPedido"></i>
+					</h3>
 					<div>
 						<label class="label">Fecha de Venta:</label>
 						<label class="ml-1"> {{getFechaFormato(this.pedido.fVenta_ord.toString())}}</label>
@@ -101,30 +104,35 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form #f="ngForm" (ngSubmit)="editPedidos(f)">
-					<label>Fecha Venta:</label>
-					<div class="input-group">
-						<input class="form-control" placeholder="yyyy-mm-dd" name="fVenta" ngModel
-							[(ngModel)]="fechaVenta" ngbDatepicker #fecha="ngbDatepicker">
-						<button class="btn btn-warning bi-calendar3" (click)="fecha.toggle()" type="button"></button>
+				
+					<div class="group-space-between">
+						<div>Fecha de pedido: </div>
+						<div class="input-group select">
+							<input class="form-control" placeholder="yyyy-mm-dd" name="fpp" [(ngModel)]="fechaPedido"
+								ngbDatepicker #fpedido="ngbDatepicker">
+							<button class="btn btn-warning bi-calendar3" (click)="fpedido.toggle()" type="button"></button>
+						</div>
 					</div>
 					<label>Fecha Entrega:</label>
-					<div class="input-group">
-						<input class="form-control" placeholder="yyyy-mm-dd" name="fEntrega" ngModel
-							[(ngModel)]="fechaEntrega" ngbDatepicker #fecha1="ngbDatepicker">
-						<button class="btn btn-warning bi-calendar3" (click)="fecha1.toggle()" type="button"></button>
+					<div class="group-space-between">
+						<div>Fecha de entrega: </div>
+						<div class="input-group select">
+							<input class="form-control" placeholder="yyyy-mm-dd" name="fe" [(ngModel)]="fechaEntrega"
+								ngbDatepicker #fentrega="ngbDatepicker">
+							<button class="btn btn-warning bi-calendar3" (click)="fentrega.toggle()" type="button"></button>
+						</div>
 					</div>
 					<div>Dirección: </div>
 					<div class="input-group select">
-						<select class="form-select select" (change)="onClick($event.target)"  name="direc" [(ngModel)]="pedidoAuxiliar.direccion">
-							<option *ngFor="let direccion of direcciones" [value]="direccion"
-								[selected]="direccion == pedidoAuxiliar.direccion" >
-								{{getNameDirec(direccion)}}</option>
+						<select class="form-select select" name="direc" [(ngModel)]="pedidoAuxiliar.direccion">
+							<option *ngFor="let direccion of direcciones" [ngValue]="direccion"
+								[selected]="direccion.nombre_direc == pedidoAuxiliar.direccion.nombre_direc">
+								{{direccion.nombre_direc}}</option>
 						</select>
 					</div>
-					<button type="submit" class="btn btn-warning m-1" (click)="editPedidos(f)"
+					<button type="submit" class="btn btn-warning m-1" (click)="editPedidos()"
 						data-dismiss="modal">Guardar</button>
-				</form>
+				
 			</div>
 		</div>
 	</div>

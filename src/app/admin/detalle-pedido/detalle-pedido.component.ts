@@ -48,7 +48,6 @@ export class DetallePedidoComponent implements OnInit {
         })
       this.productoService.getPedidoId(params['idPedido'])
         .subscribe((pedido: any) => {
-          console.log(pedido)
           this.pedido = pedido;
           this.authService.getUsuarioDireccion(pedido.usuario.id_usu)
             .subscribe((direcciones: any) => {
@@ -85,7 +84,6 @@ export class DetallePedidoComponent implements OnInit {
     }
     this.productoService.patchPedido(payload)
       .subscribe(data => {
-        console.log('pedido cancelado')
         location.reload();
       })
   }
@@ -122,9 +120,9 @@ export class DetallePedidoComponent implements OnInit {
   editarPedido() {
     this.pedidoAuxiliar.fVenta_ord = new Date(this.fechaPedido.year, this.fechaPedido.month - 1, this.fechaPedido.day)
     this.pedidoAuxiliar.fEntrega_ord = new Date(this.fechaEntrega.year, this.fechaEntrega.month - 1, this.fechaEntrega.day)
-    this.productoService.patchPedido(this.pedidoAuxiliar)
+    this.productoService.patchPedidoAdmin(this.pedidoAuxiliar)
       .subscribe((data: any) => {
-        location.reload()
+       location.reload()
       })
   }
 

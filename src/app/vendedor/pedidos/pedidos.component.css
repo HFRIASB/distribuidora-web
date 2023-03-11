@@ -12,6 +12,16 @@
   color: #ddb103;
   text-decoration: underline;
 }
+.select {
+  width: min-content;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  align-items: center;
+}
 
 .cancelado {
   color: darkred;
@@ -21,3 +31,31 @@
   color: darkgreen;
   text-decoration: underline;
 }
+@media screen and (max-width: 320px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }
+  @media screen and (max-width:480px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }
+  @media screen and (max-width:600px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }
+  @media screen and (max-width:801px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }

@@ -2,3 +2,31 @@
     width: auto;
     height: 0;
 }
+@media screen and (max-width: 320px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }
+  @media screen and (max-width:480px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }
+  @media screen and (max-width:600px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }
+  @media screen and (max-width:801px) {
+	.container-fluid {
+		/* width: 100% !important; */
+		display: flex;
+		}
+	 
+  }

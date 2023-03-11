@@ -24,13 +24,21 @@ export class PedidosComponent implements OnInit {
   fechaInicio: NgbDateStruct | undefined;
   fechaFin: NgbDateStruct | undefined;
   pedidos: any[] = [];
+  pedidosTodos: Orden[] = []
   pedidosFiltrados: any[] = [];
+  estados: any = Object.keys(EstadoPedido)
+  filtros = {
+    cliente: new Usuario(),
+    estado: 'Todos'
+  }
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private productoService: ProductoService
   ) {
+    this.estados.unshift('Todos')
+    this.filtros.estado = this.estados.Todos
     this.route.params.subscribe((params) => {
       this.authService.getUsuarioById(params['id']).subscribe((user: any) => {
         this.vendedor = user;
@@ -38,21 +46,149 @@ export class PedidosComponent implements OnInit {
       this.productoService
         .getOrdenesByVendedor(+params['id'])
         .subscribe((data: any) => {
-          this.pedidos = data;
-          this.pedidosFiltrados = this.pedidos;
+          this.pedidosTodos = data
+          this.mapFecha();
+          //this.pedidos = data;
+         
         });
       this.authService
         .getCarteraClientes(params['id'])
         .subscribe((clientes: any) => {
+          console.log(clientes,"esto devuelve en vendedor")
           this.clientes = clientes;
         });
     });
+  }
+  mapFecha() { //cambiar por map
+    this.pedidosTodos.forEach((p: Orden) => {
+      p.fVenta_ord = new Date(p.fVenta_ord)
+      p.fEntrega_ord = new Date(p.fEntrega_ord)
+    })
+    this.pedidos = this.pedidosTodos;
+    this.pedidosFiltrados = this.pedidos;
   }
 
   ngOnInit(): void { }
 
   seleccionarCliente(cliente: Usuario) {
-    this.cliente = cliente;
+    this.filtros.cliente = cliente;
+    if (this.filtros.estado == this.estados.Todos) {
+      if (this.fechaInicio && this.fechaFin) {
+        let inicio = new Date(this.fechaInicio.year, this.fechaInicio.month - 1, this.fechaInicio.day)
+        let fin = new Date(this.fechaFin.year, this.fechaFin.month - 1, this.fechaFin.day)
+        fin.setHours(23, 59, 59)
+        if (inicio.getTime() <= fin.getTime()) {
+          this.pedidos = this.pedidosTodos.filter((obj) => {
+            return obj.usuario?.id_usu === cliente.id_usu
+              && obj.fEntrega_ord.getTime() >= inicio.getTime() &&
+              obj.fEntrega_ord.getTime() <= fin.getTime();
+          })
+        } else {
+          console.log('la fecha de inicio tiene que ser antes que la fecha de final')
+        }
+      } else {
+        this.pedidos = this.pedidosTodos.filter((obj) => {
+          return obj.usuario?.id_usu === cliente.id_usu;
+        })
+      }
+    } else {
+      if (this.fechaInicio && this.fechaFin) {
+        let inicio = new Date(this.fechaInicio.year, this.fechaInicio.month - 1, this.fechaInicio.day)
+        let fin = new Date(this.fechaFin.year, this.fechaFin.month - 1, this.fechaFin.day)
+        fin.setHours(23, 59, 59)
+        if (inicio.getTime() <= fin.getTime()) {
+          this.pedidos = this.pedidosTodos.filter((obj) => {
+            return obj.usuario?.id_usu === cliente.id_usu
+              && obj.estado_ord === this.filtros.estado
+              && obj.fEntrega_ord.getTime() >= inicio.getTime() &&
+              obj.fEntrega_ord.getTime() <= fin.getTime();
+          })
+        } else {
+          console.log('la fecha de inicio tiene que ser antes que la fecha de final')
+        }
+      } else {
+        this.pedidos = this.pedidosTodos.filter((obj) => {
+          return obj.usuario?.id_usu === cliente.id_usu
+            && obj.estado_ord === this.filtros.estado;
+        })
+      }
+    }
+  }
+  filtrarPorFecha() {
+    if (this.fechaInicio && this.fechaFin) {
+      let inicio = new Date(this.fechaInicio.year, this.fechaInicio.month - 1, this.fechaInicio.day)
+      let fin = new Date(this.fechaFin.year, this.fechaFin.month - 1, this.fechaFin.day)
+      fin.setHours(23, 59, 59)
+      if (inicio.getTime() <= fin.getTime()) {
+        this.pedidos = this.pedidosTodos.filter((obj) => {
+          return obj.fEntrega_ord.getTime() >= inicio.getTime() &&
+            obj.fEntrega_ord.getTime() <= fin.getTime();
+        })
+      } else {
+        console.log('la fecha de inicio tiene que ser antes que la fecha de final')
+      }
+    } else {
+      console.log('alert ingrese los rangos de fecha')
+    }
+  }
+  
+  changeRadioEstado(event: any) {
+    this.filtros.estado = event.value.toString()
+    if (this.filtros.cliente.id_usu == undefined && this.fechaInicio == undefined && this.fechaFin == undefined) {
+      if (this.filtros.estado == 'Todos')
+        this.pedidos = this.pedidosTodos.filter((obj) => {
+          //return obj.estado_ord === this.filtros.estado;
+          return true;
+        })
+      else {
+        this.pedidos = this.pedidosTodos.filter((obj) => {
+          return obj.estado_ord === this.filtros.estado;
+        })
+      }
+    } else {
+      if (this.filtros.cliente.id_usu && this.fechaInicio == undefined && this.fechaFin == undefined) {
+        if (this.filtros.estado == 'Todos')
+          this.pedidos = this.pedidosTodos.filter((obj) => {
+            return obj.usuario?.id_usu === this.filtros.cliente.id_usu;
+          })
+        else {
+          this.pedidos = this.pedidosTodos.filter((obj) => {
+            return obj.usuario?.id_usu === this.filtros.cliente.id_usu
+              && obj.estado_ord === this.filtros.estado;
+          })
+        }
+      } else {
+        if (this.fechaInicio && this.fechaFin) {
+          let inicio = new Date(this.fechaInicio.year, this.fechaInicio.month - 1, this.fechaInicio.day)
+          let fin = new Date(this.fechaFin.year, this.fechaFin.month - 1, this.fechaFin.day)
+          fin.setHours(23, 59, 59)
+          if (inicio.getTime() <= fin.getTime()) {
+            if (this.filtros.estado == 'Todos')
+              this.pedidos = this.pedidosTodos.filter((obj) => {
+                return obj.usuario?.id_usu === this.filtros.cliente.id_usu
+                  && obj.fEntrega_ord.getTime() >= inicio.getTime() &&
+                  obj.fEntrega_ord.getTime() <= fin.getTime();
+              })
+            else {
+              this.pedidos = this.pedidosTodos.filter((obj) => {
+                return obj.usuario?.id_usu === this.filtros.cliente.id_usu
+                  && obj.estado_ord === this.filtros.estado
+                  && obj.fEntrega_ord.getTime() >= inicio.getTime()
+                  && obj.fEntrega_ord.getTime() <= fin.getTime();
+              })
+            }
+          } else {
+            console.log('la fecha de inicio tiene que ser antes que la fecha de final')
+          }
+        } else {
+          console.log('alert ingrese los rangos de fecha')
+        }
+      }
+    }
+  }
+  quitarFiltroCliente() {
+    this.pedidos = this.pedidosTodos;
+    this.filtros.cliente = new Usuario()
   }
 
   aplicarFiltros() {

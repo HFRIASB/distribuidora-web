@@ -131,6 +131,38 @@ export class ProductoService {
     }
     return this.http.patch(`${this.api_url}orden-producto/${producto.id_op}`, payload)
   }
+  patchPedidoVendedor(pedido: any) {
+     let payload ={
+      direccion:pedido.direccion.id_direc,
+      fEntrega_ord:pedido.fEntrega_ord,
+      fVenta_ord:pedido.fVenta_ord,
+     }
+    return this.http.patch(`${this.api_url}orden/${pedido.id_ord}`, payload)
+  }
+  patchPedidoAdmin(pedido: any) {
+    let id_drive=pedido.url_ord.split('/')
+    let payload
+    if(id_drive[5]!=undefined){
+       payload ={
+        direccion:pedido.direccion.id_direc,
+        fEntrega_ord:pedido.fEntrega_ord,
+        fVenta_ord:pedido.fVenta_ord,
+        numNota_ord:pedido.numNota_ord,
+        url_ord:`https://drive.google.com/uc?id=${id_drive[5]}`
+       
+       }
+    }
+     else{
+       payload ={
+        direccion:pedido.direccion.id_direc,
+        fEntrega_ord:pedido.fEntrega_ord,
+        fVenta_ord:pedido.fVenta_ord,
+        numNota_ord:pedido.numNota_ord,
+        url_ord:pedido.url_ord
+       }
+     }
+    return this.http.patch(`${this.api_url}orden/${pedido.id_ord}`, payload)
+  }
 
   patchPedido(pedido: any) {
      let payload ={
