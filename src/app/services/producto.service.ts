@@ -109,6 +109,12 @@ export class ProductoService {
   getPedidoId(id: string): Observable<Orden> {
     return this.http.get<Orden>(`${this.api_url}orden/${id}`)
   }
+  getPedidosByVendor(){
+    return this.http.get<any>(`${this.api_url}cartera-cliente/vendedor`)
+  }
+  getPedidosByVendorAndDate(dateInicio:Date,dateFin:Date){
+    return this.http.get<any>(`${this.api_url}cartera-cliente/filterDate?fechaInicio=${dateInicio.toISOString()}&fechaFin=${dateFin.toISOString()}`)
+  }
 
   postDetallePedido(carrito: any, id_ord: number) {
     let payload = {

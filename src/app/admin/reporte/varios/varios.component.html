@@ -1,78 +1,172 @@
 <div class="container-fluid">
-	<div class="row wrapper min-vh-100 flex-column flex-sm-row">
-		<aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
-			<nav class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
-                <a class="nav-link"><label class="text-menu">{{this.administrador.nombre_usu}}</label></a>
-                <a class="nav-link"><label class="text-menu">{{this.administrador.rol?.nombre_rol}}</label></a>
-				<a class="navbar-brand "><label class="text-menu">Menú</label></a>
-				<a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
-					<span class="navbar-toggler-icon"></span>
-				</a>
-				<div class="collapse navbar-collapse sidebar">
-					<ul class="flex-column navbar-nav w-100 justify-content-between">
-						<li class="nav-item">
-							<a class="nav-link dropdown-toggle text-nowrap active" data-parent="#navbar1"
-								data-toggle="collapse" data-target="#m1" aria-expanded="false">
-								<span class="span-active"> Reportes</span>
-							</a>
-							<div class="collapse" id="m1">
-								<ul class="flex-column nav">
-									<a class="nav-link text-truncate" (click)="goVarios()">Vendedor</a>
-									<a class="nav-link text-truncate" (click)="goGlobal()">Global</a>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link dropdown-toggle text-nowrap" href="#m2" data-parent="#navbar2"
-								data-toggle="collapse" data-target="#m2" aria-expanded="false">
-								<span class=""> Control <br> fisico</span>
-							</a>
-							<div class="collapse" id="m2">
-								<ul class="flex-column nav">
-									<a class="nav-link text-truncate" (click)="goCFProducto()">Productos</a>
-									<a class="nav-link text-truncate" (click)="goCFEnvase()">Envases</a>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item" (click)="goPedidos()">
-							<a class="nav-link"><span>Pedidos</span></a>
-						</li>
-						<li class="nav-item" (click)="goProductos()">
-							<a class="nav-link"><span>Productos</span></a>
-						</li>
-						<li class="nav-item" (click)="goUsuarios()">
-							<a class="nav-link"><span>Usuarios</span></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link"><span>Ingreso</span></a>
-						</li>
-						<li class="nav-item" (click)="goDirecciones()">
-							<a class="nav-link"><span>Direcciones</span></a>
-						</li>
-						<li class="nav-item" (click)="goLogin()">
-							<a class="nav-link"><span>Cerrar Sesion</span></a>
-						</li>
-					</ul>
-				</div>
-			</nav>
-		</aside>
-		<main class="col">
-			<!-- <header class="p-3 text-bg-dark">
-
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<form class="col-sm-8" role="search">
-						<input type="text" name="search" [(ngModel)]="searchText"
-							class="form-control form-control-dark text-bg-dark " placeholder="Buscar producto..."
-							aria-label="Search">
-						<button type="button" class="btn btn-warning col-sm-4" data-toggle="modal"
-							data-target="#nuevoProducto" (click)="nuevoRegistro()">Nuevo registro</button>
-					</form>
-
-				</div>
-			</header> -->
-			<div class="card">
-				
-			</div>
-		</main>
-	</div>
+  <div class="row wrapper min-vh-100 flex-column flex-sm-row">
+    <aside class="col-12 col-sm-2 p-3 bg-dark flex-shrink-1">
+      <nav
+        class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row"
+      >
+        <a class="nav-link"
+          ><label class="text-menu">{{
+            this.administrador.nombre_usu
+          }}</label></a
+        >
+        <a class="nav-link"
+          ><label class="text-menu">{{
+            this.administrador.rol?.nombre_rol
+          }}</label></a
+        >
+        <a class="navbar-brand"><label class="text-menu">Menú</label></a>
+        <a class="navbar-toggler" data-toggle="collapse" data-target=".sidebar">
+          <span class="navbar-toggler-icon"></span>
+        </a>
+        <div class="collapse navbar-collapse sidebar">
+          <ul class="flex-column navbar-nav w-100 justify-content-between">
+            <li class="nav-item">
+              <a
+                class="nav-link dropdown-toggle text-nowrap active"
+                data-parent="#navbar1"
+                data-toggle="collapse"
+                data-target="#m1"
+                aria-expanded="false"
+              >
+                <span class="span-active"> Reportes</span>
+              </a>
+              <div class="collapse" id="m1">
+                <ul class="flex-column nav">
+                  <a class="nav-link text-truncate" (click)="goVarios()"
+                    >Vendedor</a
+                  >
+                  <a class="nav-link text-truncate" (click)="goGlobal()"
+                    >Global</a
+                  >
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link dropdown-toggle text-nowrap"
+                href="#m2"
+                data-parent="#navbar2"
+                data-toggle="collapse"
+                data-target="#m2"
+                aria-expanded="false"
+              >
+                <span class="">
+                  Control <br />
+                  fisico</span
+                >
+              </a>
+              <div class="collapse" id="m2">
+                <ul class="flex-column nav">
+                  <a class="nav-link text-truncate" (click)="goCFProducto()"
+                    >Productos</a
+                  >
+                  <a class="nav-link text-truncate" (click)="goCFEnvase()"
+                    >Envases</a
+                  >
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" (click)="goPedidos()">
+              <a class="nav-link"><span>Pedidos</span></a>
+            </li>
+            <li class="nav-item" (click)="goProductos()">
+              <a class="nav-link"><span>Productos</span></a>
+            </li>
+            <li class="nav-item" (click)="goUsuarios()">
+              <a class="nav-link"><span>Usuarios</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"><span>Ingreso</span></a>
+            </li>
+            <li class="nav-item" (click)="goDirecciones()">
+              <a class="nav-link"><span>Direcciones</span></a>
+            </li>
+            <li class="nav-item" (click)="goLogin()">
+              <a class="nav-link"><span>Cerrar Sesion</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    <main class="col">
+      <header class="p-3 text-bg-dark">
+        <div class="datePicker">
+          <form class="row row-cols-sm-auto">
+            <div class="col-12 picker mt-1">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="dp"
+                  [(ngModel)]="fechaInicio"
+                  ngbDatepicker
+                  #inicio="ngbDatepicker"
+                />
+                <button
+                  class="btn btn-outline-secondary bi-calendar3"
+                  (click)="inicio.toggle()"
+                  type="button"
+                ></button>
+              </div>
+            </div>
+            <div class="col-12 picker mt-1">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="dp"
+                  [(ngModel)]="fechaFin"
+                  ngbDatepicker
+                  #fin="ngbDatepicker"
+                />
+                <button
+                  class="btn btn-outline-secondary bi-calendar3"
+                  (click)="fin.toggle()"
+                  type="button"
+                ></button>
+              </div>
+            </div>
+            <div class="col-12 picker mt-1">
+              <button
+                type="button"
+                class="btn btn-warning picker mt-1"
+                (click)="filtrarPorFecha()"
+              >
+                Buscar por fecha
+              </button>
+              <button
+                type="button"
+                class="ml-5 btn btn-warning"
+                (click)="quitarFiltros()"
+              >
+                Quitar filtros
+              </button>
+            </div>
+          </form>
+        </div>
+      </header>
+      <div class="margin">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="text-center" scope="col">Vendedor</th>
+              <th class="text-center" *ngFor="let product of productos">
+                {{ product.nombre_prod }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let vendorData of productArray">
+              <td class="text-center">{{ vendorName(vendorData[0]) }}</td>
+              <ng-container
+                *ngFor="let productData of vendorData[1] | keyvalue"
+              >
+                <td class="text-center">{{ productData.value }}</td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
 </div>
