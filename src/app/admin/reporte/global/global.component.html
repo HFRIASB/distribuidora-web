@@ -61,6 +61,10 @@
 			<div class="card">
 				<div class="card-header text-center">
 					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item" (click)="tablNavegador('cliente')">
+							<a class="nav-link active" *ngIf="tabNavegador=='cliente'">cliente</a>
+							<a class="nav-link disabled" *ngIf="tabNavegador!='cliente'">cliente</a>
+						</li>
 						<li class="nav-item" (click)="tablNavegador('semanal')">
 							<a class="nav-link active" *ngIf="tabNavegador=='semanal'">Semanal</a>
 							<a class="nav-link disabled" *ngIf="tabNavegador!='semanal'">Semanal</a>
@@ -70,6 +74,76 @@
 							<a class="nav-link disabled" *ngIf="tabNavegador!='mensual'">Mensual</a>
 						</li>
 					</ul>
+				</div>
+				<div class="card-body" *ngIf="tabNavegador=='cliente'">
+					<div class="datePicker">
+						<form class="row row-cols-sm-auto">
+							<div class="col-12 picker mt-1">
+								<div class="input-group">
+									<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaInicio"
+										ngbDatepicker #inicio="ngbDatepicker">
+									<button class="btn btn-outline-secondary bi-calendar3" (click)="inicio.toggle()"
+										type="button"></button>
+								</div>
+							</div>
+							<div class="col-12 picker mt-1">
+								<div class="input-group">
+									<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fechaFin"
+										ngbDatepicker #fin="ngbDatepicker">
+									<button class="btn btn-outline-secondary bi-calendar3" (click)="fin.toggle()"
+										type="button"></button>
+								</div>
+							</div>
+							<div class="col-12 picker mt-1">
+								<button type="button" class="btn btn-warning picker mt-1" (click)="filtrarPorFecha()">Buscar
+									por fecha</button>
+							</div>
+						</form>
+					</div>
+					<div class="mt-3">
+						<label class="">Filtrar por cliente: </label>
+						<label class="ml-1 font-weight-bold"
+							*ngIf="filtrosEstados.cliente?.id_usu!=undefined">{{filtrosEstados.cliente.nombre_usu}} <i class="bi bi-x-lg"
+								(click)="quitarFiltroCliente()"></i></label>
+						<button type="button" class="btn btn-warning ml-2" data-toggle="modal"
+							data-target="#seleccionarCliente">Seleccionar cliente</button>
+							<button type="button" class=" ml-5 btn btn-warning" (click)="quitarFiltros()">Quitar filtros</button>
+					</div>
+					
+					<div class="margin">
+						<table class="table table-hover">
+						  <thead>
+							<tr>
+								<th class="text-center" scope="col">Fecha Entrega</th>
+							  <th class="text-center" scope="col">Cliente</th>
+							  <th class="text-center" scope="col">N/E</th>
+							  <th class="text-center" scope="col">Producto</th>
+							  <th class="text-center" scope="col">Envase</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr *ngFor="let entry of pedidos">
+								<td class="text-center" >{{ getFechaFormato(entry.fEntrega_ord)}}</td>
+								<td class="text-center" >{{ entry.usuario.nombre_usu }}</td>
+								<td class="text-center" >{{ entry.numNota_ord }}</td>
+								<td class="text-center" >
+								  <ul>
+									<li *ngFor="let ordenProducto of entry.ordenProducto">
+									  {{ ordenProducto.producto.uniMedida_prod }} ({{ ordenProducto.cantidad_op }})
+									</li>
+								  </ul>
+								</td>
+								<td class="text-center">
+								  <ul>
+									<li *ngFor="let controlEnvase of entry.controlEnvase">
+									  {{ controlEnvase.tipoEnvase.nombre_envase }} ({{ controlEnvase.cantEnvase_ce }})
+									</li>
+								  </ul>
+								</td>
+							  </tr>
+						  </tbody>
+						</table>
+					  </div>
 				</div>
 				<div class="card-body" *ngIf="tabNavegador=='semanal'">
 					<div class="rol-container">
@@ -171,6 +245,31 @@
 				</div>
 			</div>
 		</main>
+	</div>
+</div>
+
+<div class="modal fade" id="seleccionarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Seleccionar cliente</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<input type="text" name="search" [(ngModel)]="searchTextCliente"
+						class="form-control form-control text-bg mt-1 ml-1 mt-2 mb-2" placeholder="Buscar cliente..."
+						aria-label="Search">
+					<div *ngFor="let cliente of clientes | filter:searchTextCliente" class="m-2"
+						(click)="seleccionarCliente(cliente)" data-dismiss="modal">
+						<label>{{cliente.nombre_usu}} | {{cliente.correo_usu}}</label>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>
 

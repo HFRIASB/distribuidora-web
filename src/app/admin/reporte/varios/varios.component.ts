@@ -42,7 +42,6 @@ export class VariosComponent implements OnInit {
         this.authService.getUsuariosByRol('Vendedor').subscribe((user:any)=>{
           
           this.Vendedores=user;
-          console.log(this.Vendedores,"estoooo es 1 vendedoresss")
         })
        
     
