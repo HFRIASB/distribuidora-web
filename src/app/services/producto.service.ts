@@ -109,6 +109,12 @@ export class ProductoService {
   getPedidoId(id: string): Observable<Orden> {
     return this.http.get<Orden>(`${this.api_url}orden/${id}`)
   }
+  getPedidosByClient(){
+    return this.http.get<any>(`${this.api_url}orden/client`)
+  }
+  getPedidosByClientAndDate(dateInicio:Date,dateFin:Date){
+    return this.http.get<any>(`${this.api_url}orden/filterDate?fechaInicio=${dateInicio.toISOString()}&fechaFin=${dateFin.toISOString()}`)
+  }
   getPedidosByVendor(){
     return this.http.get<any>(`${this.api_url}cartera-cliente/vendedor`)
   }
