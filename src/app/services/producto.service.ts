@@ -22,8 +22,8 @@ export class ProductoService {
   }
 
   patchProductos(data: any) {
-    let id_drive=data.foto_prod?.split('/');
-    data.foto_prod=`https://drive.google.com/uc?id=${id_drive[5]}`
+    // let id_drive=data.foto_prod?.split('/');
+    // data.foto_prod=`https://drive.google.com/uc?id=${id_drive[5]}`
     return this.http.patch(`${this.api_url}producto/${data.id_prod}`, data)
   }
   patchProductosVendedor(data: any) {

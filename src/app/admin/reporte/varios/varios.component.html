@@ -156,6 +156,18 @@
             </tr>
           </thead>
           <tbody>
+            <tr *ngFor="let vendorData of ordenesByV">
+              <td class="text-center">
+                {{ vendorName(vendorData.vendedorId) }}
+              </td>
+              <ng-container *ngFor="let product of productos">
+                <td class="text-center">
+                  {{ vendorData.productos[product.id_prod] || 0 }}
+                </td>
+              </ng-container>
+            </tr>
+          </tbody>
+          <!-- <tbody>
             <tr *ngFor="let vendorData of productArray">
               <td class="text-center">{{ vendorName(vendorData[0]) }}</td>
               <ng-container
@@ -164,7 +176,7 @@
                 <td class="text-center">{{ productData.value }}</td>
               </ng-container>
             </tr>
-          </tbody>
+          </tbody> -->
         </table>
       </div>
     </main>
